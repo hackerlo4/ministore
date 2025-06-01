@@ -18,6 +18,42 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: cancel_order_and_refund(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.cancel_order_and_refund(p_order_id integer) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    od_rec RECORD;
+BEGIN
+    -- 1. N?u don da thanh to n, chuy?n payment_status th…nh 'refunded'
+    UPDATE customer_order
+    SET payment_status = 'refunded'
+    WHERE order_id = p_order_id AND payment_status = 'paid';
+
+    -- 2. C?p nh?t order_status th…nh 'canceled'
+    UPDATE customer_order
+    SET order_status = 'canceled'
+    WHERE order_id = p_order_id;
+
+    -- 3. Duy?t qua t?ng order_detail d? ho…n kho
+    FOR od_rec IN
+        SELECT batch_id, quantity
+        FROM order_detail
+        WHERE order_id = p_order_id
+    LOOP
+        UPDATE batch
+        SET remaining_quantity = remaining_quantity + od_rec.quantity
+        WHERE batch_id = od_rec.batch_id;
+    END LOOP;
+END;
+$$;
+
+
+ALTER FUNCTION public.cancel_order_and_refund(p_order_id integer) OWNER TO postgres;
+
+--
 -- Name: check_batch_warehouse_category(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -102,6 +138,77 @@ $$;
 ALTER FUNCTION public.check_zero_stock_quantity() OWNER TO postgres;
 
 --
+-- Name: create_order_details(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.create_order_details(p_order_id integer, p_product_id integer, p_quantity integer) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_total_remaining INT;
+    v_needed INT := p_quantity;
+    v_batch_id INT;
+    v_take INT;
+    v_product_price NUMERIC(15,2);
+    v_total_price NUMERIC(15,2);
+    v_total_order_price NUMERIC(15,2);
+    batch_rec RECORD;
+BEGIN
+    -- 1. Ki?m tra t?n kho
+    SELECT COALESCE(SUM(remaining_quantity), 0) INTO v_total_remaining
+    FROM batch
+    WHERE product_id = p_product_id AND remaining_quantity > 0;
+
+    IF v_total_remaining < p_quantity THEN
+        RAISE EXCEPTION 'Not enough product in stock! Remain: %, Needed: %', v_total_remaining, p_quantity;
+    END IF;
+
+    -- 2. L?y gi  b n
+    SELECT price INTO v_product_price FROM product WHERE product_id = p_product_id;
+
+    -- 3. Chia batch & chŠn order_detail
+    FOR batch_rec IN
+        SELECT * FROM batch
+        WHERE product_id = p_product_id AND remaining_quantity > 0
+        ORDER BY expiry_date NULLS FIRST, import_date
+    LOOP
+        EXIT WHEN v_needed = 0;
+
+        v_batch_id := batch_rec.batch_id;
+        IF batch_rec.remaining_quantity >= v_needed THEN
+            v_take := v_needed;
+        ELSE
+            v_take := batch_rec.remaining_quantity;
+        END IF;
+
+        v_total_price := v_product_price * v_take;
+
+        INSERT INTO order_detail(order_id, product_id, batch_id, quantity, product_price, total_price)
+        VALUES (p_order_id, p_product_id, v_batch_id, v_take, v_product_price, v_total_price);
+
+        UPDATE batch
+        SET remaining_quantity = remaining_quantity - v_take
+        WHERE batch_id = v_batch_id;
+
+        v_needed := v_needed - v_take;
+    END LOOP;
+
+    -- 4. T¡nh l?i t?ng ti?n order
+    SELECT SUM(total_price) INTO v_total_order_price
+    FROM order_detail
+    WHERE order_id = p_order_id;
+
+    UPDATE customer_order
+    SET total_amount = v_total_order_price
+    WHERE order_id = p_order_id;
+
+END;
+$$;
+
+
+ALTER FUNCTION public.create_order_details(p_order_id integer, p_product_id integer, p_quantity integer) OWNER TO postgres;
+
+--
 -- Name: enforce_contract_on_status_change(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -171,6 +278,27 @@ $$;
 
 
 ALTER FUNCTION public.prevent_manual_stock_quantity_update() OWNER TO postgres;
+
+--
+-- Name: set_delivered_at_when_completed(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.set_delivered_at_when_completed() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.order_status = 'delivered'
+       AND NEW.payment_status = 'paid'
+       AND (OLD.order_status <> 'delivered' OR OLD.payment_status <> 'paid' OR OLD.delivered_at IS NULL)
+    THEN
+        NEW.delivered_at := CURRENT_TIMESTAMP;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.set_delivered_at_when_completed() OWNER TO postgres;
 
 --
 -- Name: set_remaining_quantity_on_batch_insert(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -289,12 +417,14 @@ CREATE TABLE public.customer_order (
     order_id integer NOT NULL,
     customer_id integer,
     employee_id integer,
-    order_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    delivered_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     total_amount numeric(15,2),
     payment_method character varying(32),
     order_status character varying(32),
     note text,
-    CONSTRAINT customer_order_order_status_check CHECK (((order_status)::text = ANY ((ARRAY['pending'::character varying, 'approved'::character varying, 'shipping'::character varying, 'delivered'::character varying, 'paid'::character varying])::text[])))
+    payment_status character varying(32) DEFAULT 'unpaid'::character varying,
+    CONSTRAINT customer_order_order_status_check CHECK (((order_status)::text = ANY ((ARRAY['pending'::character varying, 'approved'::character varying, 'shipping'::character varying, 'delivered'::character varying, 'canceled'::character varying])::text[]))),
+    CONSTRAINT customer_order_payment_status_check CHECK (((payment_status)::text = ANY ((ARRAY['unpaid'::character varying, 'paid'::character varying, 'partial'::character varying, 'refunded'::character varying, 'failed'::character varying])::text[])))
 );
 
 
@@ -677,6 +807,16 @@ COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_pric
 43	9	2024-06-01	2025-06-01	6500.00	100	\N	3	100
 44	10	2024-06-01	2026-06-01	44000.00	60	\N	3	60
 45	16	2024-06-01	\N	1700000.00	5	\N	4	5
+46	1	2024-06-10	2026-01-10	76000.00	25	\N	1	25
+47	2	2024-06-15	2026-02-20	69000.00	10	\N	1	10
+48	3	2024-06-20	2026-03-15	149000.00	8	\N	1	8
+49	4	2024-07-01	2026-04-30	192000.00	7	\N	1	7
+50	5	2024-07-05	2026-05-10	14200.00	30	\N	2	30
+51	6	2024-07-10	2026-06-15	22500.00	20	\N	2	20
+52	7	2024-07-12	2026-07-20	29500.00	18	\N	2	18
+53	8	2024-07-15	2026-08-31	48200.00	22	\N	2	22
+54	9	2024-07-20	2026-09-01	6600.00	80	\N	3	80
+55	10	2024-08-01	2026-10-01	44500.00	35	\N	3	35
 \.
 
 
@@ -702,7 +842,8 @@ COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, emai
 -- Data for Name: customer_order; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer_order (order_id, customer_id, employee_id, order_date, total_amount, payment_method, order_status, note) FROM stdin;
+COPY public.customer_order (order_id, customer_id, employee_id, delivered_at, total_amount, payment_method, order_status, note, payment_status) FROM stdin;
+1	1	2	2025-06-01 20:21:28.987802	0.00	cash	pending	\N	unpaid
 \.
 
 
@@ -825,7 +966,7 @@ COPY public.warehouse_category (warehouse_category_id, name) FROM stdin;
 -- Name: batch_batch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.batch_batch_id_seq', 45, true);
+SELECT pg_catalog.setval('public.batch_batch_id_seq', 55, true);
 
 
 --
@@ -839,7 +980,7 @@ SELECT pg_catalog.setval('public.customer_customer_id_seq', 10, true);
 -- Name: customer_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.customer_order_order_id_seq', 1, false);
+SELECT pg_catalog.setval('public.customer_order_order_id_seq', 1, true);
 
 
 --
@@ -1004,6 +1145,13 @@ CREATE TRIGGER trg_enforce_contract_on_status_change BEFORE UPDATE OF employment
 --
 
 CREATE TRIGGER trg_enforce_pending_on_insert BEFORE INSERT ON public.employee FOR EACH ROW EXECUTE FUNCTION public.enforce_pending_on_insert();
+
+
+--
+-- Name: customer_order trg_set_delivered_at; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_set_delivered_at BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.set_delivered_at_when_completed();
 
 
 --

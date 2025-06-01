@@ -618,3 +618,169 @@ VALUES (10, '2024-06-01', '2026-06-01', 44000, 60, 3);
 
 INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
 VALUES (16, '2024-06-01', NULL, 1700000, 5, 4);
+
+-- them trang thai tra tien
+alter table customer_order add column payment_status varchar(32) default 'unpaid',
+add constraint customer_order_payment_status_check check  (payment_status in ('unpaid','paid', 'partial','refunded','failed'));
+
+-- sua lai trang thai order
+ALTER TABLE customer_order
+DROP CONSTRAINT customer_order_order_status_check;
+ALTER TABLE customer_order
+ADD CONSTRAINT customer_order_order_status_check
+CHECK (order_status IN ('pending', 'approved', 'shipping', 'delivered', 'canceled'));
+
+alter table customer_order rename column order_date to delivered_at;
+
+-- trigger kiem tra thoi gian hoan tat order
+CREATE OR REPLACE FUNCTION set_delivered_at_when_completed()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.order_status = 'delivered'
+       AND NEW.payment_status = 'paid'
+       AND (OLD.order_status <> 'delivered' OR OLD.payment_status <> 'paid' OR OLD.delivered_at IS NULL)
+    THEN
+        NEW.delivered_at := CURRENT_TIMESTAMP;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_set_delivered_at ON customer_order;
+CREATE TRIGGER trg_set_delivered_at
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION set_delivered_at_when_completed();
+
+-- ham tao order_details
+CREATE OR REPLACE FUNCTION create_order_details(
+    p_order_id INT,
+    p_product_id INT,
+    p_quantity INT
+)
+RETURNS VOID AS $$
+DECLARE
+    v_total_remaining INT;
+    v_needed INT := p_quantity;
+    v_batch_id INT;
+    v_take INT;
+    v_product_price NUMERIC(15,2);
+    v_total_price NUMERIC(15,2);
+    v_total_order_price NUMERIC(15,2);
+    batch_rec RECORD;
+BEGIN
+    -- 1. Kiểm tra tồn kho
+    SELECT COALESCE(SUM(remaining_quantity), 0) INTO v_total_remaining
+    FROM batch
+    WHERE product_id = p_product_id AND remaining_quantity > 0;
+
+    IF v_total_remaining < p_quantity THEN
+        RAISE EXCEPTION 'Not enough product in stock! Remain: %, Needed: %', v_total_remaining, p_quantity;
+    END IF;
+
+    -- 2. Lấy giá bán
+    SELECT price INTO v_product_price FROM product WHERE product_id = p_product_id;
+
+    -- 3. Chia batch & chèn order_detail
+    FOR batch_rec IN
+        SELECT * FROM batch
+        WHERE product_id = p_product_id AND remaining_quantity > 0
+        ORDER BY expiry_date NULLS FIRST, import_date
+    LOOP
+        EXIT WHEN v_needed = 0;
+
+        v_batch_id := batch_rec.batch_id;
+        IF batch_rec.remaining_quantity >= v_needed THEN
+            v_take := v_needed;
+        ELSE
+            v_take := batch_rec.remaining_quantity;
+        END IF;
+
+        v_total_price := v_product_price * v_take;
+
+        INSERT INTO order_detail(order_id, product_id, batch_id, quantity, product_price, total_price)
+        VALUES (p_order_id, p_product_id, v_batch_id, v_take, v_product_price, v_total_price);
+
+        UPDATE batch
+        SET remaining_quantity = remaining_quantity - v_take
+        WHERE batch_id = v_batch_id;
+
+        v_needed := v_needed - v_take;
+    END LOOP;
+
+    -- 4. Tính lại tổng tiền order
+    SELECT SUM(total_price) INTO v_total_order_price
+    FROM order_detail
+    WHERE order_id = p_order_id;
+
+    UPDATE customer_order
+    SET total_amount = v_total_order_price
+    WHERE order_id = p_order_id;
+
+END;
+$$ LANGUAGE plpgsql;
+
+-- tao order moi
+INSERT INTO customer_order (
+    customer_id,
+    employee_id,
+    total_amount,
+    payment_method,
+    order_status,
+    note,
+    payment_status
+) VALUES (
+    1,                -- customer_id
+    2,                -- employee_id
+    0,                -- total_amount (sẽ cập nhật lại sau)
+    'cash',           -- payment_method (hoặc 'bank', 'card', v.v.)
+    'pending',        -- order_status (trạng thái ban đầu)
+    NULL,             -- note (nếu có thể để null)
+    'unpaid'          -- payment_status (trạng thái ban đầu)
+)
+RETURNING order_id;
+
+-- chen lo hang moi
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, note, warehouse_id, remaining_quantity)
+VALUES
+(1,  '2024-06-10', '2026-01-10', 76000, 25, NULL, 1, 25),
+(2,  '2024-06-15', '2026-02-20', 69000, 10, NULL, 1, 10),
+(3,  '2024-06-20', '2026-03-15', 149000, 8, NULL, 1, 8),
+(4,  '2024-07-01', '2026-04-30', 192000, 7, NULL, 1, 7),
+(5,  '2024-07-05', '2026-05-10', 14200, 30, NULL, 2, 30),
+(6,  '2024-07-10', '2026-06-15', 22500, 20, NULL, 2, 20),
+(7,  '2024-07-12', '2026-07-20', 29500, 18, NULL, 2, 18),
+(8,  '2024-07-15', '2026-08-31', 48200, 22, NULL, 2, 22),
+(9,  '2024-07-20', '2026-09-01', 6600, 80, NULL, 3, 80),
+(10, '2024-08-01', '2026-10-01', 44500, 35, NULL, 3, 35);
+
+-- khi huy don,hoan tien
+CREATE OR REPLACE FUNCTION cancel_order_and_refund(
+    p_order_id INT
+)
+RETURNS VOID AS $$
+DECLARE
+    od_rec RECORD;
+BEGIN
+    -- 1. Nếu đơn đã thanh toán, chuyển payment_status thành 'refunded'
+    UPDATE customer_order
+    SET payment_status = 'refunded'
+    WHERE order_id = p_order_id AND payment_status = 'paid';
+
+    -- 2. Cập nhật order_status thành 'canceled'
+    UPDATE customer_order
+    SET order_status = 'canceled'
+    WHERE order_id = p_order_id;
+
+    -- 3. Duyệt qua từng order_detail để hoàn kho
+    FOR od_rec IN
+        SELECT batch_id, quantity
+        FROM order_detail
+        WHERE order_id = p_order_id
+    LOOP
+        UPDATE batch
+        SET remaining_quantity = remaining_quantity + od_rec.quantity
+        WHERE batch_id = od_rec.batch_id;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
