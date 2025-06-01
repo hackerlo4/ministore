@@ -227,3 +227,214 @@ CREATE TRIGGER trg_increase_product_stock_on_batch_insert
 AFTER INSERT ON batch
 FOR EACH ROW
 EXECUTE FUNCTION increase_product_stock_on_batch_insert();
+
+-- chen 10 kho moi
+INSERT INTO warehouse (warehouse_name, warehouse_category_id) VALUES
+('Cold Store 1', 1),
+('Cool Store 1', 2),
+('Dry Store 1', 3),
+('General Store 1', 4),
+('Chemical Store 1', 5),
+('Transit Store 1', 6),
+('Finished Goods 1', 7),
+('Cold Store 2', 1),
+('Cool Store 2', 2),
+('General Store 2', 4);
+
+-- xoa rang buoc khoa ngoai category_id cua warehouse 
+alter table warehouse drop constraint warehouse_warehouse_category_id_fkey;
+
+-- tao lai rang buoc moi de set null khi categroy_id bi xoa o bang khac
+alter table warehouse
+add constraint warehouse_warehouse_category_id_fkey
+foreign key (warehouse_category_id) references warehouse_category(warehouse_category_id)
+on delete set null;
+
+-- tao trigger de khi chen nhan vien moi thi trang thai la pending
+CREATE OR REPLACE FUNCTION enforce_pending_on_insert()
+RETURNS trigger AS $$
+BEGIN
+    NEW.employment_status := 'pending';
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- xoa cac trang thai cho phep cua nhan vien
+ALTER TABLE employee
+DROP CONSTRAINT employee_employment_status_check;
+
+-- them lai
+ALTER TABLE employee
+ADD CONSTRAINT employee_employment_status_check CHECK (
+    employment_status::text = ANY (ARRAY[
+        'active'::character varying,
+        'on_leave'::character varying,
+        'on_maternity_leave'::character varying,
+        'contract_suspended'::character varying,
+        'probation'::character varying,
+        'suspended'::character varying,
+        'resigned'::character varying,
+        'pending'::character varying  
+    ]::text[])
+);
+
+-- trigger tu dong dat la pending khi insert
+CREATE OR REPLACE FUNCTION enforce_pending_on_insert()
+RETURNS trigger AS $$
+BEGIN
+    NEW.employment_status := 'pending';
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_enforce_pending_on_insert
+BEFORE INSERT ON employee
+FOR EACH ROW
+EXECUTE FUNCTION enforce_pending_on_insert();
+
+-- trigger kiem tra khi doi trang thai nhan vien, neu chua co hop dong thi van la pending
+CREATE OR REPLACE FUNCTION enforce_contract_on_status_change()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.employment_status <> 'pending' THEN
+        IF NOT EXISTS (SELECT 1 FROM employment_contract WHERE employee_id = NEW.employee_id) THEN
+            NEW.employment_status := 'pending';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_enforce_contract_on_status_change
+BEFORE UPDATE OF employment_status ON employee
+FOR EACH ROW
+EXECUTE FUNCTION enforce_contract_on_status_change();
+
+-- chen 10 nhan vien moi
+INSERT INTO employee (
+    full_name, role, age, national_id, gender, address, phone, email, salary, password
+) VALUES
+('Alice Johnson', 'sales_staff', 25, 'ID001', 'F', '123 Main St', '0123456789', 'alice@example.com', 800.00, 'alicepass'),
+('Bob Smith', 'warehouse_staff', 30, 'ID002', 'M', '456 First Ave', '0123456790', 'bob@example.com', 900.00, 'bobpass'),
+('Carol Lee', 'warehouse_manager', 35, 'ID003', 'F', '789 North Rd', '0123456791', 'carol@example.com', 1200.00, 'carolpass'),
+('David Kim', 'store_manager', 40, 'ID004', 'M', '321 South St', '0123456792', 'david@example.com', 1500.00, 'davidpass'),
+('Eva Green', 'accountant', 28, 'ID005', 'F', '654 West St', '0123456793', 'eva@example.com', 950.00, 'evapass'),
+('Frank Brown', 'sales_staff', 32, 'ID006', 'M', '987 East Ave', '0123456794', 'frank@example.com', 820.00, 'frankpass'),
+('Grace Lee', 'warehouse_staff', 29, 'ID007', 'F', '147 Park Blvd', '0123456795', 'grace@example.com', 880.00, 'gracepass'),
+('Henry Ford', 'warehouse_manager', 38, 'ID008', 'M', '258 Garden Dr', '0123456796', 'henry@example.com', 1100.00, 'henrypass'),
+('Ivy Nguyen', 'store_manager', 27, 'ID009', 'F', '369 Lake St', '0123456797', 'ivy@example.com', 1450.00, 'ivypass'),
+('Jack White', 'accountant', 31, 'ID010', 'M', '753 Hill Rd', '0123456798', 'jack@example.com', 970.00, 'jackpass');
+
+
+-- sua lai trigger kiem tra cap nhat stauts
+CREATE OR REPLACE FUNCTION enforce_contract_on_status_change()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.employment_status <> 'pending' THEN
+        IF NOT EXISTS (SELECT 1 FROM employment_contract WHERE employee_id = NEW.employee_id) THEN
+            RAISE EXCEPTION 'No contract: cannot change status from pending.';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- thay doi trong employment_contract: xoa duration, thay bang thoi han ket thuc hop dong
+alter table employment_contract add column contract_end_date date;
+alter table employment_contract drop column duration;
+
+-- chen hop dong moi cho 2,3,5,6,9,10
+INSERT INTO employment_contract (employee_id, contract_date, contract_end_date, content)
+VALUES
+(2, '2024-06-01', '2026-06-01', 'Labor contract for Bob Smith'),
+(3, '2024-06-01', '2026-06-01', 'Labor contract for Carol Lee'),
+(5, '2024-06-01', '2026-06-01', 'Labor contract for Eva Green'),
+(6, '2024-06-01', '2026-06-01', 'Labor contract for Frank Brown'),
+(9, '2024-06-01', '2026-06-01', 'Labor contract for Ivy Nguyen'),
+(10, '2024-06-01', '2026-06-01', 'Labor contract for Jack White');
+
+-- them truong moi cho contract: ngay nhan vien bat dau lam viec
+alter table employment_contract add column effective_date date;
+
+-- them effective_date
+UPDATE employment_contract
+SET effective_date = '2024-06-10'
+WHERE contract_id IN (1, 2, 3, 4, 5, 6);
+
+-- update trang thai lam viec cua nhan vien
+update employee set employment_status = 'active' where employee_id in (select employee_id from employment_contract);
+
+-- sua lai trigger kiem tra trang thai nhan vien
+CREATE OR REPLACE FUNCTION enforce_contract_on_status_change()
+RETURNS trigger AS $$
+DECLARE
+    v_end_date date;
+BEGIN
+    IF NEW.employment_status <> 'pending' THEN
+        -- Check if contract exists and get contract_end_date
+        SELECT contract_end_date INTO v_end_date
+        FROM employment_contract
+        WHERE employee_id = NEW.employee_id
+        ORDER BY contract_end_date DESC
+        LIMIT 1;
+        
+        IF v_end_date IS NULL THEN
+            RAISE EXCEPTION 'No contract: cannot change status from pending.';
+        END IF;
+        
+        -- Check if contract still effective
+        IF v_end_date < CURRENT_DATE THEN
+            RAISE EXCEPTION 'Contract expired: cannot change status from pending.';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- chen cho nhan vien 7 da het han
+INSERT INTO employment_contract (
+    employee_id, 
+    contract_date, 
+    effective_date, 
+    contract_end_date, 
+    termination_reason, 
+    termination_date, 
+    content
+) VALUES (
+    7,
+    '2022-06-01',        -- Ngày ký hợp đồng (ví dụ 2 năm trước)
+    '2022-06-10',        -- Ngày bắt đầu làm việc
+    '2023-06-10',        -- Ngày kết thúc hợp đồng (đã hết hạn, ví dụ 1 năm trước)
+    'Contract ended normally', -- Lý do chấm dứt
+    '2023-06-10',        -- Ngày chấm dứt (cùng ngày kết thúc)
+    'Expired labor contract for Grace Lee'
+);
+
+-- sua lai trigger kiem tra status
+CREATE OR REPLACE FUNCTION enforce_contract_on_status_change()
+RETURNS trigger AS $$
+DECLARE
+    v_end_date date;
+BEGIN
+    SELECT contract_end_date INTO v_end_date
+    FROM employment_contract
+    WHERE employee_id = NEW.employee_id
+    ORDER BY contract_end_date DESC
+    LIMIT 1;
+
+    IF v_end_date IS NULL THEN
+        IF NEW.employment_status <> 'pending' THEN
+            RAISE EXCEPTION 'No contract: only pending status allowed.';
+        END IF;
+        RETURN NEW;
+    END IF;
+
+    IF v_end_date < CURRENT_DATE THEN
+        IF NEW.employment_status NOT IN ('pending', 'resigned') THEN
+            RAISE EXCEPTION 'Contract expired: only pending or resigned status allowed.';
+        END IF;
+        RETURN NEW;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
