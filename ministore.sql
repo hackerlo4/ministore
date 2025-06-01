@@ -784,3 +784,130 @@ BEGIN
     END LOOP;
 END;
 $$ LANGUAGE plpgsql;
+
+
+---------------------------------------------------------------------------------------------------------------
+
+-- tao order moi
+INSERT INTO customer_order (
+    customer_id,
+    employee_id,
+    total_amount,
+    payment_method,
+    order_status,
+    note,
+    payment_status
+) VALUES (
+    1,                -- customer_id
+    2,                -- employee_id
+    0,                -- total_amount (sẽ cập nhật lại sau)
+    'cash',           -- payment_method (hoặc 'bank', 'card', v.v.)
+    'pending',        -- order_status (trạng thái ban đầu)
+    NULL,             -- note (nếu có thể để null)
+    'unpaid'          -- payment_status (trạng thái ban đầu)
+)
+RETURNING order_id;
+
+-- them san pham
+-- Thêm sản phẩm 1, số lượng 40 vào đơn hàng 1
+SELECT create_order_details(2, 1, 40);
+-- Thêm sản phẩm 2, số lượng 30 vào đơn hàng 1
+SELECT create_order_details(2, 2, 30); -- se bao loi vi khong du san pham
+-- Thêm sản phẩm 4, số lượng 10 vào đơn hàng 1
+SELECT create_order_details(2, 4, 10);
+-- Thêm sản phẩm 5, số lượng 80 vào đơn hàng 1
+SELECT create_order_details(2, 5, 80);
+
+---------------------------------------------------------------------------------------------------------------
+
+-- cấm cập nhật khi order_status = canceled
+CREATE OR REPLACE FUNCTION prevent_update_if_canceled()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.order_status = 'canceled' THEN
+        RAISE EXCEPTION 'Order canceled, cannot update this order!';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_prevent_update_if_canceled ON customer_order;
+CREATE TRIGGER trg_prevent_update_if_canceled
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION prevent_update_if_canceled();
+
+-- chi cho chen hang khi pending
+CREATE OR REPLACE FUNCTION create_order_details(
+    p_order_id INT,
+    p_product_id INT,
+    p_quantity INT
+)
+RETURNS VOID AS $$
+DECLARE
+    v_total_remaining INT;
+    v_needed INT := p_quantity;
+    v_batch_id INT;
+    v_take INT;
+    v_product_price NUMERIC(15,2);
+    v_total_price NUMERIC(15,2);
+    v_total_order_price NUMERIC(15,2);
+    v_order_status VARCHAR(32);
+    batch_rec RECORD;
+BEGIN
+    -- 0. Kiểm tra trạng thái đơn hàng
+    SELECT order_status INTO v_order_status FROM customer_order WHERE order_id = p_order_id;
+    IF v_order_status IS DISTINCT FROM 'pending' THEN
+        RAISE EXCEPTION 'Can only add product to order with status pending!';
+    END IF;
+
+    -- 1. Kiểm tra tồn kho
+    SELECT COALESCE(SUM(remaining_quantity), 0) INTO v_total_remaining
+    FROM batch
+    WHERE product_id = p_product_id AND remaining_quantity > 0;
+
+    IF v_total_remaining < p_quantity THEN
+        RAISE EXCEPTION 'Not enough product in stock! Remain: %, Needed: %', v_total_remaining, p_quantity;
+    END IF;
+
+    -- 2. Lấy giá bán
+    SELECT price INTO v_product_price FROM product WHERE product_id = p_product_id;
+
+    -- 3. Chia batch & chèn order_detail
+    FOR batch_rec IN
+        SELECT * FROM batch
+        WHERE product_id = p_product_id AND remaining_quantity > 0
+        ORDER BY expiry_date NULLS FIRST, import_date
+    LOOP
+        EXIT WHEN v_needed = 0;
+
+        v_batch_id := batch_rec.batch_id;
+        IF batch_rec.remaining_quantity >= v_needed THEN
+            v_take := v_needed;
+        ELSE
+            v_take := batch_rec.remaining_quantity;
+        END IF;
+
+        v_total_price := v_product_price * v_take;
+
+        INSERT INTO order_detail(order_id, product_id, batch_id, quantity, product_price, total_price)
+        VALUES (p_order_id, p_product_id, v_batch_id, v_take, v_product_price, v_total_price);
+
+        UPDATE batch
+        SET remaining_quantity = remaining_quantity - v_take
+        WHERE batch_id = v_batch_id;
+
+        v_needed := v_needed - v_take;
+    END LOOP;
+
+    -- 4. Tính lại tổng tiền order
+    SELECT SUM(total_price) INTO v_total_order_price
+    FROM order_detail
+    WHERE order_id = p_order_id;
+
+    UPDATE customer_order
+    SET total_amount = v_total_order_price
+    WHERE order_id = p_order_id;
+
+END;
+$$ LANGUAGE plpgsql;

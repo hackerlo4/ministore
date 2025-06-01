@@ -152,8 +152,15 @@ DECLARE
     v_product_price NUMERIC(15,2);
     v_total_price NUMERIC(15,2);
     v_total_order_price NUMERIC(15,2);
+    v_order_status VARCHAR(32);
     batch_rec RECORD;
 BEGIN
+    -- 0. Ki?m tra tr?ng th i don h…ng
+    SELECT order_status INTO v_order_status FROM customer_order WHERE order_id = p_order_id;
+    IF v_order_status IS DISTINCT FROM 'pending' THEN
+        RAISE EXCEPTION 'Can only add product to order with status pending!';
+    END IF;
+
     -- 1. Ki?m tra t?n kho
     SELECT COALESCE(SUM(remaining_quantity), 0) INTO v_total_remaining
     FROM batch
@@ -278,6 +285,24 @@ $$;
 
 
 ALTER FUNCTION public.prevent_manual_stock_quantity_update() OWNER TO postgres;
+
+--
+-- Name: prevent_update_if_canceled(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.prevent_update_if_canceled() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF OLD.order_status = 'canceled' THEN
+        RAISE EXCEPTION 'Order canceled, cannot update this order!';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.prevent_update_if_canceled() OWNER TO postgres;
 
 --
 -- Name: set_delivered_at_when_completed(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -796,27 +821,27 @@ ALTER TABLE ONLY public.warehouse_category ALTER COLUMN warehouse_category_id SE
 --
 
 COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_price, quantity, note, warehouse_id, remaining_quantity) FROM stdin;
-35	1	2024-06-01	2024-12-01	75000.00	20	\N	1	20
 36	2	2024-06-01	2024-12-01	68000.00	15	\N	1	15
 37	3	2024-06-01	2024-11-15	148000.00	10	\N	1	10
-38	4	2024-06-01	2024-11-30	190000.00	5	\N	1	5
-39	5	2024-06-01	2024-07-10	14000.00	50	\N	2	50
 40	6	2024-06-01	2024-07-10	22000.00	40	\N	2	40
 41	7	2024-06-01	2024-06-30	29000.00	25	\N	2	25
 42	8	2024-06-01	2024-07-31	48000.00	30	\N	2	30
 43	9	2024-06-01	2025-06-01	6500.00	100	\N	3	100
 44	10	2024-06-01	2026-06-01	44000.00	60	\N	3	60
 45	16	2024-06-01	\N	1700000.00	5	\N	4	5
-46	1	2024-06-10	2026-01-10	76000.00	25	\N	1	25
 47	2	2024-06-15	2026-02-20	69000.00	10	\N	1	10
 48	3	2024-06-20	2026-03-15	149000.00	8	\N	1	8
-49	4	2024-07-01	2026-04-30	192000.00	7	\N	1	7
-50	5	2024-07-05	2026-05-10	14200.00	30	\N	2	30
 51	6	2024-07-10	2026-06-15	22500.00	20	\N	2	20
 52	7	2024-07-12	2026-07-20	29500.00	18	\N	2	18
 53	8	2024-07-15	2026-08-31	48200.00	22	\N	2	22
 54	9	2024-07-20	2026-09-01	6600.00	80	\N	3	80
 55	10	2024-08-01	2026-10-01	44500.00	35	\N	3	35
+35	1	2024-06-01	2024-12-01	75000.00	20	\N	1	20
+46	1	2024-06-10	2026-01-10	76000.00	25	\N	1	25
+38	4	2024-06-01	2024-11-30	190000.00	5	\N	1	5
+49	4	2024-07-01	2026-04-30	192000.00	7	\N	1	7
+39	5	2024-06-01	2024-07-10	14000.00	50	\N	2	50
+50	5	2024-07-05	2026-05-10	14200.00	30	\N	2	30
 \.
 
 
@@ -843,7 +868,8 @@ COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, emai
 --
 
 COPY public.customer_order (order_id, customer_id, employee_id, delivered_at, total_amount, payment_method, order_status, note, payment_status) FROM stdin;
-1	1	2	2025-06-01 20:21:28.987802	0.00	cash	pending	\N	unpaid
+1	1	2	2025-06-01 21:29:40.507785	6400000.00	cash	canceled	\N	refunded
+2	1	2	2025-06-01 21:55:09.986117	6400000.00	cash	canceled	\N	unpaid
 \.
 
 
@@ -885,6 +911,18 @@ COPY public.employment_contract (contract_id, employee_id, contract_date, termin
 --
 
 COPY public.order_detail (order_detail_id, order_id, product_id, batch_id, quantity, product_price, total_price) FROM stdin;
+1	1	1	35	20	80000.00	1600000.00
+2	1	1	46	20	80000.00	1600000.00
+3	1	4	38	5	200000.00	1000000.00
+4	1	4	49	5	200000.00	1000000.00
+5	1	5	39	50	15000.00	750000.00
+6	1	5	50	30	15000.00	450000.00
+7	2	1	35	20	80000.00	1600000.00
+8	2	1	46	20	80000.00	1600000.00
+9	2	4	38	5	200000.00	1000000.00
+10	2	4	49	5	200000.00	1000000.00
+11	2	5	39	50	15000.00	750000.00
+12	2	5	50	30	15000.00	450000.00
 \.
 
 
@@ -980,7 +1018,7 @@ SELECT pg_catalog.setval('public.customer_customer_id_seq', 10, true);
 -- Name: customer_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.customer_order_order_id_seq', 1, true);
+SELECT pg_catalog.setval('public.customer_order_order_id_seq', 2, true);
 
 
 --
@@ -1001,7 +1039,7 @@ SELECT pg_catalog.setval('public.employment_contract_contract_id_seq', 8, true);
 -- Name: order_detail_order_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.order_detail_order_detail_id_seq', 1, false);
+SELECT pg_catalog.setval('public.order_detail_order_detail_id_seq', 12, true);
 
 
 --
@@ -1145,6 +1183,13 @@ CREATE TRIGGER trg_enforce_contract_on_status_change BEFORE UPDATE OF employment
 --
 
 CREATE TRIGGER trg_enforce_pending_on_insert BEFORE INSERT ON public.employee FOR EACH ROW EXECUTE FUNCTION public.enforce_pending_on_insert();
+
+
+--
+-- Name: customer_order trg_prevent_update_if_canceled; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_prevent_update_if_canceled BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.prevent_update_if_canceled();
 
 
 --
