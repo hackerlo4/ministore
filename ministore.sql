@@ -438,3 +438,183 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+-- them rang buoc de stock quantity luon >=0
+ALTER TABLE product
+ADD CONSTRAINT chk_product_stock_quantity_non_negative
+CHECK (stock_quantity >= 0);
+
+-- neu chen stock quantity lon hon 0, thong bao loi
+CREATE OR REPLACE FUNCTION check_zero_stock_quantity()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.stock_quantity IS DISTINCT FROM 0 THEN
+        RAISE EXCEPTION 
+        'Stock quantity must be 0 when adding a new product. If you want to increase stock, please create a new batch.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_check_zero_stock_quantity
+BEFORE INSERT ON product
+FOR EACH ROW
+EXECUTE FUNCTION check_zero_stock_quantity();
+
+-- chen 20 san pham moi
+-- Fresh Food (product_category_id = 1)
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Pork Loin', 'Meat', 80000, 'kg', 1);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Chicken Breast', 'Meat', 70000, 'kg', 1);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Salmon Fillet', 'Fish', 150000, 'kg', 1);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Beef Steak', 'Meat', 200000, 'kg', 1);
+
+-- Vegetables & Fruits (product_category_id = 2)
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Cabbage', 'Vegetable', 15000, 'piece', 2);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Tomato', 'Vegetable', 25000, 'kg', 2);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Banana', 'Fruit', 30000, 'kg', 2);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Apple', 'Fruit', 50000, 'kg', 2);
+
+-- Dry Food & Cosmetics (product_category_id = 3)
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Instant Noodles', 'Dry Food', 7000, 'pack', 3);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Shampoo', 'Cosmetic', 45000, 'bottle', 3);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Toothpaste', 'Cosmetic', 30000, 'tube', 3);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Rice', 'Dry Food', 18000, 'kg', 3);
+
+-- Household Appliances (product_category_id = 4)
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Electric Kettle', 'Appliance', 350000, 'piece', 4);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Frying Pan', 'Appliance', 180000, 'piece', 4);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Rice Cooker', 'Appliance', 600000, 'piece', 4);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Microwave Oven', 'Appliance', 1800000, 'piece', 4);
+
+-- Chemicals (product_category_id = 5)
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Laundry Detergent', 'Chemical', 120000, 'bottle', 5);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Dishwashing Liquid', 'Chemical', 40000, 'bottle', 5);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Bleach', 'Chemical', 25000, 'bottle', 5);
+
+INSERT INTO product (product_name, product_type, price, unit, product_category_id)
+VALUES ('Glass Cleaner', 'Chemical', 30000, 'bottle', 5);
+
+-- khong cho phep duoc tu do update stock_quantity, no chi duoc updat ekhi them batch moi
+CREATE OR REPLACE FUNCTION prevent_manual_stock_quantity_update()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.stock_quantity IS DISTINCT FROM OLD.stock_quantity THEN
+        RAISE EXCEPTION 'You cannot manually update stock_quantity. Stock quantity is only updated automatically when adding a new batch.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_prevent_manual_stock_quantity_update
+BEFORE UPDATE ON product
+FOR EACH ROW
+EXECUTE FUNCTION prevent_manual_stock_quantity_update();
+
+-- trigger them tu dong stock quantity khi the batch moi
+CREATE OR REPLACE FUNCTION increase_product_stock_on_batch_insert()
+RETURNS trigger AS $$
+BEGIN
+    UPDATE product
+    SET stock_quantity = stock_quantity + NEW.quantity
+    WHERE product_id = NEW.product_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- xoa trigger kiem tra stock quantity, ly do: phuc tap
+DROP TRIGGER IF EXISTS trg_prevent_manual_stock_quantity_update ON product;
+
+
+
+-- xoa stock quantity o product
+alter table product drop column stock_quantity;
+
+-- them truong so luong con lai o batch, luon >=0
+alter table batch add column remaining_quantity integer not null default 0;
+ALTER TABLE batch
+ADD CONSTRAINT chk_batch_remaining_quantity_non_negative
+CHECK (remaining_quantity >= 0);
+
+-- trigger dat remaining quantity = so luong nhap khi  nhap lo moi
+CREATE OR REPLACE FUNCTION set_remaining_quantity_on_batch_insert()
+RETURNS trigger AS $$
+BEGIN
+    NEW.remaining_quantity := NEW.quantity;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_set_remaining_quantity_on_batch_insert
+BEFORE INSERT ON batch
+FOR EACH ROW
+EXECUTE FUNCTION set_remaining_quantity_on_batch_insert();
+
+-- xoa trigger, function cap nhat stock_quantity
+DROP TRIGGER IF EXISTS trg_increase_product_stock_on_batch_insert ON batch;
+DROP FUNCTION IF EXISTS increase_product_stock_on_batch_insert();
+
+-- chen 10 lo hang moi
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (1,  '2024-06-01', '2024-12-01', 75000, 20, 1);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (2,  '2024-06-01', '2024-12-01', 68000, 15, 1);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (3,  '2024-06-01', '2024-11-15', 148000, 10, 1);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (4,  '2024-06-01', '2024-11-30', 190000, 5, 1);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (5,  '2024-06-01', '2024-07-10', 14000, 50, 2);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (6,  '2024-06-01', '2024-07-10', 22000, 40, 2);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (7,  '2024-06-01', '2024-06-30', 29000, 25, 2);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (8,  '2024-06-01', '2024-07-31', 48000, 30, 2);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (9,  '2024-06-01', '2025-06-01', 6500, 100, 3);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (10, '2024-06-01', '2026-06-01', 44000, 60, 3);
+
+INSERT INTO batch (product_id, import_date, expiry_date, purchase_price, quantity, warehouse_id)
+VALUES (16, '2024-06-01', NULL, 1700000, 5, 4);

@@ -83,6 +83,25 @@ $$;
 ALTER FUNCTION public.check_expiry_date_not_null() OWNER TO postgres;
 
 --
+-- Name: check_zero_stock_quantity(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_zero_stock_quantity() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.stock_quantity IS DISTINCT FROM 0 THEN
+        RAISE EXCEPTION 
+        'Stock quantity must be 0 when adding a new product. If you want to increase stock, please create a new batch.';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_zero_stock_quantity() OWNER TO postgres;
+
+--
 -- Name: enforce_contract_on_status_change(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -136,22 +155,38 @@ $$;
 ALTER FUNCTION public.enforce_pending_on_insert() OWNER TO postgres;
 
 --
--- Name: increase_product_stock_on_batch_insert(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: prevent_manual_stock_quantity_update(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.increase_product_stock_on_batch_insert() RETURNS trigger
+CREATE FUNCTION public.prevent_manual_stock_quantity_update() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 BEGIN
-    UPDATE product
-    SET stock_quantity = stock_quantity + NEW.quantity
-    WHERE product_id = NEW.product_id;
+    IF NEW.stock_quantity IS DISTINCT FROM OLD.stock_quantity THEN
+        RAISE EXCEPTION 'You cannot manually update stock_quantity. Stock quantity is only updated automatically when adding a new batch.';
+    END IF;
     RETURN NEW;
 END;
 $$;
 
 
-ALTER FUNCTION public.increase_product_stock_on_batch_insert() OWNER TO postgres;
+ALTER FUNCTION public.prevent_manual_stock_quantity_update() OWNER TO postgres;
+
+--
+-- Name: set_remaining_quantity_on_batch_insert(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.set_remaining_quantity_on_batch_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    NEW.remaining_quantity := NEW.quantity;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.set_remaining_quantity_on_batch_insert() OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -169,7 +204,9 @@ CREATE TABLE public.batch (
     purchase_price numeric(15,2) NOT NULL,
     quantity integer NOT NULL,
     note text,
-    warehouse_id integer NOT NULL
+    warehouse_id integer NOT NULL,
+    remaining_quantity integer DEFAULT 0 NOT NULL,
+    CONSTRAINT chk_batch_remaining_quantity_non_negative CHECK ((remaining_quantity >= 0))
 );
 
 
@@ -421,7 +458,6 @@ CREATE TABLE public.product (
     product_type character varying(64) NOT NULL,
     price numeric(15,2) NOT NULL,
     unit character varying(16),
-    stock_quantity integer DEFAULT 0,
     description text,
     product_category_id integer
 );
@@ -629,7 +665,18 @@ ALTER TABLE ONLY public.warehouse_category ALTER COLUMN warehouse_category_id SE
 -- Data for Name: batch; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_price, quantity, note, warehouse_id) FROM stdin;
+COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_price, quantity, note, warehouse_id, remaining_quantity) FROM stdin;
+35	1	2024-06-01	2024-12-01	75000.00	20	\N	1	20
+36	2	2024-06-01	2024-12-01	68000.00	15	\N	1	15
+37	3	2024-06-01	2024-11-15	148000.00	10	\N	1	10
+38	4	2024-06-01	2024-11-30	190000.00	5	\N	1	5
+39	5	2024-06-01	2024-07-10	14000.00	50	\N	2	50
+40	6	2024-06-01	2024-07-10	22000.00	40	\N	2	40
+41	7	2024-06-01	2024-06-30	29000.00	25	\N	2	25
+42	8	2024-06-01	2024-07-31	48000.00	30	\N	2	30
+43	9	2024-06-01	2025-06-01	6500.00	100	\N	3	100
+44	10	2024-06-01	2026-06-01	44000.00	60	\N	3	60
+45	16	2024-06-01	\N	1700000.00	5	\N	4	5
 \.
 
 
@@ -704,7 +751,27 @@ COPY public.order_detail (order_detail_id, order_id, product_id, batch_id, quant
 -- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.product (product_id, product_name, product_type, price, unit, stock_quantity, description, product_category_id) FROM stdin;
+COPY public.product (product_id, product_name, product_type, price, unit, description, product_category_id) FROM stdin;
+11	Toothpaste	Cosmetic	30000.00	tube	\N	3
+12	Rice	Dry Food	18000.00	kg	\N	3
+13	Electric Kettle	Appliance	350000.00	piece	\N	4
+14	Frying Pan	Appliance	180000.00	piece	\N	4
+15	Rice Cooker	Appliance	600000.00	piece	\N	4
+17	Laundry Detergent	Chemical	120000.00	bottle	\N	5
+18	Dishwashing Liquid	Chemical	40000.00	bottle	\N	5
+19	Bleach	Chemical	25000.00	bottle	\N	5
+20	Glass Cleaner	Chemical	30000.00	bottle	\N	5
+1	Pork Loin	Meat	80000.00	kg	\N	1
+2	Chicken Breast	Meat	70000.00	kg	\N	1
+3	Salmon Fillet	Fish	150000.00	kg	\N	1
+4	Beef Steak	Meat	200000.00	kg	\N	1
+5	Cabbage	Vegetable	15000.00	piece	\N	2
+6	Tomato	Vegetable	25000.00	kg	\N	2
+7	Banana	Fruit	30000.00	kg	\N	2
+8	Apple	Fruit	50000.00	kg	\N	2
+9	Instant Noodles	Dry Food	7000.00	pack	\N	3
+10	Shampoo	Cosmetic	45000.00	bottle	\N	3
+16	Microwave Oven	Appliance	1800000.00	piece	\N	4
 \.
 
 
@@ -758,7 +825,7 @@ COPY public.warehouse_category (warehouse_category_id, name) FROM stdin;
 -- Name: batch_batch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.batch_batch_id_seq', 1, false);
+SELECT pg_catalog.setval('public.batch_batch_id_seq', 45, true);
 
 
 --
@@ -807,7 +874,7 @@ SELECT pg_catalog.setval('public.product_category_product_category_id_seq', 7, t
 -- Name: product_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.product_product_id_seq', 1, false);
+SELECT pg_catalog.setval('public.product_product_id_seq', 20, true);
 
 
 --
@@ -919,6 +986,13 @@ CREATE TRIGGER trg_check_expiry_date_not_null BEFORE INSERT OR UPDATE ON public.
 
 
 --
+-- Name: product trg_check_zero_stock_quantity; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_check_zero_stock_quantity BEFORE INSERT ON public.product FOR EACH ROW EXECUTE FUNCTION public.check_zero_stock_quantity();
+
+
+--
 -- Name: employee trg_enforce_contract_on_status_change; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -933,10 +1007,10 @@ CREATE TRIGGER trg_enforce_pending_on_insert BEFORE INSERT ON public.employee FO
 
 
 --
--- Name: batch trg_increase_product_stock_on_batch_insert; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: batch trg_set_remaining_quantity_on_batch_insert; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
-CREATE TRIGGER trg_increase_product_stock_on_batch_insert AFTER INSERT ON public.batch FOR EACH ROW EXECUTE FUNCTION public.increase_product_stock_on_batch_insert();
+CREATE TRIGGER trg_set_remaining_quantity_on_batch_insert BEFORE INSERT ON public.batch FOR EACH ROW EXECUTE FUNCTION public.set_remaining_quantity_on_batch_insert();
 
 
 --
