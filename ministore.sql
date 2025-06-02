@@ -1383,3 +1383,96 @@ ADD CONSTRAINT employee_role_check
 CHECK (
     role IN ('sales_staff', 'warehouse_staff', 'manager')
 );
+
+-- kiem tra cac hop dong het han
+CREATE OR REPLACE FUNCTION set_employee_pending_when_contract_expired()
+RETURNS void AS $$
+DECLARE
+    rec RECORD;
+BEGIN
+    FOR rec IN
+        SELECT e.employee_id
+        FROM employee e
+        LEFT JOIN LATERAL (
+            SELECT contract_end_date
+            FROM employment_contract c
+            WHERE c.employee_id = e.employee_id
+            ORDER BY contract_end_date DESC
+            LIMIT 1
+        ) latest_contract ON TRUE
+        WHERE 
+            (latest_contract.contract_end_date IS NULL OR latest_contract.contract_end_date < CURRENT_DATE)
+            AND e.employment_status NOT IN ('pending', 'resigned')
+    LOOP
+        UPDATE employee
+        SET employment_status = 'pending'
+        WHERE employee_id = rec.employee_id;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+-- khi chen 1 hop dong moi, cap nhat trang thai cua employee
+CREATE OR REPLACE FUNCTION activate_employee_on_contract()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE employee
+    SET employment_status = 'active'
+    WHERE employee_id = NEW.employee_id
+      AND employment_status = 'pending';
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_activate_employee_on_contract ON employment_contract;
+CREATE TRIGGER trg_activate_employee_on_contract
+AFTER INSERT ON employment_contract
+FOR EACH ROW
+EXECUTE FUNCTION activate_employee_on_contract();
+
+-- khi update hop dong moi, cap nhat lai trang thai cua nhan vien
+CREATE OR REPLACE FUNCTION reactivate_employee_on_contract_update()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.contract_end_date IS NOT NULL 
+       AND NEW.contract_end_date >= CURRENT_DATE THEN
+        UPDATE employee
+        SET employment_status = 'active'
+        WHERE employee_id = NEW.employee_id
+          AND employment_status <> 'resigned';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_reactivate_employee_on_contract_update ON employment_contract;
+CREATE TRIGGER trg_reactivate_employee_on_contract_update
+AFTER UPDATE ON employment_contract
+FOR EACH ROW
+EXECUTE FUNCTION reactivate_employee_on_contract_update();
+
+-- kiem tra trang thai nhan vien
+CREATE OR REPLACE FUNCTION check_employee_status(p_employee_id INT)
+RETURNS VOID AS $$
+DECLARE
+    v_status VARCHAR(32);
+BEGIN
+    SELECT employment_status INTO v_status FROM employee WHERE employee_id = p_employee_id;
+    IF v_status NOT IN ('active', 'probation') THEN
+        RAISE EXCEPTION 'Employee % is not allowed to perform this action (status: %)', p_employee_id, v_status;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- tao bang log luu lai cac su kien cua nhan vien
+CREATE TABLE work_status_log (
+    log_id serial PRIMARY KEY,
+    employee_id INT NOT NULL REFERENCES employee(employee_id),
+    status VARCHAR(32) NOT NULL,
+    log_time DATE NOT NULL DEFAULT CURRENT_DATE,
+    note TEXT,
+    CONSTRAINT log_status_check CHECK (
+        status IN (
+            'active', 'on_leave', 'on_maternity_leave', 'contract_suspended',
+            'probation', 'suspended', 'resigned', 'pending'
+        )
+    )
+);
+

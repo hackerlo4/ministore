@@ -18,6 +18,25 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: activate_employee_on_contract(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.activate_employee_on_contract() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    UPDATE employee
+    SET employment_status = 'active'
+    WHERE employee_id = NEW.employee_id
+      AND employment_status = 'pending';
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.activate_employee_on_contract() OWNER TO postgres;
+
+--
 -- Name: auto_refund_when_canceled(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -129,6 +148,26 @@ $$;
 
 
 ALTER FUNCTION public.check_batch_warehouse_category() OWNER TO postgres;
+
+--
+-- Name: check_employee_status(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_employee_status(p_employee_id integer) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_status VARCHAR(32);
+BEGIN
+    SELECT employment_status INTO v_status FROM employee WHERE employee_id = p_employee_id;
+    IF v_status NOT IN ('active', 'probation') THEN
+        RAISE EXCEPTION 'Employee % is not allowed to perform this action (status: %)', p_employee_id, v_status;
+    END IF;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_employee_status(p_employee_id integer) OWNER TO postgres;
 
 --
 -- Name: check_expiry_date_not_null(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -370,6 +409,28 @@ $$;
 ALTER FUNCTION public.prevent_manual_stock_quantity_update() OWNER TO postgres;
 
 --
+-- Name: reactivate_employee_on_contract_update(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.reactivate_employee_on_contract_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.contract_end_date IS NOT NULL 
+       AND NEW.contract_end_date >= CURRENT_DATE THEN
+        UPDATE employee
+        SET employment_status = 'active'
+        WHERE employee_id = NEW.employee_id
+          AND employment_status <> 'resigned';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.reactivate_employee_on_contract_update() OWNER TO postgres;
+
+--
 -- Name: refresh_final_status(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -443,6 +504,40 @@ $$;
 
 
 ALTER FUNCTION public.set_delivered_at_when_completed() OWNER TO postgres;
+
+--
+-- Name: set_employee_pending_when_contract_expired(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.set_employee_pending_when_contract_expired() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    rec RECORD;
+BEGIN
+    FOR rec IN
+        SELECT e.employee_id
+        FROM employee e
+        LEFT JOIN LATERAL (
+            SELECT contract_end_date
+            FROM employment_contract c
+            WHERE c.employee_id = e.employee_id
+            ORDER BY contract_end_date DESC
+            LIMIT 1
+        ) latest_contract ON TRUE
+        WHERE 
+            (latest_contract.contract_end_date IS NULL OR latest_contract.contract_end_date < CURRENT_DATE)
+            AND e.employment_status NOT IN ('pending', 'resigned')
+    LOOP
+        UPDATE employee
+        SET employment_status = 'pending'
+        WHERE employee_id = rec.employee_id;
+    END LOOP;
+END;
+$$;
+
+
+ALTER FUNCTION public.set_employee_pending_when_contract_expired() OWNER TO postgres;
 
 --
 -- Name: set_remaining_quantity_on_batch_insert(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -1019,6 +1114,44 @@ ALTER SEQUENCE public.warehouse_warehouse_id_seq OWNED BY public.warehouse.wareh
 
 
 --
+-- Name: work_status_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.work_status_log (
+    log_id integer NOT NULL,
+    employee_id integer NOT NULL,
+    status character varying(32) NOT NULL,
+    log_time date DEFAULT CURRENT_DATE NOT NULL,
+    note text,
+    CONSTRAINT log_status_check CHECK (((status)::text = ANY ((ARRAY['active'::character varying, 'on_leave'::character varying, 'on_maternity_leave'::character varying, 'contract_suspended'::character varying, 'probation'::character varying, 'suspended'::character varying, 'resigned'::character varying, 'pending'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.work_status_log OWNER TO postgres;
+
+--
+-- Name: work_status_log_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.work_status_log_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.work_status_log_log_id_seq OWNER TO postgres;
+
+--
+-- Name: work_status_log_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.work_status_log_log_id_seq OWNED BY public.work_status_log.log_id;
+
+
+--
 -- Name: batch batch_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1086,6 +1219,13 @@ ALTER TABLE ONLY public.warehouse ALTER COLUMN warehouse_id SET DEFAULT nextval(
 --
 
 ALTER TABLE ONLY public.warehouse_category ALTER COLUMN warehouse_category_id SET DEFAULT nextval('public.warehouse_category_warehouse_category_id_seq'::regclass);
+
+
+--
+-- Name: work_status_log log_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.work_status_log ALTER COLUMN log_id SET DEFAULT nextval('public.work_status_log_log_id_seq'::regclass);
 
 
 --
@@ -1283,6 +1423,14 @@ COPY public.warehouse_category (warehouse_category_id, name) FROM stdin;
 
 
 --
+-- Data for Name: work_status_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.work_status_log (log_id, employee_id, status, log_time, note) FROM stdin;
+\.
+
+
+--
 -- Name: batch_batch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1350,6 +1498,13 @@ SELECT pg_catalog.setval('public.warehouse_category_warehouse_category_id_seq', 
 --
 
 SELECT pg_catalog.setval('public.warehouse_warehouse_id_seq', 10, true);
+
+
+--
+-- Name: work_status_log_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.work_status_log_log_id_seq', 1, false);
 
 
 --
@@ -1433,6 +1588,21 @@ ALTER TABLE ONLY public.warehouse
 
 
 --
+-- Name: work_status_log work_status_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.work_status_log
+    ADD CONSTRAINT work_status_log_pkey PRIMARY KEY (log_id);
+
+
+--
+-- Name: employment_contract trg_activate_employee_on_contract; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_activate_employee_on_contract AFTER INSERT ON public.employment_contract FOR EACH ROW EXECUTE FUNCTION public.activate_employee_on_contract();
+
+
+--
 -- Name: customer_order trg_auto_refund_when_canceled; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -1507,6 +1677,13 @@ CREATE TRIGGER trg_enforce_pending_on_insert BEFORE INSERT ON public.employee FO
 --
 
 CREATE TRIGGER trg_payment_status_flow BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.trg_validate_payment_status();
+
+
+--
+-- Name: employment_contract trg_reactivate_employee_on_contract_update; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_reactivate_employee_on_contract_update AFTER UPDATE ON public.employment_contract FOR EACH ROW EXECUTE FUNCTION public.reactivate_employee_on_contract_update();
 
 
 --
@@ -1637,6 +1814,14 @@ ALTER TABLE ONLY public.product
 
 ALTER TABLE ONLY public.warehouse
     ADD CONSTRAINT warehouse_warehouse_category_id_fkey FOREIGN KEY (warehouse_category_id) REFERENCES public.warehouse_category(warehouse_category_id) ON DELETE SET NULL;
+
+
+--
+-- Name: work_status_log work_status_log_employee_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.work_status_log
+    ADD CONSTRAINT work_status_log_employee_id_fkey FOREIGN KEY (employee_id) REFERENCES public.employee(employee_id);
 
 
 --
