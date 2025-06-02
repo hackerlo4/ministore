@@ -18,6 +18,43 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: auto_refund_when_canceled(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.auto_refund_when_canceled() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF OLD.order_status <> 'canceled' AND NEW.order_status = 'canceled' 
+       AND OLD.payment_status = 'paid' THEN
+        NEW.payment_status := 'refunded';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.auto_refund_when_canceled() OWNER TO postgres;
+
+--
+-- Name: block_invalid_refund(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.block_invalid_refund() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.payment_status = 'refunded' AND NEW.order_status <> 'canceled' THEN
+        RAISE EXCEPTION 'Cannot set payment_status to refunded unless order_status is canceled.';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.block_invalid_refund() OWNER TO postgres;
+
+--
 -- Name: cancel_order_and_refund(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -117,6 +154,30 @@ $$;
 
 
 ALTER FUNCTION public.check_expiry_date_not_null() OWNER TO postgres;
+
+--
+-- Name: check_rank_valid(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_rank_valid() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF TG_OP = 'UPDATE' AND NEW.rank IS DISTINCT FROM OLD.rank THEN
+        IF NEW.rank = 'silver' AND NEW.member_points >= 1000 THEN
+            RAISE EXCEPTION 'Rank ''silver'' requires member_points < 1000!';
+        ELSIF NEW.rank = 'gold' AND (NEW.member_points < 1000 OR NEW.member_points >= 10000) THEN
+            RAISE EXCEPTION 'Rank ''gold'' requires 1000 <= member_points < 10000!';
+        ELSIF NEW.rank = 'diamond' AND NEW.member_points < 10000 THEN
+            RAISE EXCEPTION 'Rank ''diamond'' requires member_points >= 10000!';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_rank_valid() OWNER TO postgres;
 
 --
 -- Name: check_zero_stock_quantity(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -269,6 +330,28 @@ $$;
 ALTER FUNCTION public.enforce_pending_on_insert() OWNER TO postgres;
 
 --
+-- Name: order_status_rank(text); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.order_status_rank(s text) RETURNS integer
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+BEGIN
+    CASE s
+        WHEN 'pending'   THEN RETURN 0;
+        WHEN 'approved'  THEN RETURN 1;
+        WHEN 'shipping'  THEN RETURN 2;
+        WHEN 'delivered' THEN RETURN 3;
+        WHEN 'canceled'  THEN RETURN 4;
+        ELSE RETURN -1; -- unknown
+    END CASE;
+END;
+$$;
+
+
+ALTER FUNCTION public.order_status_rank(s text) OWNER TO postgres;
+
+--
 -- Name: prevent_manual_stock_quantity_update(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -287,22 +370,58 @@ $$;
 ALTER FUNCTION public.prevent_manual_stock_quantity_update() OWNER TO postgres;
 
 --
--- Name: prevent_update_if_canceled(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: refresh_final_status(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.prevent_update_if_canceled() RETURNS trigger
+CREATE FUNCTION public.refresh_final_status() RETURNS void
     LANGUAGE plpgsql
     AS $$
 BEGIN
-    IF OLD.order_status = 'canceled' THEN
-        RAISE EXCEPTION 'Order canceled, cannot update this order!';
+    UPDATE customer_order
+    SET final_status = 'closed'
+    WHERE final_status = 'waiting'
+      AND (
+        order_status = 'canceled'
+        OR (
+          order_status = 'delivered'
+          AND payment_status = 'paid'
+          AND delivered_at IS NOT NULL
+          AND (NOW() - delivered_at) >= INTERVAL '7 days'
+        )
+      );
+END;
+$$;
+
+
+ALTER FUNCTION public.refresh_final_status() OWNER TO postgres;
+
+--
+-- Name: restore_batch_quantity_on_cancel(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.restore_batch_quantity_on_cancel() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    rec RECORD;
+BEGIN
+    IF OLD.order_status <> 'canceled' AND NEW.order_status = 'canceled' THEN
+        FOR rec IN
+            SELECT batch_id, quantity
+            FROM order_detail
+            WHERE order_id = NEW.order_id
+        LOOP
+            UPDATE batch
+            SET remaining_quantity = remaining_quantity + rec.quantity
+            WHERE batch_id = rec.batch_id;
+        END LOOP;
     END IF;
     RETURN NEW;
 END;
 $$;
 
 
-ALTER FUNCTION public.prevent_update_if_canceled() OWNER TO postgres;
+ALTER FUNCTION public.restore_batch_quantity_on_cancel() OWNER TO postgres;
 
 --
 -- Name: set_delivered_at_when_completed(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -340,6 +459,161 @@ $$;
 
 
 ALTER FUNCTION public.set_remaining_quantity_on_batch_insert() OWNER TO postgres;
+
+--
+-- Name: trg_block_update_when_closed(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.trg_block_update_when_closed() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    -- Ch?n c?p nh?t n?u don da b? hu?
+    IF OLD.order_status = 'canceled' THEN
+        RAISE EXCEPTION 'Order canceled, cannot update this order!';
+    END IF;
+
+    -- Ch?n c?p nh?t n?u don da giao, da thanh to n, v… da qu  7 ng…y k? t? giao
+    IF OLD.order_status = 'delivered'
+        AND OLD.payment_status = 'paid'
+        AND OLD.delivered_at IS NOT NULL
+        AND (NOW() - OLD.delivered_at) >= INTERVAL '7 days'
+    THEN
+        RAISE EXCEPTION 'Cannot update: delivered and paid order is closed after 7 days!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.trg_block_update_when_closed() OWNER TO postgres;
+
+--
+-- Name: trg_check_order_status_order(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.trg_check_order_status_order() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    old_rank integer;
+    new_rank integer;
+BEGIN
+    IF OLD.order_status = 'pending' THEN
+        RETURN NEW;
+    END IF;
+
+    IF NEW.order_status = OLD.order_status THEN
+        RETURN NEW;
+    END IF;
+
+    old_rank := order_status_rank(OLD.order_status);
+    new_rank := order_status_rank(NEW.order_status);
+
+    IF new_rank < old_rank THEN
+        RAISE EXCEPTION 'Cannot change order_status to a previous state!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.trg_check_order_status_order() OWNER TO postgres;
+
+--
+-- Name: trg_validate_payment_status(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.trg_validate_payment_status() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF OLD.payment_status = 'unpaid' AND NEW.payment_status NOT IN ('unpaid', 'paid') THEN
+        RAISE EXCEPTION 'Invalid status transition: unpaid can only be changed to paid.';
+    ELSIF OLD.payment_status = 'paid' AND NEW.payment_status NOT IN ('paid', 'refunded') THEN
+        RAISE EXCEPTION 'Invalid status transition: paid can only be changed to refunded.';
+    ELSIF OLD.payment_status = 'refunded' AND NEW.payment_status <> 'refunded' THEN
+        RAISE EXCEPTION 'Invalid status transition: refunded cannot be changed to any other status.';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.trg_validate_payment_status() OWNER TO postgres;
+
+--
+-- Name: update_customer_last_active(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.update_customer_last_active() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    UPDATE customer
+    SET last_active_at = NOW()
+    WHERE customer_id = NEW.customer_id;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.update_customer_last_active() OWNER TO postgres;
+
+--
+-- Name: update_member_points_after_payment(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.update_member_points_after_payment() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_points numeric(10,2);
+BEGIN
+    IF OLD.payment_status = 'unpaid' AND NEW.payment_status = 'paid' THEN
+        v_points := FLOOR(NEW.total_amount / 1000.0);
+        UPDATE customer
+        SET member_points = member_points + v_points
+        WHERE customer_id = NEW.customer_id;
+
+    ELSIF OLD.payment_status = 'paid' AND NEW.payment_status = 'refunded' THEN
+        v_points := FLOOR(NEW.total_amount / 1000.0);
+        UPDATE customer
+        SET member_points = member_points - v_points
+        WHERE customer_id = NEW.customer_id;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.update_member_points_after_payment() OWNER TO postgres;
+
+--
+-- Name: update_rank_when_points_change(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.update_rank_when_points_change() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.member_points IS DISTINCT FROM OLD.member_points THEN
+        IF NEW.member_points < 1000 THEN
+            NEW.rank := 'silver';
+        ELSIF NEW.member_points < 10000 THEN
+            NEW.rank := 'gold';
+        ELSE
+            NEW.rank := 'diamond';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.update_rank_when_points_change() OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -402,11 +676,10 @@ CREATE TABLE public.customer (
     rank character varying(16),
     cart text,
     registration_date date DEFAULT CURRENT_DATE,
-    status character varying(32) DEFAULT 'active'::character varying,
     password character varying(128),
+    last_active_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT customer_gender_check CHECK ((gender = ANY (ARRAY['M'::bpchar, 'F'::bpchar]))),
-    CONSTRAINT customer_rank_check CHECK (((rank)::text = ANY ((ARRAY['silver'::character varying, 'gold'::character varying, 'diamond'::character varying])::text[]))),
-    CONSTRAINT customer_status_check CHECK (((status)::text = ANY ((ARRAY['active'::character varying, 'blocked'::character varying, 'inactive'::character varying])::text[])))
+    CONSTRAINT customer_rank_check CHECK (((rank)::text = ANY ((ARRAY['silver'::character varying, 'gold'::character varying, 'diamond'::character varying])::text[])))
 );
 
 
@@ -443,9 +716,9 @@ CREATE TABLE public.customer_order (
     customer_id integer,
     employee_id integer,
     delivered_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    total_amount numeric(15,2),
+    total_amount numeric(15,2) DEFAULT 0,
     payment_method character varying(32),
-    order_status character varying(32),
+    order_status character varying(32) DEFAULT 'pending'::character varying,
     note text,
     payment_status character varying(32) DEFAULT 'unpaid'::character varying,
     CONSTRAINT customer_order_order_status_check CHECK (((order_status)::text = ANY ((ARRAY['pending'::character varying, 'approved'::character varying, 'shipping'::character varying, 'delivered'::character varying, 'canceled'::character varying])::text[]))),
@@ -821,6 +1094,10 @@ ALTER TABLE ONLY public.warehouse_category ALTER COLUMN warehouse_category_id SE
 --
 
 COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_price, quantity, note, warehouse_id, remaining_quantity) FROM stdin;
+38	4	2024-06-01	2024-11-30	190000.00	5	\N	1	5
+49	4	2024-07-01	2026-04-30	192000.00	7	\N	1	7
+39	5	2024-06-01	2024-07-10	14000.00	50	\N	2	50
+50	5	2024-07-05	2026-05-10	14200.00	30	\N	2	30
 36	2	2024-06-01	2024-12-01	68000.00	15	\N	1	15
 37	3	2024-06-01	2024-11-15	148000.00	10	\N	1	10
 40	6	2024-06-01	2024-07-10	22000.00	40	\N	2	40
@@ -836,12 +1113,8 @@ COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_pric
 53	8	2024-07-15	2026-08-31	48200.00	22	\N	2	22
 54	9	2024-07-20	2026-09-01	6600.00	80	\N	3	80
 55	10	2024-08-01	2026-10-01	44500.00	35	\N	3	35
-35	1	2024-06-01	2024-12-01	75000.00	20	\N	1	20
-46	1	2024-06-10	2026-01-10	76000.00	25	\N	1	25
-38	4	2024-06-01	2024-11-30	190000.00	5	\N	1	5
-49	4	2024-07-01	2026-04-30	192000.00	7	\N	1	7
-39	5	2024-06-01	2024-07-10	14000.00	50	\N	2	50
-50	5	2024-07-05	2026-05-10	14200.00	30	\N	2	30
+35	1	2024-06-01	2024-12-01	75000.00	20	\N	1	0
+46	1	2024-06-10	2026-01-10	76000.00	25	\N	1	5
 \.
 
 
@@ -849,17 +1122,17 @@ COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_pric
 -- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, email, member_points, rank, cart, registration_date, status, password) FROM stdin;
-1	Nguyen Van A	M	1990-01-01	0901000001	a.nguyen@email.com	50	silver	\N	2024-06-01	active	password1
-2	Tran Thi B	F	1992-02-02	0901000002	b.tran@email.com	60	silver	\N	2024-06-02	active	password2
-3	Le Van C	M	1988-03-03	0901000003	c.le@email.com	90	gold	\N	2024-06-03	active	password3
-4	Pham Thi D	F	1995-04-04	0901000004	d.pham@email.com	20	silver	\N	2024-06-04	active	password4
-5	Vo Minh E	M	1993-05-05	0901000005	e.vo@email.com	120	diamond	\N	2024-06-05	active	password5
-6	Bui Thi F	F	1991-06-06	0901000006	f.bui@email.com	35	silver	\N	2024-06-06	blocked	password6
-7	Doan Van G	M	1989-07-07	0901000007	g.doan@email.com	70	gold	\N	2024-06-07	active	password7
-8	Dang Thi H	F	1996-08-08	0901000008	h.dang@email.com	10	silver	\N	2024-06-08	inactive	password8
-9	Pham Van I	M	1994-09-09	0901000009	i.pham@email.com	100	diamond	\N	2024-06-09	active	password9
-10	Tran Thi J	F	1997-10-10	0901000010	j.tran@email.com	80	gold	\N	2024-06-10	active	password10
+COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, email, member_points, rank, cart, registration_date, password, last_active_at) FROM stdin;
+1	Nguyen Van A	M	1990-01-01	0901000001	a.nguyen@email.com	20	silver	\N	2024-06-01	password1	2025-06-01 23:17:35.346359
+2	Tran Thi B	F	1992-02-02	0901000002	b.tran@email.com	20	silver	\N	2024-06-02	password2	2025-06-01 23:17:35.346359
+3	Le Van C	M	1988-03-03	0901000003	c.le@email.com	20	silver	\N	2024-06-03	password3	2025-06-01 23:17:35.346359
+4	Pham Thi D	F	1995-04-04	0901000004	d.pham@email.com	20	silver	\N	2024-06-04	password4	2025-06-01 23:17:35.346359
+6	Bui Thi F	F	1991-06-06	0901000006	f.bui@email.com	20	silver	\N	2024-06-06	password6	2025-06-01 23:17:35.346359
+7	Doan Van G	M	1989-07-07	0901000007	g.doan@email.com	20	silver	\N	2024-06-07	password7	2025-06-01 23:17:35.346359
+9	Pham Van I	M	1994-09-09	0901000009	i.pham@email.com	20	silver	\N	2024-06-09	password9	2025-06-01 23:17:35.346359
+5	Vo Minh E	M	1993-05-05	0901000005	e.vo@email.com	20	silver	\N	2024-06-05	password5	2025-06-02 06:56:24.738184
+10	Tran Thi J	F	1997-10-10	0901000010	j.tran@email.com	20	silver	\N	2024-06-10	password10	2025-06-01 23:17:35.346359
+8	Dang Thi H	F	1996-08-08	0901000008	h.dang@email.com	20	silver	\N	2024-06-08	password8	2025-06-02 07:24:47.054879
 \.
 
 
@@ -869,7 +1142,11 @@ COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, emai
 
 COPY public.customer_order (order_id, customer_id, employee_id, delivered_at, total_amount, payment_method, order_status, note, payment_status) FROM stdin;
 1	1	2	2025-06-01 21:29:40.507785	6400000.00	cash	canceled	\N	refunded
-2	1	2	2025-06-01 21:55:09.986117	6400000.00	cash	canceled	\N	unpaid
+2	2	2	2025-06-01 21:55:09.986117	6400000.00	cash	canceled	\N	unpaid
+5	5	3	2025-06-02 06:42:58.246201	0.00	cash	canceled	\N	unpaid
+3	5	2	2025-06-02 05:42:45.941878	0.00	card	canceled	\N	refunded
+6	5	3	2025-06-02 06:58:55.407764	3200000.00	cash	canceled	\N	refunded
+7	8	3	2025-06-02 07:24:47.054879	3200000.00	card	canceled	\N	refunded
 \.
 
 
@@ -923,6 +1200,12 @@ COPY public.order_detail (order_detail_id, order_id, product_id, batch_id, quant
 10	2	4	49	5	200000.00	1000000.00
 11	2	5	39	50	15000.00	750000.00
 12	2	5	50	30	15000.00	450000.00
+13	6	1	35	20	80000.00	1600000.00
+14	6	1	46	20	80000.00	1600000.00
+15	7	4	38	5	200000.00	1000000.00
+16	7	4	49	5	200000.00	1000000.00
+17	7	5	39	50	15000.00	750000.00
+18	7	5	50	30	15000.00	450000.00
 \.
 
 
@@ -1018,7 +1301,7 @@ SELECT pg_catalog.setval('public.customer_customer_id_seq', 10, true);
 -- Name: customer_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.customer_order_order_id_seq', 2, true);
+SELECT pg_catalog.setval('public.customer_order_order_id_seq', 7, true);
 
 
 --
@@ -1039,7 +1322,7 @@ SELECT pg_catalog.setval('public.employment_contract_contract_id_seq', 8, true);
 -- Name: order_detail_order_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.order_detail_order_detail_id_seq', 12, true);
+SELECT pg_catalog.setval('public.order_detail_order_detail_id_seq', 18, true);
 
 
 --
@@ -1151,6 +1434,27 @@ ALTER TABLE ONLY public.warehouse
 
 
 --
+-- Name: customer_order trg_auto_refund_when_canceled; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_auto_refund_when_canceled BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.auto_refund_when_canceled();
+
+
+--
+-- Name: customer_order trg_block_invalid_refund; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_block_invalid_refund BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.block_invalid_refund();
+
+
+--
+-- Name: customer_order trg_block_update_when_closed; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_block_update_when_closed BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.trg_block_update_when_closed();
+
+
+--
 -- Name: batch trg_check_batch_warehouse_category; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -1162,6 +1466,20 @@ CREATE TRIGGER trg_check_batch_warehouse_category BEFORE INSERT ON public.batch 
 --
 
 CREATE TRIGGER trg_check_expiry_date_not_null BEFORE INSERT OR UPDATE ON public.batch FOR EACH ROW EXECUTE FUNCTION public.check_expiry_date_not_null();
+
+
+--
+-- Name: customer_order trg_check_order_status_order; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_check_order_status_order BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.trg_check_order_status_order();
+
+
+--
+-- Name: customer trg_check_rank_valid; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_check_rank_valid BEFORE UPDATE OF rank ON public.customer FOR EACH ROW EXECUTE FUNCTION public.check_rank_valid();
 
 
 --
@@ -1186,10 +1504,17 @@ CREATE TRIGGER trg_enforce_pending_on_insert BEFORE INSERT ON public.employee FO
 
 
 --
--- Name: customer_order trg_prevent_update_if_canceled; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: customer_order trg_payment_status_flow; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
-CREATE TRIGGER trg_prevent_update_if_canceled BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.prevent_update_if_canceled();
+CREATE TRIGGER trg_payment_status_flow BEFORE UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.trg_validate_payment_status();
+
+
+--
+-- Name: customer_order trg_restore_batch_quantity_on_cancel; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_restore_batch_quantity_on_cancel AFTER UPDATE OF order_status ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.restore_batch_quantity_on_cancel();
 
 
 --
@@ -1204,6 +1529,27 @@ CREATE TRIGGER trg_set_delivered_at BEFORE UPDATE ON public.customer_order FOR E
 --
 
 CREATE TRIGGER trg_set_remaining_quantity_on_batch_insert BEFORE INSERT ON public.batch FOR EACH ROW EXECUTE FUNCTION public.set_remaining_quantity_on_batch_insert();
+
+
+--
+-- Name: customer_order trg_update_customer_last_active; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_customer_last_active AFTER INSERT ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.update_customer_last_active();
+
+
+--
+-- Name: customer_order trg_update_member_points; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_member_points AFTER UPDATE ON public.customer_order FOR EACH ROW EXECUTE FUNCTION public.update_member_points_after_payment();
+
+
+--
+-- Name: customer trg_update_rank_when_points_change; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_rank_when_points_change BEFORE UPDATE OF member_points ON public.customer FOR EACH ROW EXECUTE FUNCTION public.update_rank_when_points_change();
 
 
 --

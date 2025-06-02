@@ -911,3 +911,463 @@ BEGIN
 
 END;
 $$ LANGUAGE plpgsql;
+
+-- thay truong status cua customer thanh last active
+ALTER TABLE customer DROP COLUMN status;
+ALTER TABLE customer ADD COLUMN last_active_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+-- khi tao order moi, cap nhat active last cua customer
+CREATE OR REPLACE FUNCTION update_customer_last_active()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE customer
+    SET last_active_at = NOW()
+    WHERE customer_id = NEW.customer_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_update_customer_last_active
+AFTER INSERT ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION update_customer_last_active();
+
+-- them final_status
+ALTER TABLE customer_order
+ADD COLUMN final_status VARCHAR(16) DEFAULT 'waiting'
+CHECK (final_status IN ('waiting', 'closed'));
+CREATE OR REPLACE FUNCTION trg_block_update_when_closed()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.final_status = 'closed' THEN
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'canceled' THEN
+        NEW.final_status := 'closed';
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'delivered'
+        AND NEW.payment_status = 'paid'
+        AND NEW.delivered_at IS NOT NULL
+        AND (NOW() - NEW.delivered_at) >= INTERVAL '7 days'
+    THEN
+        NEW.final_status := 'closed';
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_block_update_when_closed ON customer_order;
+CREATE TRIGGER trg_block_update_when_closed
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION trg_block_update_when_closed();
+
+-- cap nhat ham cho final_status
+CREATE OR REPLACE FUNCTION trg_block_update_when_closed()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.final_status = 'closed' THEN
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'canceled' THEN
+        NEW.final_status := 'closed'; 
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'delivered'
+       AND NEW.payment_status = 'paid'
+       AND NEW.delivered_at IS NOT NULL
+       AND (NOW() - NEW.delivered_at) >= INTERVAL '7 days'
+    THEN
+        NEW.final_status := 'closed'; 
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- khi update, cap nhat lai final_status
+CREATE OR REPLACE FUNCTION auto_set_final_status()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (NEW.order_status = 'canceled')
+       OR (
+            NEW.order_status = 'delivered'
+            AND NEW.payment_status = 'paid'
+            AND NEW.delivered_at IS NOT NULL
+            AND (NOW() - NEW.delivered_at) >= INTERVAL '7 days'
+          )
+    THEN
+        NEW.final_status := 'closed';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_auto_set_final_status ON customer_order;
+CREATE TRIGGER trg_auto_set_final_status
+BEFORE UPDATE OR INSERT ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION auto_set_final_status();
+
+-- khi update, kiem tra final_status
+CREATE OR REPLACE FUNCTION trg_block_update_when_closed()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.final_status = 'closed' THEN
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_block_update_when_closed ON customer_order;
+CREATE TRIGGER trg_block_update_when_closed
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION trg_block_update_when_closed();
+
+drop trigger trg_prevent_update_if_canceled on customer_order;
+drop function prevent_update_if_canceled;
+
+DROP TRIGGER IF EXISTS trg_auto_set_final_status ON customer_order;
+DROP TRIGGER IF EXISTS trg_block_update_when_closed ON customer_order;
+drop function trg_block_update_when_closed;
+drop function auto_set_final_status;
+
+CREATE OR REPLACE FUNCTION trg_block_update_when_closed()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.final_status = 'closed' THEN
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'canceled' THEN
+        NEW.final_status := 'closed';
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'delivered'
+        AND NEW.payment_status = 'paid'
+        AND NEW.delivered_at IS NOT NULL
+        AND (NOW() - NEW.delivered_at) >= INTERVAL '7 days'
+    THEN
+        NEW.final_status := 'closed';
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_block_update_when_closed ON customer_order;
+CREATE TRIGGER trg_block_update_when_closed
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION trg_block_update_when_closed();
+
+-- refresh final_status
+CREATE OR REPLACE FUNCTION refresh_final_status()
+RETURNS void AS $$
+BEGIN
+    UPDATE customer_order
+    SET final_status = 'closed'
+    WHERE final_status = 'waiting'
+      AND (
+        order_status = 'canceled'
+        OR (
+          order_status = 'delivered'
+          AND payment_status = 'paid'
+          AND delivered_at IS NOT NULL
+          AND (NOW() - delivered_at) >= INTERVAL '7 days'
+        )
+      );
+END;
+$$ LANGUAGE plpgsql;
+
+-- cap nhat lai ham check update customer_order
+CREATE OR REPLACE FUNCTION trg_block_update_when_closed()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.final_status = 'closed' AND (NEW.final_status IS DISTINCT FROM OLD.final_status) = FALSE THEN
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'canceled' THEN
+        NEW.final_status := 'closed';
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    IF NEW.order_status = 'delivered'
+        AND NEW.payment_status = 'paid'
+        AND NEW.delivered_at IS NOT NULL
+        AND (NOW() - NEW.delivered_at) >= INTERVAL '7 days'
+    THEN
+        NEW.final_status := 'closed';
+        RAISE EXCEPTION 'Cannot update because this order was closed!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+ALTER TABLE customer_order DROP COLUMN final_status;
+
+CREATE OR REPLACE FUNCTION trg_block_update_when_closed()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Chặn cập nhật nếu đơn đã bị huỷ
+    IF OLD.order_status = 'canceled' THEN
+        RAISE EXCEPTION 'Order canceled, cannot update this order!';
+    END IF;
+
+    -- Chặn cập nhật nếu đơn đã giao, đã thanh toán, và đã quá 7 ngày kể từ giao
+    IF OLD.order_status = 'delivered'
+        AND OLD.payment_status = 'paid'
+        AND OLD.delivered_at IS NOT NULL
+        AND (NOW() - OLD.delivered_at) >= INTERVAL '7 days'
+    THEN
+        RAISE EXCEPTION 'Cannot update: delivered and paid order is closed after 7 days!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+ALTER TABLE customer_order
+ALTER COLUMN total_amount SET DEFAULT 0;
+
+ALTER TABLE customer_order
+ALTER COLUMN order_status SET DEFAULT 'pending';
+
+
+-- tao order moi
+INSERT INTO customer_order (
+    customer_id,
+    employee_id,
+    payment_method
+) VALUES (
+    8,
+    3,
+    'card'
+);
+
+RETURNING order_id;
+
+-- them san pham
+-- Thêm sản phẩm 1, số lượng 40 vào đơn hàng 1
+SELECT create_order_details(7, 1, 40);
+-- Thêm sản phẩm 2, số lượng 30 vào đơn hàng 1
+SELECT create_order_details(7, 2, 30); -- se bao loi vi khong du san pham
+-- Thêm sản phẩm 4, số lượng 10 vào đơn hàng 1
+SELECT create_order_details(7, 4, 10);
+-- Thêm sản phẩm 5, số lượng 80 vào đơn hàng 1
+SELECT create_order_details(7, 5, 80);
+
+-- cam chuyen trang thai order_status ve truoc do
+CREATE OR REPLACE FUNCTION order_status_rank(s text)
+RETURNS integer AS $$
+BEGIN
+    CASE s
+        WHEN 'pending'   THEN RETURN 0;
+        WHEN 'approved'  THEN RETURN 1;
+        WHEN 'shipping'  THEN RETURN 2;
+        WHEN 'delivered' THEN RETURN 3;
+        WHEN 'canceled'  THEN RETURN 4;
+        ELSE RETURN -1; 
+    END CASE;
+END;
+$$ LANGUAGE plpgsql IMMUTABLE;
+CREATE OR REPLACE FUNCTION trg_check_order_status_order()
+RETURNS TRIGGER AS $$
+DECLARE
+    old_rank integer;
+    new_rank integer;
+BEGIN
+    IF OLD.order_status = 'pending' THEN
+        RETURN NEW;
+    END IF;
+
+    IF NEW.order_status = OLD.order_status THEN
+        RETURN NEW;
+    END IF;
+
+    old_rank := order_status_rank(OLD.order_status);
+    new_rank := order_status_rank(NEW.order_status);
+
+    IF new_rank < old_rank THEN
+        RAISE EXCEPTION 'Cannot change order_status to a previous state!';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_check_order_status_order ON customer_order;
+CREATE TRIGGER trg_check_order_status_order
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION trg_check_order_status_order();
+
+-- kiem soat luong payment_status
+DROP TRIGGER IF EXISTS trg_payment_status_flow ON customer_order;
+DROP FUNCTION IF EXISTS trg_validate_payment_status();
+CREATE OR REPLACE FUNCTION trg_validate_payment_status()
+RETURNS trigger AS $$
+BEGIN
+    IF OLD.payment_status = 'unpaid' AND NEW.payment_status NOT IN ('unpaid', 'paid') THEN
+        RAISE EXCEPTION 'Invalid status transition: unpaid can only be changed to paid.';
+    ELSIF OLD.payment_status = 'paid' AND NEW.payment_status NOT IN ('paid', 'refunded') THEN
+        RAISE EXCEPTION 'Invalid status transition: paid can only be changed to refunded.';
+    ELSIF OLD.payment_status = 'refunded' AND NEW.payment_status <> 'refunded' THEN
+        RAISE EXCEPTION 'Invalid status transition: refunded cannot be changed to any other status.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_payment_status_flow
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION trg_validate_payment_status();
+
+-- tu dong cong tru member point
+DROP TRIGGER IF EXISTS trg_update_member_points ON customer_order;
+DROP FUNCTION IF EXISTS update_member_points_after_payment();
+CREATE OR REPLACE FUNCTION update_member_points_after_payment()
+RETURNS trigger AS $$
+DECLARE
+    v_points numeric(10,2);
+BEGIN
+    IF OLD.payment_status = 'unpaid' AND NEW.payment_status = 'paid' THEN
+        v_points := FLOOR(NEW.total_amount / 1000.0);
+        UPDATE customer
+        SET member_points = member_points + v_points
+        WHERE customer_id = NEW.customer_id;
+
+    ELSIF OLD.payment_status = 'paid' AND NEW.payment_status = 'refunded' THEN
+        v_points := FLOOR(NEW.total_amount / 1000.0);
+        UPDATE customer
+        SET member_points = member_points - v_points
+        WHERE customer_id = NEW.customer_id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_update_member_points
+AFTER UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION update_member_points_after_payment();
+
+-- chan cap nhat payment_status thanh refunded neu chua cancel order
+DROP TRIGGER IF EXISTS trg_block_invalid_refund ON customer_order;
+DROP FUNCTION IF EXISTS block_invalid_refund();
+
+CREATE OR REPLACE FUNCTION block_invalid_refund()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.payment_status = 'refunded' AND NEW.order_status <> 'canceled' THEN
+        RAISE EXCEPTION 'Cannot set payment_status to refunded unless order_status is canceled.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_block_invalid_refund
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION block_invalid_refund();
+
+-- tu dong refund neu khach hang canceled
+DROP TRIGGER IF EXISTS trg_auto_refund_when_canceled ON customer_order;
+DROP FUNCTION IF EXISTS auto_refund_when_canceled();
+
+CREATE OR REPLACE FUNCTION auto_refund_when_canceled()
+RETURNS trigger AS $$
+BEGIN
+    IF OLD.order_status <> 'canceled' AND NEW.order_status = 'canceled' 
+       AND OLD.payment_status = 'paid' THEN
+        NEW.payment_status := 'refunded';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_auto_refund_when_canceled
+BEFORE UPDATE ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION auto_refund_when_canceled();
+
+-- tu dong cap nhat rank khi member point thay doi
+DROP TRIGGER IF EXISTS trg_update_rank_when_points_change ON customer;
+DROP FUNCTION IF EXISTS update_rank_when_points_change();
+
+CREATE OR REPLACE FUNCTION update_rank_when_points_change()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.member_points IS DISTINCT FROM OLD.member_points THEN
+        IF NEW.member_points < 1000 THEN
+            NEW.rank := 'silver';
+        ELSIF NEW.member_points < 10000 THEN
+            NEW.rank := 'gold';
+        ELSE
+            NEW.rank := 'diamond';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_update_rank_when_points_change
+BEFORE UPDATE OF member_points ON customer
+FOR EACH ROW
+EXECUTE FUNCTION update_rank_when_points_change();
+
+-- kiem tra member point khi update rank
+DROP TRIGGER IF EXISTS trg_check_rank_valid ON customer;
+DROP FUNCTION IF EXISTS check_rank_valid();
+
+CREATE OR REPLACE FUNCTION check_rank_valid()
+RETURNS trigger AS $$
+BEGIN
+    IF TG_OP = 'UPDATE' AND NEW.rank IS DISTINCT FROM OLD.rank THEN
+        IF NEW.rank = 'silver' AND NEW.member_points >= 1000 THEN
+            RAISE EXCEPTION 'Rank ''silver'' requires member_points < 1000!';
+        ELSIF NEW.rank = 'gold' AND (NEW.member_points < 1000 OR NEW.member_points >= 10000) THEN
+            RAISE EXCEPTION 'Rank ''gold'' requires 1000 <= member_points < 10000!';
+        ELSIF NEW.rank = 'diamond' AND NEW.member_points < 10000 THEN
+            RAISE EXCEPTION 'Rank ''diamond'' requires member_points >= 10000!';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_check_rank_valid
+BEFORE UPDATE OF rank ON customer
+FOR EACH ROW
+EXECUTE FUNCTION check_rank_valid();
+
+DROP TRIGGER IF EXISTS trg_restore_batch_quantity_on_cancel ON customer_order;
+DROP FUNCTION IF EXISTS restore_batch_quantity_on_cancel();
+CREATE OR REPLACE FUNCTION restore_batch_quantity_on_cancel()
+RETURNS trigger AS $$
+DECLARE
+    rec RECORD;
+BEGIN
+    IF OLD.order_status <> 'canceled' AND NEW.order_status = 'canceled' THEN
+        FOR rec IN
+            SELECT batch_id, quantity
+            FROM order_detail
+            WHERE order_id = NEW.order_id
+        LOOP
+            UPDATE batch
+            SET remaining_quantity = remaining_quantity + rec.quantity
+            WHERE batch_id = rec.batch_id;
+        END LOOP;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_restore_batch_quantity_on_cancel
+AFTER UPDATE OF order_status ON customer_order
+FOR EACH ROW
+EXECUTE FUNCTION restore_batch_quantity_on_cancel();
