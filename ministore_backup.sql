@@ -674,7 +674,6 @@ CREATE TABLE public.customer (
     email character varying(128),
     member_points integer DEFAULT 0,
     rank character varying(16),
-    cart text,
     registration_date date DEFAULT CURRENT_DATE,
     password character varying(128),
     last_active_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
@@ -769,7 +768,7 @@ CREATE TABLE public.employee (
     employment_status character varying(32) NOT NULL,
     CONSTRAINT employee_employment_status_check CHECK (((employment_status)::text = ANY (ARRAY[('active'::character varying)::text, ('on_leave'::character varying)::text, ('on_maternity_leave'::character varying)::text, ('contract_suspended'::character varying)::text, ('probation'::character varying)::text, ('suspended'::character varying)::text, ('resigned'::character varying)::text, ('pending'::character varying)::text]))),
     CONSTRAINT employee_gender_check CHECK ((gender = ANY (ARRAY['M'::bpchar, 'F'::bpchar]))),
-    CONSTRAINT employee_role_check CHECK (((role)::text = ANY ((ARRAY['sales_staff'::character varying, 'warehouse_staff'::character varying, 'warehouse_manager'::character varying, 'store_manager'::character varying, 'accountant'::character varying])::text[])))
+    CONSTRAINT employee_role_check CHECK (((role)::text = ANY ((ARRAY['sales_staff'::character varying, 'warehouse_staff'::character varying, 'manager'::character varying])::text[])))
 );
 
 
@@ -1122,17 +1121,17 @@ COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_pric
 -- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, email, member_points, rank, cart, registration_date, password, last_active_at) FROM stdin;
-1	Nguyen Van A	M	1990-01-01	0901000001	a.nguyen@email.com	20	silver	\N	2024-06-01	password1	2025-06-01 23:17:35.346359
-2	Tran Thi B	F	1992-02-02	0901000002	b.tran@email.com	20	silver	\N	2024-06-02	password2	2025-06-01 23:17:35.346359
-3	Le Van C	M	1988-03-03	0901000003	c.le@email.com	20	silver	\N	2024-06-03	password3	2025-06-01 23:17:35.346359
-4	Pham Thi D	F	1995-04-04	0901000004	d.pham@email.com	20	silver	\N	2024-06-04	password4	2025-06-01 23:17:35.346359
-6	Bui Thi F	F	1991-06-06	0901000006	f.bui@email.com	20	silver	\N	2024-06-06	password6	2025-06-01 23:17:35.346359
-7	Doan Van G	M	1989-07-07	0901000007	g.doan@email.com	20	silver	\N	2024-06-07	password7	2025-06-01 23:17:35.346359
-9	Pham Van I	M	1994-09-09	0901000009	i.pham@email.com	20	silver	\N	2024-06-09	password9	2025-06-01 23:17:35.346359
-5	Vo Minh E	M	1993-05-05	0901000005	e.vo@email.com	20	silver	\N	2024-06-05	password5	2025-06-02 06:56:24.738184
-10	Tran Thi J	F	1997-10-10	0901000010	j.tran@email.com	20	silver	\N	2024-06-10	password10	2025-06-01 23:17:35.346359
-8	Dang Thi H	F	1996-08-08	0901000008	h.dang@email.com	20	silver	\N	2024-06-08	password8	2025-06-02 07:24:47.054879
+COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, email, member_points, rank, registration_date, password, last_active_at) FROM stdin;
+1	Nguyen Van A	M	1990-01-01	0901000001	a.nguyen@email.com	20	silver	2024-06-01	password1	2025-06-01 23:17:35.346359
+2	Tran Thi B	F	1992-02-02	0901000002	b.tran@email.com	20	silver	2024-06-02	password2	2025-06-01 23:17:35.346359
+3	Le Van C	M	1988-03-03	0901000003	c.le@email.com	20	silver	2024-06-03	password3	2025-06-01 23:17:35.346359
+4	Pham Thi D	F	1995-04-04	0901000004	d.pham@email.com	20	silver	2024-06-04	password4	2025-06-01 23:17:35.346359
+6	Bui Thi F	F	1991-06-06	0901000006	f.bui@email.com	20	silver	2024-06-06	password6	2025-06-01 23:17:35.346359
+7	Doan Van G	M	1989-07-07	0901000007	g.doan@email.com	20	silver	2024-06-07	password7	2025-06-01 23:17:35.346359
+9	Pham Van I	M	1994-09-09	0901000009	i.pham@email.com	20	silver	2024-06-09	password9	2025-06-01 23:17:35.346359
+5	Vo Minh E	M	1993-05-05	0901000005	e.vo@email.com	20	silver	2024-06-05	password5	2025-06-02 06:56:24.738184
+10	Tran Thi J	F	1997-10-10	0901000010	j.tran@email.com	20	silver	2024-06-10	password10	2025-06-01 23:17:35.346359
+8	Dang Thi H	F	1996-08-08	0901000008	h.dang@email.com	20	silver	2024-06-08	password8	2025-06-02 07:24:47.054879
 \.
 
 
@@ -1156,15 +1155,15 @@ COPY public.customer_order (order_id, customer_id, employee_id, delivered_at, to
 
 COPY public.employee (employee_id, full_name, role, age, national_id, gender, address, phone, email, salary, password, employment_status) FROM stdin;
 1	Alice Johnson	sales_staff	25	ID001	F	123 Main St	0123456789	alice@example.com	800.00	alicepass	pending
-4	David Kim	store_manager	40	ID004	M	321 South St	0123456792	david@example.com	1500.00	davidpass	pending
-8	Henry Ford	warehouse_manager	38	ID008	M	258 Garden Dr	0123456796	henry@example.com	1100.00	henrypass	pending
-9	Ivy Nguyen	store_manager	27	ID009	F	369 Lake St	0123456797	ivy@example.com	1450.00	ivypass	active
-3	Carol Lee	warehouse_manager	35	ID003	F	789 North Rd	0123456791	carol@example.com	1200.00	carolpass	active
-5	Eva Green	accountant	28	ID005	F	654 West St	0123456793	eva@example.com	950.00	evapass	active
-10	Jack White	accountant	31	ID010	M	753 Hill Rd	0123456798	jack@example.com	970.00	jackpass	active
+4	David Kim	sales_staff	40	ID004	M	321 South St	0123456792	david@example.com	1500.00	davidpass	pending
+8	Henry Ford	sales_staff	38	ID008	M	258 Garden Dr	0123456796	henry@example.com	1100.00	henrypass	pending
+9	Ivy Nguyen	sales_staff	27	ID009	F	369 Lake St	0123456797	ivy@example.com	1450.00	ivypass	active
+3	Carol Lee	sales_staff	35	ID003	F	789 North Rd	0123456791	carol@example.com	1200.00	carolpass	active
+5	Eva Green	sales_staff	28	ID005	F	654 West St	0123456793	eva@example.com	950.00	evapass	active
+10	Jack White	sales_staff	31	ID010	M	753 Hill Rd	0123456798	jack@example.com	970.00	jackpass	active
 6	Frank Brown	sales_staff	32	ID006	M	987 East Ave	0123456794	frank@example.com	820.00	frankpass	active
-2	Bob Smith	warehouse_staff	30	ID002	M	456 First Ave	0123456790	bob@example.com	900.00	bobpass	active
-7	Grace Lee	warehouse_staff	29	ID007	F	147 Park Blvd	0123456795	grace@example.com	880.00	gracepass	resigned
+2	Bob Smith	sales_staff	30	ID002	M	456 First Ave	0123456790	bob@example.com	900.00	bobpass	active
+7	Grace Lee	sales_staff	29	ID007	F	147 Park Blvd	0123456795	grace@example.com	880.00	gracepass	resigned
 \.
 
 

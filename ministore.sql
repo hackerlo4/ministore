@@ -1371,3 +1371,15 @@ CREATE TRIGGER trg_restore_batch_quantity_on_cancel
 AFTER UPDATE OF order_status ON customer_order
 FOR EACH ROW
 EXECUTE FUNCTION restore_batch_quantity_on_cancel();
+
+alter table customer drop column cart;
+
+-- dieu chinh role cua nhan vien
+ALTER TABLE employee
+DROP CONSTRAINT IF EXISTS employee_role_check;
+update employee set role = 'sales_staff';
+ALTER TABLE employee
+ADD CONSTRAINT employee_role_check
+CHECK (
+    role IN ('sales_staff', 'warehouse_staff', 'manager')
+);
