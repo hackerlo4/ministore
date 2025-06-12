@@ -150,6 +150,29 @@ $$;
 ALTER FUNCTION public.check_batch_warehouse_category() OWNER TO postgres;
 
 --
+-- Name: check_employee_role(integer, character varying); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_employee_role(p_employee_id integer, p_role character varying) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_role VARCHAR(64);
+BEGIN
+    SELECT role INTO v_role FROM employee WHERE employee_id = p_employee_id;
+    IF v_role IS NULL THEN
+        RAISE EXCEPTION 'Employee % does not exist.', p_employee_id;
+    END IF;
+    IF v_role <> p_role THEN
+        RAISE EXCEPTION 'Employee % does not have required role: % (actual: %)', p_employee_id, p_role, v_role;
+    END IF;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_employee_role(p_employee_id integer, p_role character varying) OWNER TO postgres;
+
+--
 -- Name: check_employee_status(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -217,25 +240,6 @@ $$;
 
 
 ALTER FUNCTION public.check_rank_valid() OWNER TO postgres;
-
---
--- Name: check_zero_stock_quantity(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.check_zero_stock_quantity() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-    IF NEW.stock_quantity IS DISTINCT FROM 0 THEN
-        RAISE EXCEPTION 
-        'Stock quantity must be 0 when adding a new product. If you want to increase stock, please create a new batch.';
-    END IF;
-    RETURN NEW;
-END;
-$$;
-
-
-ALTER FUNCTION public.check_zero_stock_quantity() OWNER TO postgres;
 
 --
 -- Name: create_order_details(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
@@ -369,6 +373,42 @@ $$;
 ALTER FUNCTION public.enforce_pending_on_insert() OWNER TO postgres;
 
 --
+-- Name: log_employee_status_change(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.log_employee_status_change() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.employment_status IS DISTINCT FROM OLD.employment_status THEN
+        INSERT INTO work_status_log(employee_id, status, log_time, note)
+        VALUES (NEW.employee_id, NEW.employment_status, CURRENT_DATE, 'Status changed automatically');
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.log_employee_status_change() OWNER TO postgres;
+
+--
+-- Name: log_employee_status_on_insert(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.log_employee_status_on_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO work_status_log(employee_id, status, log_time, note)
+    VALUES (NEW.employee_id, NEW.employment_status, CURRENT_DATE, 'Employee created');
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.log_employee_status_on_insert() OWNER TO postgres;
+
+--
 -- Name: order_status_rank(text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -391,24 +431,6 @@ $$;
 ALTER FUNCTION public.order_status_rank(s text) OWNER TO postgres;
 
 --
--- Name: prevent_manual_stock_quantity_update(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.prevent_manual_stock_quantity_update() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-    IF NEW.stock_quantity IS DISTINCT FROM OLD.stock_quantity THEN
-        RAISE EXCEPTION 'You cannot manually update stock_quantity. Stock quantity is only updated automatically when adding a new batch.';
-    END IF;
-    RETURN NEW;
-END;
-$$;
-
-
-ALTER FUNCTION public.prevent_manual_stock_quantity_update() OWNER TO postgres;
-
---
 -- Name: reactivate_employee_on_contract_update(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -429,32 +451,6 @@ $$;
 
 
 ALTER FUNCTION public.reactivate_employee_on_contract_update() OWNER TO postgres;
-
---
--- Name: refresh_final_status(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.refresh_final_status() RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-    UPDATE customer_order
-    SET final_status = 'closed'
-    WHERE final_status = 'waiting'
-      AND (
-        order_status = 'canceled'
-        OR (
-          order_status = 'delivered'
-          AND payment_status = 'paid'
-          AND delivered_at IS NOT NULL
-          AND (NOW() - delivered_at) >= INTERVAL '7 days'
-        )
-      );
-END;
-$$;
-
-
-ALTER FUNCTION public.refresh_final_status() OWNER TO postgres;
 
 --
 -- Name: restore_batch_quantity_on_cancel(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -658,6 +654,33 @@ $$;
 ALTER FUNCTION public.update_customer_last_active() OWNER TO postgres;
 
 --
+-- Name: update_employee_status(integer, integer, character varying); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.update_employee_status(p_executor_id integer, p_target_id integer, p_new_status character varying) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    PERFORM check_employee_role(p_executor_id, 'manager');
+    IF p_new_status NOT IN (
+        'active', 'on_leave', 'on_maternity_leave', 'contract_suspended',
+        'probation', 'suspended', 'resigned', 'pending'
+    ) THEN
+        RAISE EXCEPTION 'Invalid status: %', p_new_status;
+    END IF;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Target employee % does not exist.', p_target_id;
+    END IF;
+    UPDATE employee
+    SET employment_status = p_new_status
+    WHERE employee_id = p_target_id;
+END;
+$$;
+
+
+ALTER FUNCTION public.update_employee_status(p_executor_id integer, p_target_id integer, p_new_status character varying) OWNER TO postgres;
+
+--
 -- Name: update_member_points_after_payment(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -771,9 +794,11 @@ CREATE TABLE public.customer (
     rank character varying(16),
     registration_date date DEFAULT CURRENT_DATE,
     password character varying(128),
-    last_active_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    last_active_at date DEFAULT CURRENT_TIMESTAMP,
+    status character varying(16) DEFAULT 'active'::character varying NOT NULL,
     CONSTRAINT customer_gender_check CHECK ((gender = ANY (ARRAY['M'::bpchar, 'F'::bpchar]))),
-    CONSTRAINT customer_rank_check CHECK (((rank)::text = ANY ((ARRAY['silver'::character varying, 'gold'::character varying, 'diamond'::character varying])::text[])))
+    CONSTRAINT customer_rank_check CHECK (((rank)::text = ANY ((ARRAY['silver'::character varying, 'gold'::character varying, 'diamond'::character varying])::text[]))),
+    CONSTRAINT customer_status_check CHECK (((status)::text = ANY ((ARRAY['active'::character varying, 'blocked'::character varying])::text[])))
 );
 
 
@@ -903,7 +928,9 @@ CREATE TABLE public.employment_contract (
     termination_date date,
     content text,
     contract_end_date date,
-    effective_date date
+    effective_date date,
+    status character varying(16) DEFAULT 'active'::character varying NOT NULL,
+    CONSTRAINT employment_contract_status_check CHECK (((status)::text = ANY ((ARRAY['active'::character varying, 'terminated'::character varying])::text[])))
 );
 
 
@@ -929,6 +956,44 @@ ALTER SEQUENCE public.employment_contract_contract_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.employment_contract_contract_id_seq OWNED BY public.employment_contract.contract_id;
+
+
+--
+-- Name: operating_expense_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.operating_expense_log (
+    log_id integer NOT NULL,
+    expense_type character varying(16) NOT NULL,
+    amount_paid numeric(15,2) NOT NULL,
+    pay_date date NOT NULL,
+    note text,
+    CONSTRAINT operating_expense_log_expense_type_check CHECK (((expense_type)::text = ANY ((ARRAY['tax'::character varying, 'electricity'::character varying, 'water'::character varying, 'rent'::character varying, 'other'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.operating_expense_log OWNER TO postgres;
+
+--
+-- Name: operating_expense_log_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.operating_expense_log_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.operating_expense_log_log_id_seq OWNER TO postgres;
+
+--
+-- Name: operating_expense_log_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.operating_expense_log_log_id_seq OWNED BY public.operating_expense_log.log_id;
 
 
 --
@@ -1042,6 +1107,46 @@ ALTER SEQUENCE public.product_product_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.product_product_id_seq OWNED BY public.product.product_id;
+
+
+--
+-- Name: salary_bonus_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.salary_bonus_log (
+    log_id integer NOT NULL,
+    employee_id integer NOT NULL,
+    pay_period character varying(16),
+    pay_type character varying(16) NOT NULL,
+    amount_paid numeric(15,2) NOT NULL,
+    pay_date date NOT NULL,
+    note text,
+    CONSTRAINT salary_bonus_log_pay_type_check CHECK (((pay_type)::text = ANY ((ARRAY['salary'::character varying, 'bonus'::character varying, 'penalty'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.salary_bonus_log OWNER TO postgres;
+
+--
+-- Name: salary_bonus_log_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.salary_bonus_log_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.salary_bonus_log_log_id_seq OWNER TO postgres;
+
+--
+-- Name: salary_bonus_log_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.salary_bonus_log_log_id_seq OWNED BY public.salary_bonus_log.log_id;
 
 
 --
@@ -1187,6 +1292,13 @@ ALTER TABLE ONLY public.employment_contract ALTER COLUMN contract_id SET DEFAULT
 
 
 --
+-- Name: operating_expense_log log_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.operating_expense_log ALTER COLUMN log_id SET DEFAULT nextval('public.operating_expense_log_log_id_seq'::regclass);
+
+
+--
 -- Name: order_detail order_detail_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1205,6 +1317,13 @@ ALTER TABLE ONLY public.product ALTER COLUMN product_id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.product_category ALTER COLUMN product_category_id SET DEFAULT nextval('public.product_category_product_category_id_seq'::regclass);
+
+
+--
+-- Name: salary_bonus_log log_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.salary_bonus_log ALTER COLUMN log_id SET DEFAULT nextval('public.salary_bonus_log_log_id_seq'::regclass);
 
 
 --
@@ -1261,17 +1380,17 @@ COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_pric
 -- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, email, member_points, rank, registration_date, password, last_active_at) FROM stdin;
-1	Nguyen Van A	M	1990-01-01	0901000001	a.nguyen@email.com	20	silver	2024-06-01	password1	2025-06-01 23:17:35.346359
-2	Tran Thi B	F	1992-02-02	0901000002	b.tran@email.com	20	silver	2024-06-02	password2	2025-06-01 23:17:35.346359
-3	Le Van C	M	1988-03-03	0901000003	c.le@email.com	20	silver	2024-06-03	password3	2025-06-01 23:17:35.346359
-4	Pham Thi D	F	1995-04-04	0901000004	d.pham@email.com	20	silver	2024-06-04	password4	2025-06-01 23:17:35.346359
-6	Bui Thi F	F	1991-06-06	0901000006	f.bui@email.com	20	silver	2024-06-06	password6	2025-06-01 23:17:35.346359
-7	Doan Van G	M	1989-07-07	0901000007	g.doan@email.com	20	silver	2024-06-07	password7	2025-06-01 23:17:35.346359
-9	Pham Van I	M	1994-09-09	0901000009	i.pham@email.com	20	silver	2024-06-09	password9	2025-06-01 23:17:35.346359
-5	Vo Minh E	M	1993-05-05	0901000005	e.vo@email.com	20	silver	2024-06-05	password5	2025-06-02 06:56:24.738184
-10	Tran Thi J	F	1997-10-10	0901000010	j.tran@email.com	20	silver	2024-06-10	password10	2025-06-01 23:17:35.346359
-8	Dang Thi H	F	1996-08-08	0901000008	h.dang@email.com	20	silver	2024-06-08	password8	2025-06-02 07:24:47.054879
+COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, email, member_points, rank, registration_date, password, last_active_at, status) FROM stdin;
+1	Nguyen Van A	M	1990-01-01	0901000001	a.nguyen@email.com	21	silver	2024-06-01	password1	2025-06-01	active
+2	Tran Thi B	F	1992-02-02	0901000002	b.tran@email.com	21	silver	2024-06-02	password2	2025-06-01	active
+3	Le Van C	M	1988-03-03	0901000003	c.le@email.com	21	silver	2024-06-03	password3	2025-06-01	active
+4	Pham Thi D	F	1995-04-04	0901000004	d.pham@email.com	21	silver	2024-06-04	password4	2025-06-01	active
+6	Bui Thi F	F	1991-06-06	0901000006	f.bui@email.com	21	silver	2024-06-06	password6	2025-06-01	active
+7	Doan Van G	M	1989-07-07	0901000007	g.doan@email.com	21	silver	2024-06-07	password7	2025-06-01	active
+9	Pham Van I	M	1994-09-09	0901000009	i.pham@email.com	21	silver	2024-06-09	password9	2025-06-01	active
+5	Vo Minh E	M	1993-05-05	0901000005	e.vo@email.com	21	silver	2024-06-05	password5	2025-06-02	active
+10	Tran Thi J	F	1997-10-10	0901000010	j.tran@email.com	21	silver	2024-06-10	password10	2025-06-01	active
+8	Dang Thi H	F	1996-08-08	0901000008	h.dang@email.com	21	silver	2024-06-08	password8	2025-06-02	active
 \.
 
 
@@ -1298,12 +1417,12 @@ COPY public.employee (employee_id, full_name, role, age, national_id, gender, ad
 4	David Kim	sales_staff	40	ID004	M	321 South St	0123456792	david@example.com	1500.00	davidpass	pending
 8	Henry Ford	sales_staff	38	ID008	M	258 Garden Dr	0123456796	henry@example.com	1100.00	henrypass	pending
 9	Ivy Nguyen	sales_staff	27	ID009	F	369 Lake St	0123456797	ivy@example.com	1450.00	ivypass	active
-3	Carol Lee	sales_staff	35	ID003	F	789 North Rd	0123456791	carol@example.com	1200.00	carolpass	active
-5	Eva Green	sales_staff	28	ID005	F	654 West St	0123456793	eva@example.com	950.00	evapass	active
-10	Jack White	sales_staff	31	ID010	M	753 Hill Rd	0123456798	jack@example.com	970.00	jackpass	active
-6	Frank Brown	sales_staff	32	ID006	M	987 East Ave	0123456794	frank@example.com	820.00	frankpass	active
 2	Bob Smith	sales_staff	30	ID002	M	456 First Ave	0123456790	bob@example.com	900.00	bobpass	active
 7	Grace Lee	sales_staff	29	ID007	F	147 Park Blvd	0123456795	grace@example.com	880.00	gracepass	resigned
+10	Jack White	sales_staff	31	ID010	M	753 Hill Rd	0123456798	jack@example.com	970.00	jackpass	pending
+3	Carol Lee	manager	35	ID003	F	789 North Rd	0123456791	carol@example.com	1200.00	carolpass	active
+5	Eva Green	manager	28	ID005	F	654 West St	0123456793	eva@example.com	950.00	evapass	active
+6	Frank Brown	sales_staff	32	ID006	M	987 East Ave	0123456794	frank@example.com	820.00	frankpass	active
 \.
 
 
@@ -1311,14 +1430,22 @@ COPY public.employee (employee_id, full_name, role, age, national_id, gender, ad
 -- Data for Name: employment_contract; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.employment_contract (contract_id, employee_id, contract_date, termination_reason, termination_date, content, contract_end_date, effective_date) FROM stdin;
-1	2	2024-06-01	\N	\N	Labor contract for Bob Smith	2026-06-01	2024-06-10
-2	3	2024-06-01	\N	\N	Labor contract for Carol Lee	2026-06-01	2024-06-10
-3	5	2024-06-01	\N	\N	Labor contract for Eva Green	2026-06-01	2024-06-10
-4	6	2024-06-01	\N	\N	Labor contract for Frank Brown	2026-06-01	2024-06-10
-5	9	2024-06-01	\N	\N	Labor contract for Ivy Nguyen	2026-06-01	2024-06-10
-6	10	2024-06-01	\N	\N	Labor contract for Jack White	2026-06-01	2024-06-10
-8	7	2022-06-01	Contract ended normally	2023-06-10	Expired labor contract for Grace Lee	2023-06-10	2022-06-10
+COPY public.employment_contract (contract_id, employee_id, contract_date, termination_reason, termination_date, content, contract_end_date, effective_date, status) FROM stdin;
+1	2	2024-06-01	\N	\N	Labor contract for Bob Smith	2026-06-01	2024-06-10	active
+2	3	2024-06-01	\N	\N	Labor contract for Carol Lee	2026-06-01	2024-06-10	active
+3	5	2024-06-01	\N	\N	Labor contract for Eva Green	2026-06-01	2024-06-10	active
+4	6	2024-06-01	\N	\N	Labor contract for Frank Brown	2026-06-01	2024-06-10	active
+5	9	2024-06-01	\N	\N	Labor contract for Ivy Nguyen	2026-06-01	2024-06-10	active
+6	10	2024-06-01	\N	\N	Labor contract for Jack White	2026-06-01	2024-06-10	active
+8	7	2022-06-01	Contract ended normally	2023-06-10	Expired labor contract for Grace Lee	2023-06-10	2022-06-10	active
+\.
+
+
+--
+-- Data for Name: operating_expense_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.operating_expense_log (log_id, expense_type, amount_paid, pay_date, note) FROM stdin;
 \.
 
 
@@ -1373,6 +1500,26 @@ COPY public.product (product_id, product_name, product_type, price, unit, descri
 9	Instant Noodles	Dry Food	7000.00	pack	\N	3
 10	Shampoo	Cosmetic	45000.00	bottle	\N	3
 16	Microwave Oven	Appliance	1800000.00	piece	\N	4
+21	Eggs	Fresh Food	35000.00	dozen		1
+22	Orange	Fruit	40000.00	kg		2
+23	Potato	Vegetable	20000.00	kg		2
+24	Broccoli	Vegetable	35000.00	piece		2
+25	Grapes	Fruit	65000.00	kg		2
+26	Green Tea	Dry Food	25000.00	box		3
+27	Coffee	Dry Food	75000.00	box		3
+28	Mouthwash	Cosmetic	55000.00	bottle		3
+29	Hair Gel	Cosmetic	50000.00	tube		3
+30	Electric Fan	Appliance	450000.00	piece		4
+31	Rice Cooker Mini	Appliance	400000.00	piece		4
+32	Air Fryer	Appliance	1800000.00	piece		4
+33	Iron	Appliance	320000.00	piece		4
+34	Fabric Softener	Chemical	90000.00	bottle		5
+35	Hand Soap	Chemical	30000.00	bottle		5
+36	Surface Cleaner	Chemical	35000.00	bottle		5
+37	Hand Sanitizer	Chemical	45000.00	bottle		5
+38	Frozen Shrimp	Fresh Food	90000.00	kg		1
+39	Fish Ball	Fresh Food	70000.00	kg		1
+40	Bread	Dry Food	20000.00	bag		3
 \.
 
 
@@ -1386,6 +1533,14 @@ COPY public.product_category (product_category_id, name, warehouse_category_id) 
 3	Dry Food & Cosmetics	3
 4	Household Appliances	4
 5	Chemicals	5
+\.
+
+
+--
+-- Data for Name: salary_bonus_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.salary_bonus_log (log_id, employee_id, pay_period, pay_type, amount_paid, pay_date, note) FROM stdin;
 \.
 
 
@@ -1427,6 +1582,9 @@ COPY public.warehouse_category (warehouse_category_id, name) FROM stdin;
 --
 
 COPY public.work_status_log (log_id, employee_id, status, log_time, note) FROM stdin;
+1	10	pending	2025-06-02	Status changed automatically
+2	6	pending	2025-06-02	Status changed automatically
+3	6	active	2025-06-02	Status changed automatically
 \.
 
 
@@ -1441,7 +1599,7 @@ SELECT pg_catalog.setval('public.batch_batch_id_seq', 55, true);
 -- Name: customer_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.customer_customer_id_seq', 10, true);
+SELECT pg_catalog.setval('public.customer_customer_id_seq', 513, true);
 
 
 --
@@ -1466,6 +1624,13 @@ SELECT pg_catalog.setval('public.employment_contract_contract_id_seq', 8, true);
 
 
 --
+-- Name: operating_expense_log_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.operating_expense_log_log_id_seq', 1, false);
+
+
+--
 -- Name: order_detail_order_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1483,7 +1648,14 @@ SELECT pg_catalog.setval('public.product_category_product_category_id_seq', 7, t
 -- Name: product_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.product_product_id_seq', 20, true);
+SELECT pg_catalog.setval('public.product_product_id_seq', 40, true);
+
+
+--
+-- Name: salary_bonus_log_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.salary_bonus_log_log_id_seq', 1, false);
 
 
 --
@@ -1504,7 +1676,7 @@ SELECT pg_catalog.setval('public.warehouse_warehouse_id_seq', 10, true);
 -- Name: work_status_log_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.work_status_log_log_id_seq', 1, false);
+SELECT pg_catalog.setval('public.work_status_log_log_id_seq', 3, true);
 
 
 --
@@ -1516,6 +1688,14 @@ ALTER TABLE ONLY public.batch
 
 
 --
+-- Name: customer customer_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customer
+    ADD CONSTRAINT customer_email_unique UNIQUE (email);
+
+
+--
 -- Name: customer_order customer_order_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1524,11 +1704,35 @@ ALTER TABLE ONLY public.customer_order
 
 
 --
+-- Name: customer customer_phone_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customer
+    ADD CONSTRAINT customer_phone_unique UNIQUE (phone);
+
+
+--
 -- Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.customer
     ADD CONSTRAINT customer_pkey PRIMARY KEY (customer_id);
+
+
+--
+-- Name: employee employee_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employee
+    ADD CONSTRAINT employee_email_unique UNIQUE (email);
+
+
+--
+-- Name: employee employee_phone_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employee
+    ADD CONSTRAINT employee_phone_unique UNIQUE (phone);
 
 
 --
@@ -1545,6 +1749,14 @@ ALTER TABLE ONLY public.employee
 
 ALTER TABLE ONLY public.employment_contract
     ADD CONSTRAINT employment_contract_pkey PRIMARY KEY (contract_id);
+
+
+--
+-- Name: operating_expense_log operating_expense_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.operating_expense_log
+    ADD CONSTRAINT operating_expense_log_pkey PRIMARY KEY (log_id);
 
 
 --
@@ -1569,6 +1781,14 @@ ALTER TABLE ONLY public.product_category
 
 ALTER TABLE ONLY public.product
     ADD CONSTRAINT product_pkey PRIMARY KEY (product_id);
+
+
+--
+-- Name: salary_bonus_log salary_bonus_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.salary_bonus_log
+    ADD CONSTRAINT salary_bonus_log_pkey PRIMARY KEY (log_id);
 
 
 --
@@ -1652,13 +1872,6 @@ CREATE TRIGGER trg_check_rank_valid BEFORE UPDATE OF rank ON public.customer FOR
 
 
 --
--- Name: product trg_check_zero_stock_quantity; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER trg_check_zero_stock_quantity BEFORE INSERT ON public.product FOR EACH ROW EXECUTE FUNCTION public.check_zero_stock_quantity();
-
-
---
 -- Name: employee trg_enforce_contract_on_status_change; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -1670,6 +1883,20 @@ CREATE TRIGGER trg_enforce_contract_on_status_change BEFORE UPDATE OF employment
 --
 
 CREATE TRIGGER trg_enforce_pending_on_insert BEFORE INSERT ON public.employee FOR EACH ROW EXECUTE FUNCTION public.enforce_pending_on_insert();
+
+
+--
+-- Name: employee trg_log_employee_status_change; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_log_employee_status_change AFTER UPDATE OF employment_status ON public.employee FOR EACH ROW EXECUTE FUNCTION public.log_employee_status_change();
+
+
+--
+-- Name: employee trg_log_employee_status_on_insert; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_log_employee_status_on_insert AFTER INSERT ON public.employee FOR EACH ROW EXECUTE FUNCTION public.log_employee_status_on_insert();
 
 
 --
@@ -1806,6 +2033,14 @@ ALTER TABLE ONLY public.product_category
 
 ALTER TABLE ONLY public.product
     ADD CONSTRAINT product_product_category_id_fkey FOREIGN KEY (product_category_id) REFERENCES public.product_category(product_category_id);
+
+
+--
+-- Name: salary_bonus_log salary_bonus_log_employee_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.salary_bonus_log
+    ADD CONSTRAINT salary_bonus_log_employee_id_fkey FOREIGN KEY (employee_id) REFERENCES public.employee(employee_id);
 
 
 --

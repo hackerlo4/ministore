@@ -1476,3 +1476,158 @@ CREATE TABLE work_status_log (
     )
 );
 
+-- tu dong log khi update trang thai employee
+CREATE OR REPLACE FUNCTION log_employee_status_change()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.employment_status IS DISTINCT FROM OLD.employment_status THEN
+        INSERT INTO work_status_log(employee_id, status, log_time, note)
+        VALUES (NEW.employee_id, NEW.employment_status, CURRENT_DATE, 'Status changed automatically');
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_log_employee_status_change ON employee;
+CREATE TRIGGER trg_log_employee_status_change
+AFTER UPDATE OF employment_status ON employee
+FOR EACH ROW
+EXECUTE FUNCTION log_employee_status_change();
+
+-- trigger tu dong log khi chen nhan vien moi
+CREATE OR REPLACE FUNCTION log_employee_status_on_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO work_status_log(employee_id, status, log_time, note)
+    VALUES (NEW.employee_id, NEW.employment_status, CURRENT_DATE, 'Employee created');
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_log_employee_status_on_insert ON employee;
+CREATE TRIGGER trg_log_employee_status_on_insert
+AFTER INSERT ON employee
+FOR EACH ROW
+EXECUTE FUNCTION log_employee_status_on_insert();
+
+-- kiem tra vai tro cua nhan vien
+CREATE OR REPLACE FUNCTION check_employee_role(p_employee_id INT, p_role VARCHAR)
+RETURNS VOID AS $$
+DECLARE
+    v_role VARCHAR(64);
+BEGIN
+    SELECT role INTO v_role FROM employee WHERE employee_id = p_employee_id;
+    IF v_role IS NULL THEN
+        RAISE EXCEPTION 'Employee % does not exist.', p_employee_id;
+    END IF;
+    IF v_role <> p_role THEN
+        RAISE EXCEPTION 'Employee % does not have required role: % (actual: %)', p_employee_id, p_role, v_role;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- ham update status cho nhan vien
+CREATE OR REPLACE FUNCTION update_employee_status(
+    p_executor_id INT,      -- id người thực hiện (nhân viên thao tác)
+    p_target_id INT,        -- id nhân viên bị thay đổi
+    p_new_status VARCHAR    -- trạng thái mới
+)
+RETURNS VOID AS $$
+BEGIN
+    PERFORM check_employee_role(p_executor_id, 'manager');
+    IF p_new_status NOT IN (
+        'active', 'on_leave', 'on_maternity_leave', 'contract_suspended',
+        'probation', 'suspended', 'resigned', 'pending'
+    ) THEN
+        RAISE EXCEPTION 'Invalid status: %', p_new_status;
+    END IF;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Target employee % does not exist.', p_target_id;
+    END IF;
+    UPDATE employee
+    SET employment_status = p_new_status
+    WHERE employee_id = p_target_id;
+END;
+$$ LANGUAGE plpgsql;
+
+update employee set role = 'manager' where employee_id in (3,5);
+
+-- xoa mot so ham, trigger thua
+-- Xóa trigger (nếu còn liên kết ở bảng product)
+DROP TRIGGER IF EXISTS trg_prevent_manual_stock_quantity_update ON product;
+
+-- Xóa function
+DROP FUNCTION IF EXISTS prevent_manual_stock_quantity_update();
+
+-- Xóa trigger kiểm tra zero stock quantity khi thêm product
+DROP TRIGGER IF EXISTS trg_check_zero_stock_quantity ON product;
+
+-- Xóa function
+DROP FUNCTION IF EXISTS check_zero_stock_quantity();
+
+DROP FUNCTION IF EXISTS refresh_final_status();
+
+-- them status cho customer
+ALTER TABLE customer
+ADD COLUMN status VARCHAR(16) NOT NULL DEFAULT 'active'
+    CHECK (status IN ('active', 'blocked'));
+
+ALTER TABLE customer ALTER COLUMN last_active_at TYPE date;
+
+INSERT INTO product (product_name, product_type, price, unit, description, product_category_id) VALUES
+('Eggs',               'Fresh Food',      35000.00,  'dozen', '', 1),
+('Orange',             'Fruit',           40000.00,  'kg',    '', 2),
+('Potato',             'Vegetable',       20000.00,  'kg',    '', 2),
+('Broccoli',           'Vegetable',       35000.00,  'piece', '', 2),
+('Grapes',             'Fruit',           65000.00,  'kg',    '', 2),
+('Green Tea',          'Dry Food',        25000.00,  'box',   '', 3),
+('Coffee',             'Dry Food',        75000.00,  'box',   '', 3),
+('Mouthwash',          'Cosmetic',        55000.00,  'bottle','', 3),
+('Hair Gel',           'Cosmetic',        50000.00,  'tube',  '', 3),
+('Electric Fan',       'Appliance',      450000.00,  'piece', '', 4),
+('Rice Cooker Mini',   'Appliance',      400000.00,  'piece', '', 4),
+('Air Fryer',          'Appliance',     1800000.00,  'piece', '', 4),
+('Iron',               'Appliance',      320000.00,  'piece', '', 4),
+('Fabric Softener',    'Chemical',        90000.00,  'bottle','', 5),
+('Hand Soap',          'Chemical',        30000.00,  'bottle','', 5),
+('Surface Cleaner',    'Chemical',        35000.00,  'bottle','', 5),
+('Hand Sanitizer',     'Chemical',        45000.00,  'bottle','', 5),
+('Frozen Shrimp',      'Fresh Food',      90000.00,  'kg',    '', 1),
+('Fish Ball',          'Fresh Food',      70000.00,  'kg',    '', 1),
+('Bread',              'Dry Food',        20000.00,  'bag',   '', 3);
+
+-- Với bảng customer
+ALTER TABLE customer ADD CONSTRAINT customer_phone_unique UNIQUE(phone);
+ALTER TABLE customer ADD CONSTRAINT customer_email_unique UNIQUE(email);
+
+-- Với bảng employee
+ALTER TABLE employee ADD CONSTRAINT employee_phone_unique UNIQUE(phone);
+ALTER TABLE employee ADD CONSTRAINT employee_email_unique UNIQUE(email);
+
+-- them cac truong log cho chi phi
+CREATE TABLE salary_bonus_log (
+    log_id SERIAL PRIMARY KEY,
+    employee_id INTEGER NOT NULL REFERENCES employee(employee_id),
+    pay_period VARCHAR(16),  -- Payment period (nullable for bonus)
+    pay_type VARCHAR(16) NOT NULL CHECK (pay_type IN ('salary', 'bonus')),
+    amount_paid NUMERIC(15,2) NOT NULL,
+    pay_date DATE NOT NULL,
+    note TEXT
+);
+CREATE TABLE operating_expense_log (
+    log_id SERIAL PRIMARY KEY,
+    expense_type VARCHAR(16) NOT NULL CHECK (expense_type IN ('tax', 'electricity', 'water', 'rent', 'other')),
+    amount_paid NUMERIC(15,2) NOT NULL,
+    pay_date DATE NOT NULL,
+    note TEXT
+);
+
+-- them truong trang thai cho employee
+ALTER TABLE employment_contract
+ADD COLUMN status VARCHAR(16) NOT NULL DEFAULT 'active'
+    CHECK (status IN ('active', 'terminated'));
+
+-- them trang thai salary_bonus_log
+ALTER TABLE salary_bonus_log
+    ALTER COLUMN pay_type TYPE VARCHAR(16),
+    DROP CONSTRAINT salary_bonus_log_pay_type_check,
+    ADD CONSTRAINT salary_bonus_log_pay_type_check
+        CHECK (pay_type IN ('salary', 'bonus', 'penalty'));
