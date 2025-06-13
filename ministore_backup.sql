@@ -3883,9 +3883,524 @@ COPY public.batch (batch_id, product_id, import_date, expiry_date, purchase_pric
 --
 
 COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, email, member_points, rank, registration_date, password, last_active_at, status) FROM stdin;
+514	Emmeline MacHostie	M	1991-07-28	6134592101	emachostie0@qq.com	503	\N	2021-09-24	bO4/%pBy#mJs(C	2024-01-05	active
+515	Merla Sapena	F	2004-06-03	9805776775	msapena1@dailymail.co.uk	1831	\N	2020-01-18	tO0_Ju|6qq	2024-07-31	active
+516	Don Gerholz	F	1985-09-18	2171873691	dgerholz2@theatlantic.com	1841	\N	2021-12-30	fL4&}43?=FX{	2024-12-23	active
+517	Shanta Astall	F	1994-08-25	6795334817	sastall3@pbs.org	2365	\N	2020-07-15	pN0,WiuM9=jNFl,b	2024-11-18	active
+518	Oliy Challender	F	1988-05-01	4743380969	ochallender4@google.com	4306	\N	2022-05-08	mN7_)Qq(zKQQ	2024-08-04	active
+519	Meryl Degue	M	1983-06-14	4325403843	mdegue5@joomla.org	1359	\N	2022-02-02	pS5=w_"+sj`Yi	2024-06-21	active
+520	Joane Feckey	F	1993-11-09	4463972586	jfeckey6@gov.uk	2421	\N	2021-02-12	pV9`JBr36b8vsp	2024-10-28	active
+521	Ardenia Wettern	M	1989-08-30	5675425703	awettern7@mozilla.org	3458	\N	2021-09-21	jL6|E+AgZgsz=i	2024-05-04	active
+522	Harriott Rimer	F	1996-10-25	9696190628	hrimer8@goo.gl	4387	\N	2020-05-31	gC8&J4d$bx	2024-04-04	active
+523	Vernor Antonietti	F	1989-04-07	8865111840	vantonietti9@washingtonpost.com	3954	\N	2021-08-08	dL1@B=qjn()Ayb{l	2024-02-01	active
+524	Chilton Monday	F	1987-05-10	7357742697	cmondaya@youtube.com	2242	\N	2022-05-12	mM6=CG!fJun<&>6	2024-08-15	active
+525	Whittaker McKelvey	M	2001-04-27	8045411092	wmckelveyb@adobe.com	2851	\N	2020-08-28	oU4$iO=}&BsGB`	2024-05-14	active
+526	Chariot Whelpton	M	1985-06-06	9833229877	cwhelptonc@stanford.edu	1153	\N	2021-01-16	bJ5?dVt|P+cI<)	2024-09-13	active
+527	Granville Cavanagh	F	2002-06-08	1444967850	gcavanaghd@mapy.cz	3594	\N	2021-05-25	uN9,S0Eq|D	2024-01-23	active
+528	Felecia Burdell	F	1999-09-03	4395129512	fburdelle@cargocollective.com	3149	\N	2021-07-12	vP5!S8#_E+BNUhk	2024-04-19	active
+529	Paddie Dahlback	F	1990-08-03	6157166469	pdahlbackf@deliciousdays.com	3478	\N	2021-11-21	nH9&=(&V~uOJS0@M	2024-12-24	active
+530	Reube Sprowles	F	1984-01-26	6861503638	rsprowlesg@cnn.com	2848	\N	2021-04-02	eS0<)PY*>FE_	2024-08-13	active
+531	Ruthanne Jekel	F	1999-12-24	7041687368	rjekelh@indiatimes.com	732	\N	2022-03-18	dE7!hZKrSDe)nI#	2024-01-06	active
+532	Winnie Keneforde	F	1985-08-17	9005631247	wkenefordei@answers.com	4953	\N	2021-07-30	iV7`KtP|Va>Y@u	2024-04-10	active
+533	Keane Callendar	F	1982-03-23	1112556996	kcallendarj@epa.gov	1572	\N	2020-09-05	lN4/5DzusPTeIFa	2024-12-16	active
+534	Raf Pelos	M	2000-06-06	1833051246	rpelosk@china.com.cn	2738	\N	2022-04-05	aZ9@HN`<)84..l	2024-05-26	active
+535	Belvia Swinford	F	1982-08-14	5761296787	bswinfordl@google.es	4404	\N	2020-03-05	kN7~H4x}S>Hm4BSt	2024-01-31	active
+536	Reeba Haselgrove	F	1994-04-18	2451599607	rhaselgrovem@devhub.com	1468	\N	2020-01-05	xB0\\UKnXET(k*uU	2024-08-14	active
+537	Cissy Cusiter	M	1999-08-22	5136187133	ccusitern@digg.com	366	\N	2021-09-11	xJ9<.WodYILgt08	2024-10-02	active
+538	George Rodinger	M	1985-07-26	5659423889	grodingero@woothemes.com	3182	\N	2020-02-23	uB6)~j>d9.f	2024-10-31	active
+539	Zsazsa Kimmince	F	1982-10-24	4927855057	zkimmincep@discuz.net	1315	\N	2020-06-18	kF7}jDq<ydy)nd	2024-04-24	active
+540	Bambie Mewes	F	1986-08-15	6558891201	bmewesq@cloudflare.com	171	\N	2020-09-30	cQ4'*Si3An"dfdS	2024-05-30	active
+541	Silas Reedick	F	1984-12-28	1288582852	sreedickr@google.com	4806	\N	2022-12-13	fH6)#o*N4a	2024-12-09	active
+542	Marline Baldazzi	M	1982-10-06	9847226489	mbaldazzis@icio.us	2778	\N	2021-08-17	uB0<wo}fuYbQ	2024-03-06	active
+543	Oliy Basant	F	2004-02-18	8503115129	obasantt@hhs.gov	3742	\N	2020-01-16	kD7"W$hlX\\*3qe.	2024-10-19	active
+544	Jessy Althrope	F	1981-09-20	8805831003	jalthropeu@newyorker.com	1250	\N	2020-01-13	bB0@pl"I	2024-06-02	active
+545	Joye Rodge	M	1991-07-17	9029023729	jrodgev@apache.org	1277	\N	2022-11-03	xM0#Mo~T`ms3G>*	2024-12-12	active
+546	Broderick Le Provest	F	1996-07-13	2213243633	blew@hp.com	3687	\N	2022-11-11	aG0.Y64L6`<01hGI	2024-12-23	active
+547	Hobard Offell	F	1992-10-11	7024402861	hoffellx@wp.com	1574	\N	2021-02-28	xG7?nk<nHrU8	2024-12-06	active
+548	Alfredo Mandeville	M	1986-12-21	7015138505	amandevilley@indiatimes.com	1315	\N	2020-01-07	pF8)=&Ta+cBJ	2024-12-26	active
+549	Becca Bagniuk	F	2003-07-04	2357279607	bbagniukz@drupal.org	3115	\N	2020-03-22	hA3,H\\8?6a3r#V&	2024-08-20	active
+550	Leonid Colam	F	1992-10-06	8828648564	lcolam10@behance.net	310	\N	2021-04-19	rD2~B"tWP*q	2024-12-14	active
+551	Bowie Boorne	M	1985-12-04	1044089253	bboorne11@statcounter.com	2143	\N	2022-07-27	wM1)8Xr/+@!	2024-05-17	active
+552	Patricio Abramovitch	M	1992-10-18	8075491826	pabramovitch12@devhub.com	753	\N	2022-04-16	vK2?q/|ViI!J8u46	2024-05-03	active
+553	Fallon Waggatt	F	1981-08-02	3806357581	fwaggatt13@flavors.me	1628	\N	2020-07-06	kL1@d('8	2024-04-21	active
+554	Luis Ewells	F	1988-08-13	5169444188	lewells14@photobucket.com	3515	\N	2021-05-08	bM3+YP!RwU	2024-01-18	active
+555	Deborah Youle	M	2002-11-17	6548361461	dyoule15@51.la	3727	\N	2020-02-13	kN7=?Z!CD	2024-12-04	active
+556	Gardener Lorenzetti	F	2002-07-05	1787698323	glorenzetti16@engadget.com	1988	\N	2020-11-30	dI7~k!DY9>sOl	2024-05-26	active
+557	Debra Sizland	M	1984-10-16	5736060282	dsizland17@jimdo.com	3728	\N	2022-12-09	lL2@f=76IUH	2024-08-06	active
+558	Syd Dellenbroker	M	1985-08-05	3789854424	sdellenbroker18@umn.edu	2119	\N	2021-11-11	aX9{Ya,yyx.	2024-12-24	active
+559	Lyn O'Moylan	F	1991-11-24	1957005475	lomoylan19@microsoft.com	1345	\N	2020-03-07	oY6?`e?S64o	2024-11-19	active
+560	Craggie Butner	M	1998-01-19	8283385562	cbutner1a@pagesperso-orange.fr	4306	\N	2020-03-17	sT3&h#=e*@,'	2024-10-06	active
+561	Karoline Coaten	F	1982-11-25	3037344988	kcoaten1b@wufoo.com	2945	\N	2021-06-11	uE6_3T/a'=h$A@	2024-09-09	active
+562	Patrizio Scurrey	F	1986-02-05	7417128632	pscurrey1c@addtoany.com	3958	\N	2022-04-12	yX6?zd+`6)55P~	2024-09-03	active
+563	Edi Blas	F	1995-03-15	9298587859	eblas1d@comsenz.com	1070	\N	2022-02-10	zB6%@ap4BHjn6'(	2024-02-27	active
+564	Elnore Cogdon	F	1998-02-22	2532152858	ecogdon1e@samsung.com	765	\N	2021-11-09	mE7=2ym35Er35p	2024-11-24	active
+565	Cristi Klaff	F	1992-11-16	9608483875	cklaff1f@ibm.com	4673	\N	2021-03-15	nE2~6M2K#.#{LSf	2024-02-29	active
+566	Elwin Book	F	1997-03-02	7453926059	ebook1g@w3.org	349	\N	2021-05-16	tV7*hM3`|,zrpVi	2024-08-20	active
+567	Fidelia Phetteplace	M	2000-10-13	4342178365	fphetteplace1h@amazon.com	221	\N	2022-01-28	kG2)r8OLlb@Z$_	2024-01-11	active
+568	Erica Girdler	M	2003-06-04	4069232339	egirdler1i@slashdot.org	3258	\N	2022-03-25	wD8~!6t{	2024-07-02	active
+569	Boniface Clayborn	F	2002-03-22	5595860374	bclayborn1j@facebook.com	4983	\N	2022-07-09	qQ9*H_=P<	2024-05-17	active
+570	Shaylah Blindmann	F	1996-04-14	4393848807	sblindmann1k@marriott.com	4959	\N	2022-07-14	fO0&)%@Q=cd	2024-05-01	active
 1	Nguyen Van A	M	1990-01-01	0901000001	a.nguyen@email.com	21	silver	2024-06-01	password1	2025-06-01	active
 2	Tran Thi B	F	1992-02-02	0901000002	b.tran@email.com	21	silver	2024-06-02	password2	2025-06-01	active
 3	Le Van C	M	1988-03-03	0901000003	c.le@email.com	21	silver	2024-06-03	password3	2025-06-01	active
+571	Ally Renzo	M	1995-11-09	7345636600	arenzo1l@sciencedaily.com	400	\N	2021-03-29	dF5&&ZU}k|NKh	2024-10-18	active
+572	Daron Hadleigh	F	1985-10-19	6657366151	dhadleigh1m@mapquest.com	4291	\N	2021-11-05	bD0?v6)y	2024-10-08	active
+573	Llewellyn Merigot	F	1991-09-30	3507086573	lmerigot1n@example.com	811	\N	2022-10-14	oB2#KG6F{u	2024-02-23	active
+574	Burch Akitt	M	1985-03-20	4532745255	bakitt1o@icq.com	1511	\N	2020-11-17	kA8~8$KQS_.z|T	2024-10-06	active
+575	Camel Anneslie	F	1992-06-04	1441332751	canneslie1p@cocolog-nifty.com	3656	\N	2021-10-07	iG6$eWo8.WhJ513}	2024-01-12	active
+576	Willabella Henker	F	1993-04-16	1938309369	whenker1q@quantcast.com	4804	\N	2021-07-04	qS3/VDS.o"rv}=<m	2024-09-21	active
+577	Meredith Yoselevitch	M	1994-10-27	1338848426	myoselevitch1r@howstuffworks.com	1847	\N	2020-07-21	cT1'MEgu\\Tdg*	2024-05-11	active
+578	Desmond Napolitano	F	1996-07-04	9718499429	dnapolitano1s@hud.gov	2247	\N	2022-11-05	xZ5'L=1_7gksUu|r	2024-08-28	active
+579	Arie Folan	M	1988-01-26	5012280520	afolan1t@europa.eu	1584	\N	2022-02-01	aZ3(#H*|kDO8	2024-01-29	active
+580	Orton Ianitti	M	1983-03-03	5653779474	oianitti1u@chronoengine.com	4879	\N	2020-11-09	uN4&c<sgxMsz>)	2024-02-14	active
+581	Maurizia Quiney	M	1982-04-25	4423895832	mquiney1v@amazon.de	2231	\N	2022-06-18	sT8<QZS}k	2024-01-29	active
+582	Kary Jachimak	M	1982-07-26	7335688284	kjachimak1w@oakley.com	1250	\N	2022-08-05	qG7&"'{i.SVUd0F*	2024-06-13	active
+583	Stanford Kedie	F	1985-05-23	2412281247	skedie1x@usa.gov	1056	\N	2022-01-03	rU0'9hE<	2024-09-21	active
+584	Pryce Ever	M	1980-12-25	9508138115	pever1y@twitpic.com	4141	\N	2022-10-21	sX2`1(\\(DjL	2024-10-21	active
+585	Stanleigh Few	F	1990-05-11	8255619200	sfew1z@mozilla.org	4358	\N	2021-04-13	wJ0`l'!yEi>I(@nh	2024-12-18	active
+586	Gabriella Oliva	M	1996-03-10	6377896969	goliva20@earthlink.net	149	\N	2021-07-13	eS0'Nc&73.V+f2B	2024-08-23	active
+587	Nealy Ranger	F	2001-03-01	6704129396	nranger21@webeden.co.uk	2587	\N	2021-05-22	yW0@!)ppP9A	2024-01-22	active
+588	Porter Tatchell	M	1987-11-30	9799717559	ptatchell22@seattletimes.com	3298	\N	2022-12-08	nJ3('e+})k	2024-08-06	active
+589	Lissy Corkel	F	1981-04-16	9852729742	lcorkel23@friendfeed.com	4969	\N	2021-12-26	aX9{mm`O)5h&u5	2024-04-22	active
+590	Gerek Neal	M	1980-12-14	1852780275	gneal24@jimdo.com	1008	\N	2022-02-20	lA8{Y>6{(kM7?+D	2024-07-31	active
+591	Domenic Fanthome	M	1982-03-27	8766455669	dfanthome25@weather.com	4715	\N	2020-08-20	oS6#(RtlN	2024-11-23	active
+592	Sheffield Syder	M	1980-02-03	5821619517	ssyder26@addthis.com	4152	\N	2021-09-29	aB9%EknfMeT	2024-12-08	active
+593	Grenville Stacey	M	1981-11-03	4212662686	gstacey27@intel.com	1512	\N	2021-03-16	dL8{PlD`@~I7ARVZ	2024-12-29	active
+594	Hillard Duggan	F	1994-04-07	6477109658	hduggan28@imageshack.us	1319	\N	2020-04-09	bZ5>O.?b!Vcu@*_	2024-10-14	active
+595	Turner Redmell	F	1999-11-25	2924226409	tredmell29@adobe.com	109	\N	2021-10-31	wN4@r7ev	2024-12-16	active
+596	Carmine Sowersby	M	1981-09-01	7356778122	csowersby2a@mozilla.org	57	\N	2022-11-02	gE6&g\\PY|	2024-06-16	active
+597	Ilse Fenners	F	1980-01-20	1359897503	ifenners2b@stumbleupon.com	1353	\N	2022-03-09	zX9`vkLu>naAn"}V	2024-09-19	active
+598	Ransell Braybrooks	M	1986-12-05	3749488816	rbraybrooks2c@trellian.com	811	\N	2022-10-05	uE6~y_Uq(0M>3l~l	2024-02-12	active
+599	Sada Foresight	M	1994-10-06	3994129998	sforesight2d@soup.io	3604	\N	2021-12-28	xV3'#AhQDT	2024-05-30	active
+600	Gray Ambrosetti	F	1987-07-12	1129374073	gambrosetti2e@independent.co.uk	3261	\N	2022-03-25	mV9(#@2Q	2024-01-08	active
+601	Teirtza Jeandel	F	2001-01-15	9854957402	tjeandel2f@barnesandnoble.com	3166	\N	2020-02-23	cQ4_nztXI~x\\5\\	2024-06-13	active
+602	Eberto Ansell	M	1992-02-09	7191198076	eansell2g@eepurl.com	156	\N	2022-10-30	iU7#H4<xn7JPYwD	2024-01-29	active
+603	Brian Jesper	F	1991-09-30	6524589101	bjesper2h@earthlink.net	1910	\N	2021-11-17	mV2.wo@`	2024-11-14	active
+604	Cale Ruzic	M	1987-03-03	2107962996	cruzic2i@eepurl.com	2580	\N	2022-05-18	kR5$OvM0mQ?P0N	2024-04-11	active
+605	Verney Seagrave	F	1989-01-07	9364908828	vseagrave2j@multiply.com	1073	\N	2020-05-04	hN8%VN|t	2024-07-21	active
+606	Tess Furmagier	F	1991-03-23	9172888348	tfurmagier2k@github.io	4733	\N	2020-08-07	oN2`6c53#	2024-10-23	active
+607	Lesley Killingsworth	M	1996-08-10	3771711222	lkillingsworth2l@comsenz.com	1047	\N	2020-09-10	uB3.#)6T%_	2024-01-14	active
+608	Gregoor Dresser	M	1990-07-28	4479157998	gdresser2m@nsw.gov.au	3806	\N	2022-09-10	mY7&m{QdU$VX	2024-09-20	active
+609	Verne Huffy	M	1987-12-20	7821466995	vhuffy2n@wordpress.com	3997	\N	2022-06-04	mX6`podoar_TuF	2024-08-31	active
+610	Gran Paggitt	M	1980-03-23	3797364822	gpaggitt2o@meetup.com	3462	\N	2020-11-26	tW0/t")Fld!N	2024-05-24	active
+611	Natassia Accombe	F	1996-05-23	6817991098	naccombe2p@clickbank.net	2059	\N	2020-04-22	oZ9_|U7\\PBt`_ge	2024-02-20	active
+612	Davine Lever	F	1998-08-02	3502539052	dlever2q@wsj.com	890	\N	2020-09-21	sO2<2X#|K<=	2024-03-27	active
+613	Hailee Lawrenz	M	1993-03-19	8367510497	hlawrenz2r@apache.org	336	\N	2020-08-13	uZ3_j&`db*.8	2024-07-26	active
+614	Reginauld Le Friec	M	1988-11-06	3474202802	rle2s@ca.gov	2815	\N	2021-07-26	nJ8}4ugG4	2024-08-21	active
+615	Ardelle Mountney	F	1996-09-24	4355262069	amountney2t@nhs.uk	1275	\N	2020-06-05	eP3$!ky*1BLD1?@k	2024-12-06	active
+616	Alford Reyner	M	2004-09-03	6138642709	areyner2u@hao123.com	4793	\N	2020-08-08	pK0`mLCka6j/Y#	2024-04-21	active
+617	Deni Petch	F	1980-07-27	9645510732	dpetch2v@etsy.com	787	\N	2022-10-01	kF6##Sk1	2024-09-13	active
+618	Nickey Habishaw	F	1996-08-07	8556881612	nhabishaw2w@squidoo.com	4268	\N	2022-10-16	sK3}dn3M?~)C|YJ+	2024-11-08	active
+619	Rozamond Hauxwell	F	1993-07-19	5096131569	rhauxwell2x@goodreads.com	1892	\N	2021-02-13	cZ5'=}j~,pU|	2024-01-24	active
+620	Celle Berndt	M	2001-05-14	7584907217	cberndt2y@symantec.com	3040	\N	2021-09-15	gM5&FOJwtTsD	2024-10-17	active
+621	Megan Munby	F	1992-07-01	6564552825	mmunby2z@free.fr	2213	\N	2020-03-28	eA1?SXw>lnP	2024-08-26	active
+622	Richmound Whittuck	F	2000-10-22	9064103522	rwhittuck30@examiner.com	4736	\N	2022-01-14	tQ7\\{1!S1fP|~	2024-08-25	active
+623	Melina Baylis	M	1999-03-09	3945750683	mbaylis31@addtoany.com	2920	\N	2020-07-09	wB8&vNKD}7l3}OW{	2024-07-19	active
+624	Halimeda Jakoubec	M	1988-04-20	8086105627	hjakoubec32@foxnews.com	4127	\N	2020-04-19	mU1/h~IXJ$7YG6	2024-04-18	active
+625	Minta Baudichon	M	2000-09-22	9215253512	mbaudichon33@microsoft.com	1959	\N	2020-10-16	hE3@yr+y.	2024-09-29	active
+626	Dmitri Haime	M	1997-07-15	7092607965	dhaime34@ebay.co.uk	112	\N	2021-09-21	eW9_/#H+Y	2024-08-16	active
+627	Cart Odgers	F	1988-12-16	8195924399	codgers35@quantcast.com	2802	\N	2021-09-04	gM7_dk!2{2U{7	2024-03-13	active
+628	Lacey Lascell	F	1988-04-23	2688454791	llascell36@twitter.com	1710	\N	2022-08-12	jH1=V_9km	2024-12-01	active
+629	Sherilyn Timcke	M	1994-11-19	9189773686	stimcke37@gov.uk	264	\N	2020-12-01	wC9",k"i}tF3M	2024-01-31	active
+630	Cherie Cluely	M	1988-04-09	3927441497	ccluely38@intel.com	4938	\N	2020-10-17	hA5+fH0A8	2024-01-26	active
+631	Katerina Burlingham	F	2004-07-16	6609401092	kburlingham39@stanford.edu	2264	\N	2020-06-16	aN5(4,_"rJ)n&	2024-12-27	active
+632	Cleopatra Baskeyfield	M	2002-03-30	4986630581	cbaskeyfield3a@earthlink.net	231	\N	2022-08-15	eM6>C'aw	2024-01-13	active
+633	Nicky Merrikin	F	1987-11-25	1136049698	nmerrikin3b@merriam-webster.com	4439	\N	2020-08-10	fC8<QRrI.5fH?CV	2024-09-19	active
+634	Liliane Oxherd	F	1984-05-12	7103789890	loxherd3c@privacy.gov.au	4363	\N	2020-05-25	uR5`l\\K@CrXRw6K7	2024-11-26	active
+635	Marina Seaking	F	1983-01-28	4515993038	mseaking3d@huffingtonpost.com	262	\N	2021-04-23	sF7#(_`ObD	2024-03-09	active
+636	Kamillah Garnson	F	1989-07-03	1209470964	kgarnson3e@amazon.com	949	\N	2021-04-03	jS6`@REn	2024-06-30	active
+637	Kaia Bewshaw	F	1992-06-15	2356759357	kbewshaw3f@sina.com.cn	2524	\N	2021-03-03	xF5{!Z20/)30kXP?	2024-06-30	active
+638	Albrecht Birchner	M	1987-11-29	5257439872	abirchner3g@acquirethisname.com	601	\N	2022-11-23	cT9)EF,Gq%	2024-03-08	active
+639	Clemente Foad	F	1994-07-16	9357330221	cfoad3h@wsj.com	2118	\N	2021-08-26	gO7~90"t%	2024-01-11	active
+640	Sheffie Strode	M	1982-10-12	2012188652	sstrode3i@artisteer.com	2973	\N	2021-11-10	mV3=a98\\Me	2024-02-26	active
+641	Mickey Giacubbo	F	1993-01-19	2365714335	mgiacubbo3j@statcounter.com	4674	\N	2022-10-05	rL9@{tqm_eZ,uzOY	2024-03-04	active
+642	Bowie Careswell	F	1989-07-15	4675083529	bcareswell3k@51.la	3396	\N	2021-04-03	pV3{B%NO}BZ	2024-06-05	active
+643	Sheilakathryn Sawell	F	1982-02-21	7806227478	ssawell3l@goo.gl	2937	\N	2020-11-09	oX4#MvCYOe	2024-11-30	active
+644	Gwenore Rapkins	M	1998-11-03	3925859642	grapkins3m@cbslocal.com	2252	\N	2020-06-06	hF5#<tGttfI0X	2024-12-18	active
+645	Chick Clemintoni	F	1982-01-21	8846322245	cclemintoni3n@meetup.com	2469	\N	2022-08-21	iN7.QSE8r3{ow3	2024-05-29	active
+646	Xever Foxon	F	2002-09-21	5687174874	xfoxon3o@google.ru	4037	\N	2022-12-30	iZ1}UF}d(p{JIFcc	2024-07-15	active
+647	Silvia Gissop	F	1985-10-15	3045685532	sgissop3p@irs.gov	1613	\N	2022-03-07	eD0&N~oN%7	2024-08-16	active
+648	Henriette Rosenzveig	F	2001-05-14	3855730794	hrosenzveig3q@dell.com	3209	\N	2020-10-02	gE9'9)jdUJ	2024-04-05	active
+649	Ekaterina Chittleburgh	M	1982-02-02	6545919617	echittleburgh3r@csmonitor.com	1576	\N	2021-01-03	iW0*>siTG<Ef4Gw	2024-05-09	active
+650	Rivi Strand	M	1981-02-26	9791143989	rstrand3s@xing.com	731	\N	2021-01-03	yW0*l=mvvwzCElk	2024-11-12	active
+651	Prentiss MacGahy	F	2003-07-31	9617514920	pmacgahy3t@meetup.com	3750	\N	2022-09-11	pN7>_{8Qh	2024-06-06	active
+652	Arlette Purrier	F	1995-11-27	9103948806	apurrier3u@barnesandnoble.com	4320	\N	2022-12-21	zH8\\/<@dn==_	2024-02-19	active
+653	Hayward Middle	M	1992-07-02	1251766801	hmiddle3v@livejournal.com	2819	\N	2021-11-20	xI2|}.Y9VF/n#M	2024-05-22	active
+654	Charlotte Freke	F	1998-05-13	4509455765	cfreke3w@indiatimes.com	4760	\N	2020-09-15	tT5##"}C)4*0	2024-09-05	active
+655	Nikoletta Blockey	M	1986-06-13	6695785427	nblockey3x@weibo.com	3948	\N	2022-11-26	wU8'cE8k|+	2024-11-24	active
+656	Jerome Tippell	F	1991-10-30	4659550674	jtippell3y@1688.com	2449	\N	2021-07-31	jW0%JbPh3	2024-01-23	active
+657	Filia Stainsby	M	1992-08-01	6067512045	fstainsby3z@house.gov	473	\N	2022-07-24	dA7`X&RS_/Uo	2024-06-22	active
+658	Ivonne Drei	F	2003-09-05	2917589640	idrei40@pagesperso-orange.fr	1088	\N	2020-03-06	fK2&z)leo*	2024-05-30	active
+659	Pamela MacCollom	F	1994-09-30	3506673651	pmaccollom41@tripadvisor.com	3727	\N	2020-12-12	fV5~K66"&Eu	2024-08-14	active
+660	Kahlil Lowery	F	1988-09-09	9651186797	klowery42@t-online.de	2821	\N	2021-04-25	nB6`#Nx*cU'mtU	2024-12-27	active
+661	Rudie Baxstar	M	1997-10-03	4769499941	rbaxstar43@ucla.edu	4752	\N	2022-05-11	pL2{hEmUz.&	2024-07-01	active
+662	Ilyse Tarren	F	1987-12-24	4493540021	itarren44@stanford.edu	4085	\N	2020-06-09	sI6"(4je8Mirf	2024-07-05	active
+663	Roger Rogans	M	1985-08-14	5217882877	rrogans45@nbcnews.com	4793	\N	2021-01-15	yL9@qU07Ye~C5+	2024-12-31	active
+664	Leroy Lammerich	F	1986-01-03	7761463056	llammerich46@aboutads.info	3013	\N	2020-03-11	uT1%1P~+K	2024-10-24	active
+665	Pansie Haxell	F	1992-12-15	1222195586	phaxell47@newsvine.com	4341	\N	2020-12-29	jD4\\5J+a	2024-12-06	active
+666	Chauncey Boden	M	1995-01-29	3389182901	cboden48@nytimes.com	3252	\N	2022-06-25	mC5{Y?Ce	2024-12-03	active
+667	Valerye Davidy	M	1990-11-21	7297062324	vdavidy49@com.com	1981	\N	2022-10-28	kO4?i/jh	2024-02-18	active
+668	Chandal Wytchard	M	2001-04-08	7824160334	cwytchard4a@360.cn	57	\N	2022-08-05	lN4=AEBy8hK	2024-11-27	active
+669	Hannah Bilam	F	1992-10-24	3397386333	hbilam4b@yolasite.com	2164	\N	2021-08-13	lF9\\T,ddGegFM%	2024-04-17	active
+670	Bord Mockler	M	1982-03-09	6555820417	bmockler4c@ibm.com	3104	\N	2022-12-24	zF1\\iH_u#!	2024-09-28	active
+671	Lorne Skotcher	M	1986-07-30	4311975294	lskotcher4d@ucoz.com	3732	\N	2020-02-07	aR8%6P+a9K	2024-03-25	active
+672	Margarethe Borris	F	1993-09-14	3408273443	mborris4e@cnbc.com	223	\N	2021-08-10	oS8=\\FYv~Z}"_YFI	2024-11-25	active
+673	Neila Kraut	F	1984-02-29	6226447268	nkraut4f@shutterfly.com	2875	\N	2022-10-15	oY7&g/prp0"J9V&	2024-05-14	active
+674	Glenine Lanegran	F	2004-02-24	5992610330	glanegran4g@privacy.gov.au	4793	\N	2021-04-05	aF9!4G<>r	2024-08-08	active
+675	Alphonse Tracey	M	2000-02-20	2093902426	atracey4h@hugedomains.com	1377	\N	2020-07-06	zA3'(|k&uN18/	2024-05-23	active
+676	Dulsea Seyers	F	1996-05-29	8564746651	dseyers4i@google.es	3263	\N	2022-09-30	bS1/1Eb_Yv9x&/b	2024-11-07	active
+677	Cheryl Rebillard	M	2004-08-06	8347788316	crebillard4j@deliciousdays.com	4028	\N	2021-02-02	mL0!_WxSI_65,Vo7	2024-11-01	active
+678	Pammie McCourtie	F	1996-03-28	7748934799	pmccourtie4k@businessinsider.com	410	\N	2020-07-17	vB3}{=8'/	2024-12-29	active
+679	Sky Growden	M	1984-06-12	7504182654	sgrowden4l@qq.com	2471	\N	2020-01-01	xW8`EhTaL1s<<3xa	2024-08-20	active
+680	Chariot Mighele	F	1986-02-19	1683323559	cmighele4m@amazon.com	1883	\N	2021-11-13	bM0.xon_uNn~%CTi	2024-05-01	active
+681	Dolorita Stiff	F	1981-08-07	4796486994	dstiff4n@princeton.edu	4446	\N	2022-12-09	rS5"d.*"N"fY@z#+	2024-06-07	active
+682	Levy Leonida	F	2004-04-16	8503249549	lleonida4o@ezinearticles.com	2203	\N	2022-02-02	gQ3=WBRhmKx"9`mi	2024-04-09	active
+683	Camey Mulder	F	1981-04-29	4854192852	cmulder4p@example.com	1411	\N	2021-05-30	kY4.'|}8=s6whvNv	2024-06-16	active
+684	Cassius Dunkerton	F	1990-03-18	8088961562	cdunkerton4q@dyndns.org	2934	\N	2022-06-02	gN6|`Hx8g3&PP@	2024-06-05	active
+685	Codi Chalke	M	1995-08-04	1771235627	cchalke4r@shinystat.com	407	\N	2021-02-21	cR9_e>XeCT(6a	2024-08-27	active
+686	Poul Panketh	F	1992-11-07	4259992932	ppanketh4s@nba.com	4508	\N	2022-04-20	hZ8.IGdz/	2024-06-23	active
+687	Gleda Yearnes	M	1990-07-15	7448717486	gyearnes4t@mit.edu	4815	\N	2020-02-28	qA4%i?6AOCP'zv	2024-02-23	active
+688	Andree Larchier	F	2002-02-23	9264491140	alarchier4u@wiley.com	1426	\N	2022-11-07	cP5(<./ZJC"3	2024-09-20	active
+689	Esther McMurraya	F	1981-12-03	9217711332	emcmurraya4v@samsung.com	941	\N	2021-07-22	rK5<"_8s	2024-02-19	active
+690	Kalila Carriage	F	1982-11-19	8997560772	kcarriage4w@wisc.edu	4548	\N	2022-10-28	kK8(67JKCT	2024-11-08	active
+691	Levy Lamey	M	1990-07-08	9793584854	llamey4x@creativecommons.org	240	\N	2022-08-22	kX0+sQT|	2024-06-15	active
+692	Demeter Cribbott	F	1982-11-06	9157862382	dcribbott4y@webeden.co.uk	1690	\N	2021-10-25	oY0>7yC&oHNU}j	2024-10-15	active
+693	Clarie Chart	M	2000-07-01	4038824347	cchart4z@icq.com	4595	\N	2020-10-07	xJ0}=P<Z@S)|	2024-12-29	active
+694	Cece Castella	F	1985-03-22	5349228992	ccastella50@alibaba.com	2302	\N	2020-04-19	kM6=1kT#d	2024-08-20	active
+695	Donal Conibere	M	1981-06-10	7204334370	dconibere51@blogs.com	4779	\N	2022-11-06	lF6*ya(3\\>'	2024-10-12	active
+696	Phylys Beyn	F	2002-03-20	6096083091	pbeyn52@a8.net	4214	\N	2021-10-14	qW9(et)IZ{r1%R\\	2024-03-09	active
+697	Angela Gives	M	1995-04-02	7033587759	agives53@gnu.org	4598	\N	2020-12-05	bV7}2t")|YZ\\`k{	2024-03-20	active
+698	Trina Yoseloff	M	1985-02-13	4186044585	tyoseloff54@mozilla.org	3123	\N	2021-12-16	mQ8@>o,_EN	2024-06-02	active
+699	Ogdon Elgar	M	2004-10-20	9604386944	oelgar55@csmonitor.com	1060	\N	2022-11-19	vM2)@,C`&I0|$O7	2024-05-20	active
+700	Matthieu Buffin	M	2001-03-23	1376013477	mbuffin56@samsung.com	314	\N	2021-03-19	rU1/F"z`	2024-02-02	active
+701	Laurette Shambroke	F	1995-06-22	6605271740	lshambroke57@stumbleupon.com	1551	\N	2021-08-09	wW4'$xu<l?I0	2024-10-18	active
+702	Lissie Cossor	M	1990-05-05	2766247865	lcossor58@theglobeandmail.com	3431	\N	2022-03-20	aC8#T.XJmsS8+)6	2024-08-20	active
+703	Vasilis Duer	M	1996-11-29	2073322700	vduer59@squarespace.com	4936	\N	2021-01-14	cH8.iMW=	2024-02-19	active
+704	Ambrosio Hacard	M	1995-01-12	4963739659	ahacard5a@goodreads.com	4630	\N	2021-12-11	lF0\\XDFl9_&ZJf	2024-04-07	active
+705	Shermie Gilfoy	M	2003-02-23	8669757325	sgilfoy5b@blog.com	3078	\N	2021-02-01	eM2(4vW|oCI%}4>	2024-07-16	active
+706	Jemie Cuberley	F	2000-11-21	4316257761	jcuberley5c@reference.com	3127	\N	2020-09-01	qC0"8MK91Z	2024-04-25	active
+707	Nick MacCrossan	M	1987-07-13	9414910544	nmaccrossan5d@google.com.br	783	\N	2021-03-17	lG4@tE4"8Y	2024-08-21	active
+708	Stormy Petrelli	M	1983-06-17	1252913410	spetrelli5e@last.fm	1754	\N	2021-09-02	lK6*VeT,#Yo,V	2024-03-17	active
+709	Willem Weymont	M	1985-05-05	3478159922	wweymont5f@nba.com	4035	\N	2022-04-15	fO0!0+hHY0g=i?_	2024-01-25	active
+710	Ware Scyone	F	1988-03-17	3147769076	wscyone5g@github.io	4672	\N	2021-05-17	zJ1*idtbb	2024-01-16	active
+711	Dukey Jorge	M	1983-01-09	9624570943	djorge5h@boston.com	3786	\N	2022-10-08	cL0?}%HW9h=SrV=(	2024-10-24	active
+712	Winston Matuskiewicz	F	1994-12-14	7787113451	wmatuskiewicz5i@bloglines.com	2336	\N	2020-07-25	eX2{H9d`nF	2024-08-24	active
+713	Quintana Liddon	F	2001-08-22	5213834018	qliddon5j@nifty.com	3339	\N	2020-10-30	nD5(ef&R(RL	2024-08-12	active
+714	Cristobal Abramsky	M	1985-11-19	4039788880	cabramsky5k@illinois.edu	2880	\N	2020-02-11	tF8.LyM$@9$WMPP'	2024-12-04	active
+715	Lucinda Hurne	M	1983-05-21	9844877309	lhurne5l@printfriendly.com	114	\N	2022-05-21	mG8/8DW7	2024-06-30	active
+716	Eloise Chaloner	M	1982-03-29	4436630023	echaloner5m@house.gov	4502	\N	2021-11-10	iL7>|U1l	2024-06-09	active
+717	Truda McCleary	F	2000-09-16	5853151570	tmccleary5n@ustream.tv	4842	\N	2021-02-15	eS1.Gl+AE5oS	2024-07-13	active
+718	Mellie Helis	F	1986-02-27	4124405602	mhelis5o@bloglines.com	4607	\N	2021-05-02	tI7`$VpX	2024-10-08	active
+719	Barron Deering	F	2000-03-09	1508107127	bdeering5p@php.net	4784	\N	2022-01-07	jO2*VF9'MgGSDKDk	2024-07-26	active
+720	Janaye Winteringham	M	1984-05-18	1375952332	jwinteringham5q@sogou.com	4367	\N	2021-09-18	iC4`8dm%ug|G5	2024-03-20	active
+721	Fedora Telling	F	1989-08-19	1666518378	ftelling5r@fotki.com	618	\N	2021-08-27	oV1'{(_nU8u\\P1p	2024-12-01	active
+722	Rod Pretswell	M	1981-08-23	7836536595	rpretswell5s@patch.com	1499	\N	2022-09-07	jP4'1W9Vr%gb8.@	2024-04-07	active
+723	Rayshell Dufaire	F	1999-04-18	3291449162	rdufaire5t@paginegialle.it	3079	\N	2021-10-17	dY9.Gbku	2024-11-08	active
+724	Benji Sinkin	M	1992-12-07	4128241370	bsinkin5u@harvard.edu	2842	\N	2021-09-04	eW9)P@hcO!GU	2024-04-05	active
+725	Tracie Tschierasche	M	1980-02-23	8997816203	ttschierasche5v@yellowpages.com	4656	\N	2022-09-03	hR7}q+yw	2024-11-06	active
+726	Harley Mathias	F	1985-10-12	1076983847	hmathias5w@dropbox.com	1991	\N	2021-11-30	gM9}`wMxWw}'ep	2024-06-29	active
+727	Rhianon Atte-Stone	M	1991-10-26	8664063082	rattestone5x@constantcontact.com	249	\N	2021-02-15	gE0$1%SLf~(	2024-06-05	active
+728	Isak Dunseath	F	1994-06-23	7026876022	idunseath5y@vinaora.com	2873	\N	2020-08-25	mW2"2!~LL	2024-05-09	active
+729	Ives Kinmond	M	2000-04-10	6915186325	ikinmond5z@w3.org	1746	\N	2022-05-01	sX8`bpQoAQS	2024-11-04	active
+730	Barb Colliss	F	2003-03-10	5137432236	bcolliss60@yahoo.com	462	\N	2020-03-03	kW6$gFy~vY	2024-02-10	active
+731	Milton Mayo	M	1999-01-08	7756217736	mmayo61@ehow.com	1704	\N	2021-01-05	kC7/#czf#f	2024-03-08	active
+732	Verna Fleetwood	F	1980-09-07	1147670123	vfleetwood62@unicef.org	2761	\N	2022-12-30	rK0>U,xR!	2024-04-29	active
+733	Harri Derby	M	1989-10-13	8834254018	hderby63@wunderground.com	2718	\N	2020-01-27	qV7~J4C3	2024-10-29	active
+734	Clair Breckell	F	1993-11-26	6066064966	cbreckell64@ameblo.jp	837	\N	2021-06-27	gN7'+9LMwMK	2024-01-15	active
+735	Eveline Sneezum	M	1981-08-28	8426102048	esneezum65@studiopress.com	4684	\N	2022-01-03	zV8{|rh@"M2	2024-11-22	active
+736	Angil Acland	M	1993-03-07	3676063714	aacland66@nydailynews.com	1550	\N	2021-05-21	mJ1%|N|h_lC*	2024-02-11	active
+737	Aubrie Dennitts	M	2001-02-08	9372195026	adennitts67@webmd.com	3963	\N	2020-09-26	rC2=x4DE!vptW	2024-05-01	active
+738	Dugald Coatham	F	2002-09-24	4011091734	dcoatham68@admin.ch	1530	\N	2021-01-11	vL4~@JnS	2024-05-24	active
+739	Silvia Cicchinelli	F	2001-11-11	3053563130	scicchinelli69@twitter.com	4308	\N	2020-07-17	gG3"W9}u4l	2024-11-15	active
+740	Gwendolin Yeardsley	F	1997-04-10	8486577991	gyeardsley6a@nyu.edu	3476	\N	2020-09-24	tL0<RM`Nd	2024-05-28	active
+741	Raquel Dow	F	2003-07-13	7984116115	rdow6b@wufoo.com	1776	\N	2022-02-21	uB5\\ELeMhQ(	2024-06-25	active
+742	Chev Rootes	F	2003-02-12	8422505468	crootes6c@google.co.jp	2390	\N	2020-10-12	oI8/*>(PJ,M`R@_X	2024-06-29	active
+743	Blanche Maccree	F	1990-03-11	3847743194	bmaccree6d@chron.com	3000	\N	2022-10-17	jX1`_C'Fv3jG0	2024-03-12	active
+744	Ruttger Meachem	F	1991-09-07	2178390976	rmeachem6e@independent.co.uk	1241	\N	2021-01-21	fP0%cY4'6i4	2024-04-19	active
+745	Charlena Fallowes	M	1996-07-12	5564442257	cfallowes6f@tripadvisor.com	1192	\N	2020-04-08	wO8%gzrE'eZ	2024-12-29	active
+746	Lexie Biddlecombe	F	1985-04-05	6396375727	lbiddlecombe6g@issuu.com	3055	\N	2022-04-01	mN6`s=hC@>	2024-09-28	active
+747	Tanhya Jiruch	F	1996-02-21	6843841249	tjiruch6h@163.com	2076	\N	2022-11-17	gH8~6m10Dg	2024-01-14	active
+748	Lamar Quinnette	F	1981-04-17	8261231852	lquinnette6i@whitehouse.gov	4916	\N	2022-04-02	lU7_CN6{	2024-06-05	active
+749	Delila Lonergan	M	1998-08-03	1763909009	dlonergan6j@timesonline.co.uk	649	\N	2021-02-04	aI2%*dVyRx}I_t	2024-02-03	active
+750	Mead Birdsey	M	2001-01-14	1918022061	mbirdsey6k@weebly.com	731	\N	2021-02-17	lW3,*Q@Tt$<	2024-01-27	active
+751	Erminia Dunn	F	1998-01-27	3933394937	edunn6l@etsy.com	2714	\N	2022-02-04	hV3|R(Fk	2024-03-17	active
+752	Weber Aloigi	F	2001-06-30	3319562338	waloigi6m@amazonaws.com	2869	\N	2022-12-30	mN7##w}6P+\\&	2024-12-11	active
+753	Gustav Pauletto	F	1981-07-23	5756449324	gpauletto6n@reddit.com	916	\N	2022-09-25	lI7//qY1	2024-07-09	active
+754	Nanni Greenrod	F	1991-08-23	2908766769	ngreenrod6o@exblog.jp	3652	\N	2020-03-31	hG4$RkY4lc7	2024-02-08	active
+755	Gerladina Benoix	F	1994-04-23	8001327830	gbenoix6p@go.com	2550	\N	2021-09-14	pH9)sOb,+u#p3Rk$	2024-06-22	active
+756	Dexter Manners	M	1983-04-05	2051807376	dmanners6q@hostgator.com	4409	\N	2022-04-19	iW7(PVU=	2024-08-31	active
+757	Sean Dettmar	F	2000-07-27	9382572772	sdettmar6r@timesonline.co.uk	966	\N	2020-09-23	aG9{ZB"RJi/'NS?C	2024-03-03	active
+758	Marja De Mico	M	1991-08-05	6826577718	mde6s@earthlink.net	4210	\N	2020-07-11	sO2.w}Omu%F`	2024-01-05	active
+759	Carol Bernard	M	2003-09-24	6743961635	cbernard6t@ning.com	129	\N	2022-01-06	sV7.>V(e<lt44WH	2024-09-27	active
+760	Hanny Tennock	M	2002-08-22	8146383898	htennock6u@cpanel.net	3332	\N	2022-07-19	lS1`xE3m'aztqj	2024-01-16	active
+761	Martha McGerraghty	F	2004-02-05	4123740736	mmcgerraghty6v@theguardian.com	860	\N	2020-07-08	oG0{y?2s	2024-12-13	active
+762	Carson Faragan	M	1987-01-10	1466266233	cfaragan6w@macromedia.com	4945	\N	2021-02-14	iL7\\kh8|U&zLg~1>	2024-04-27	active
+763	Justinn Bodill	M	1987-03-31	1017293430	jbodill6x@123-reg.co.uk	507	\N	2020-03-26	cC9_u%.=1NS	2024-02-17	active
+764	Charlotte Theunissen	M	2002-05-22	5138025794	ctheunissen6y@t-online.de	2256	\N	2022-03-23	jY0.gjlz	2024-03-29	active
+765	Joshuah Shackleford	M	1985-07-30	7523739164	jshackleford6z@sphinn.com	3855	\N	2021-01-01	qP2"J`AMxZpEsw	2024-05-29	active
+766	Sara Harkes	M	1992-01-18	8184408888	sharkes70@dmoz.org	3583	\N	2022-09-02	aC2}p$6{&	2024-07-12	active
+767	Keri Martinovic	M	1991-03-14	5305468348	kmartinovic71@amazon.co.uk	3874	\N	2020-10-21	tJ5#q&kPSK	2024-09-19	active
+768	Lem Burroughes	F	2001-06-22	4135314840	lburroughes72@amazon.co.uk	4865	\N	2022-09-05	rZ5/jCV7#?pu#z(	2024-07-11	active
+769	Andrea Boulsher	F	1991-09-25	5348090846	aboulsher73@amazonaws.com	1896	\N	2022-09-03	zC6(=uf.+wo	2024-12-21	active
+770	Rolph Presnail	M	2000-04-07	9612325985	rpresnail74@cmu.edu	3112	\N	2022-12-14	kI3%WAhplSml3	2024-11-12	active
+771	Sadye Belsey	F	2000-12-06	1921510740	sbelsey75@meetup.com	625	\N	2020-03-24	eM1&VaHb~uMn`&	2024-10-20	active
+772	Bren Frensch	M	1986-11-27	8761001515	bfrensch76@storify.com	2422	\N	2022-08-31	cH5@=LJ6y(Cn.D)8	2024-11-13	active
+773	Joscelin Fairlem	M	1987-06-24	6613010875	jfairlem77@wikimedia.org	372	\N	2022-02-01	jA6(Td/R3pO	2024-12-15	active
+774	Pauletta Cucuzza	M	1988-02-26	5293766070	pcucuzza78@geocities.com	323	\N	2021-08-06	bU8*vG=WY|)egr$3	2024-06-28	active
+775	Carmen Lawlie	F	1983-06-11	5845395769	clawlie79@prweb.com	1352	\N	2020-07-23	xH6{%A4rU6	2024-06-03	active
+776	Cooper Moodie	F	1981-07-11	5319504714	cmoodie7a@dmoz.org	1154	\N	2022-01-23	bK7}cubjL0xH$n#	2024-04-27	active
+777	Ilaire Faulo	F	1986-04-01	4283431128	ifaulo7b@google.it	219	\N	2022-12-19	xD5"<f5fxz<	2024-01-01	active
+778	Trever Biss	F	1996-06-25	6628297968	tbiss7c@gmpg.org	1963	\N	2021-06-17	yK5@a//*i.@,jMq	2024-08-31	active
+779	Evey Bretelle	M	1990-03-06	7894220368	ebretelle7d@reuters.com	504	\N	2020-07-10	iO2'"AjW(	2024-11-26	active
+780	Essa Jarrel	M	1999-09-21	4946062441	ejarrel7e@home.pl	2282	\N	2020-06-18	yV9.rYX`EYl*FKAx	2024-10-15	active
+781	Burk De Mattia	F	1986-07-29	3709636548	bde7f@icq.com	2494	\N	2020-01-09	vQ4"1r+!=x"L	2024-09-19	active
+782	Kenon Blasius	M	1986-10-10	2106234881	kblasius7g@soup.io	1580	\N	2020-09-13	tU8"tPd8	2024-01-06	active
+783	Janenna Challenor	M	1982-03-20	5431950653	jchallenor7h@wisc.edu	4338	\N	2020-06-18	xS2$uNoPq*w5frqr	2024-09-12	active
+784	Early MacCrackan	F	1993-09-15	4744634402	emaccrackan7i@nps.gov	340	\N	2021-06-14	lT5{#\\,"EOX	2024-09-10	active
+785	Travus Meus	M	1997-02-05	5014051494	tmeus7j@economist.com	964	\N	2022-04-26	hN0~'7\\L=	2024-03-14	active
+786	Donovan Douglass	F	1985-09-07	8687906791	ddouglass7k@tripod.com	2332	\N	2021-06-10	nY2!JaD9dU	2024-06-14	active
+787	Elladine Olner	F	2002-06-09	3284254698	eolner7l@google.com.au	2268	\N	2021-02-22	fU9_PlLGJ	2024-11-24	active
+788	Nan Cockerill	M	1989-12-27	2707645431	ncockerill7m@loc.gov	3921	\N	2021-03-20	sZ0<2C2O	2024-07-05	active
+789	Izzy McIleen	F	1980-10-20	3023888643	imcileen7n@yahoo.co.jp	2862	\N	2020-11-06	nF4{CHa9k%m?(15	2024-01-08	active
+790	Amie Ghiriardelli	M	1985-01-30	3242906000	aghiriardelli7o@a8.net	966	\N	2020-12-30	vW9'!Y}LhLC\\nu	2024-12-08	active
+791	Coralyn Renshell	F	1980-11-23	2459096524	crenshell7p@alibaba.com	3507	\N	2021-07-19	mR5|Xgtl	2024-01-08	active
+792	Alberto Critoph	F	1990-12-09	1077623226	acritoph7q@latimes.com	3625	\N	2021-03-31	pH8.|QqTp	2024-02-08	active
+793	Alana Towe	F	2003-06-04	8152497316	atowe7r@wiley.com	3612	\N	2021-03-17	hP9(<uE{@/mv(O5	2024-03-29	active
+794	Dud Beedle	F	1991-12-11	3947291376	dbeedle7s@nydailynews.com	2451	\N	2022-09-25	kK9&UCwV2*qi	2024-04-18	active
+795	Madella Mallison	M	1995-09-23	4004955167	mmallison7t@sciencedirect.com	2169	\N	2022-01-07	bW8!<4\\y	2024-08-21	active
+796	Niccolo McFeate	M	2001-12-15	4583138587	nmcfeate7u@intel.com	4112	\N	2021-04-22	pE6'=$`fSIK	2024-04-20	active
+797	Allan Twallin	F	1992-09-17	6691949811	atwallin7v@slideshare.net	3222	\N	2021-08-24	yA8\\Z#XW9I*{G	2024-12-03	active
+798	Adamo Mustoo	M	2001-02-21	2204119065	amustoo7w@alibaba.com	285	\N	2021-11-18	dH3{~?g|	2024-04-06	active
+799	Gerrilee Siemantel	F	1987-07-11	9978925032	gsiemantel7x@salon.com	3429	\N	2021-11-12	tI3~+'/Sfo1g	2024-07-10	active
+800	Cynthia Rolf	F	1992-08-17	8348407364	crolf7y@imgur.com	2381	\N	2020-10-06	wP7!qfEWbk	2024-01-04	active
+801	Pall Rolse	F	1998-01-08	7997857784	prolse7z@ftc.gov	3106	\N	2020-09-19	lG1_&4mr}_7(&w	2024-12-12	active
+802	Andree Pardue	M	2000-04-27	7221302305	apardue80@foxnews.com	4576	\N	2020-07-07	fR8,Hlf7qNvjn	2024-01-09	active
+803	Pooh Cow	F	1991-09-12	8669195912	pcow81@amazon.com	3127	\N	2022-01-19	wO3?FX<&|	2024-04-02	active
+804	Wally Astle	F	1989-11-06	9827204147	wastle82@360.cn	3032	\N	2021-08-22	iS1'G/K{eN	2024-09-07	active
+805	Harland Gorner	M	2002-06-19	9376850661	hgorner83@buzzfeed.com	3517	\N	2022-05-14	uQ5$gy&\\k	2024-11-08	active
+806	Janela Fireman	F	2001-05-25	4533571312	jfireman84@newsvine.com	4013	\N	2022-07-06	fS4}6?krv0wb(	2024-06-04	active
+807	Lavinia Verling	F	2000-08-03	6233082619	lverling85@cbc.ca	2585	\N	2022-10-29	eN2|h*<{PS	2024-03-06	active
+808	Vivianna Frowd	F	1985-06-26	8588587910	vfrowd86@booking.com	4823	\N	2021-08-21	bT2=fi7GB	2024-01-25	active
+809	Christophe Sillars	F	1993-10-30	9034462302	csillars87@census.gov	1868	\N	2021-06-10	tN1{_9o@Q?EeK5<	2024-07-30	active
+810	Shannan Gabbott	F	1984-05-02	6563003703	sgabbott88@tiny.cc	1975	\N	2020-02-03	cZ6`,Rq2q7*}6#	2024-07-24	active
+811	Shandeigh Pendry	F	2004-12-01	9168891808	spendry89@globo.com	996	\N	2021-05-26	iX2*S&cz&Ebn2	2024-10-04	active
+812	Misha Austick	F	1993-12-12	5978683554	maustick8a@aboutads.info	3434	\N	2022-05-29	iA4~aDyl6f	2024-08-04	active
+813	Estel Hellwing	M	1988-04-07	5986293414	ehellwing8b@ycombinator.com	4635	\N	2021-08-28	bR8/M"`I|O	2024-12-31	active
+814	Deva Greystoke	M	1999-07-29	1856573204	dgreystoke8c@goo.gl	1051	\N	2020-01-19	jN5.fG0EB>fp#mZR	2024-05-08	active
+815	Patti Breeder	M	2000-06-18	9868646715	pbreeder8d@amazon.de	1538	\N	2021-08-12	vQ1&%/<P	2024-12-15	active
+816	Murdoch Yeld	F	2000-07-26	3585446381	myeld8e@joomla.org	3124	\N	2020-01-04	rS4#>%g_"S2*S	2024-03-15	active
+817	Harold Lathe	M	1998-03-30	5606684183	hlathe8f@irs.gov	3070	\N	2020-01-29	sJ2#LDz|vnHF	2024-03-08	active
+818	Celestyna Feldbrin	F	1996-07-31	8057814898	cfeldbrin8g@bing.com	616	\N	2022-02-14	rW5&pP+"Y.n)2k\\(	2024-02-08	active
+819	Stepha Northrop	M	1995-01-05	8273453502	snorthrop8h@merriam-webster.com	3779	\N	2022-07-17	aK8)&'A<5	2024-02-03	active
+820	Elle Huey	F	1997-02-18	4471024042	ehuey8i@list-manage.com	3169	\N	2021-06-16	fB1.r2K%51s	2024-04-25	active
+821	Mirabel Chasson	M	1983-06-19	9858244644	mchasson8j@sfgate.com	1342	\N	2022-10-10	kD4)mEk'$k	2024-11-10	active
+822	Van Farfolomeev	M	2001-05-31	2669894112	vfarfolomeev8k@globo.com	4910	\N	2021-06-19	bS2?5#lAEPM.8l3I	2024-03-22	active
+823	Corinne Arkill	M	2004-06-29	3664299711	carkill8l@blogspot.com	4414	\N	2020-04-18	rS6'Z!'L	2024-06-14	active
+824	Sandi Steinson	M	1997-05-06	6094481507	ssteinson8m@w3.org	2069	\N	2021-02-19	kL5_,7B0W2U	2024-12-03	active
+825	Jessie Tunno	F	1982-03-14	7752892328	jtunno8n@miibeian.gov.cn	4045	\N	2021-07-05	lI5.mY1,l?i8ZpJ	2024-04-29	active
+826	Gertrudis Hazelhurst	F	1990-06-07	4016395206	ghazelhurst8o@china.com.cn	4091	\N	2020-11-04	oX6(V1WTS	2024-08-31	active
+827	Michale Giffon	F	2002-12-23	9257310969	mgiffon8p@sfgate.com	661	\N	2022-11-21	bC7,pqU>0	2024-02-04	active
+828	Harwilll Lasham	F	1980-01-25	6899001301	hlasham8q@phoca.cz	4050	\N	2020-08-21	jA1$M.jO`O	2024-03-09	active
+829	Elton Croyser	M	1982-03-17	3147619064	ecroyser8r@wikia.com	2553	\N	2020-07-11	xO5|Vk=T's	2024-11-22	active
+830	Melvyn Moakson	F	1990-12-28	6699780036	mmoakson8s@is.gd	4491	\N	2020-03-16	nK8/IBeum26R}Yb|	2024-10-16	active
+831	Kathlin Grigoroni	M	1994-03-11	3946306400	kgrigoroni8t@sina.com.cn	401	\N	2022-12-03	dQ9}TZ*b	2024-08-27	active
+832	Mora Lamprecht	F	1986-05-31	3086407024	mlamprecht8u@youku.com	1454	\N	2021-12-13	pV3}Qy.4R,P0	2024-09-21	active
+833	Monro Guarnier	F	2002-10-06	2353398558	mguarnier8v@live.com	3129	\N	2021-01-26	xO7=?jdd1dQX	2024-06-20	active
+834	Erinn McShirie	M	1987-09-25	2885498102	emcshirie8w@reuters.com	3344	\N	2022-07-08	gG2+n*91fPnpM9E	2024-09-21	active
+835	Mersey Pinner	F	1982-07-06	3422391837	mpinner8x@vk.com	3476	\N	2020-01-13	bQ7<Y'z=	2024-01-26	active
+836	Harley Immins	M	2003-10-05	6033918175	himmins8y@discovery.com	4692	\N	2022-10-22	rJ3?e`EcmS,kgO	2024-01-27	active
+837	Cirstoforo Jest	M	1991-02-27	5984396670	cjest8z@hatena.ne.jp	3541	\N	2020-12-23	hV7*xFE`	2024-11-15	active
+838	Rosalinda Porkiss	F	1984-01-12	2755134970	rporkiss90@cmu.edu	1253	\N	2021-10-14	aN1>D@Dz{_d	2024-01-08	active
+839	Wilt Pala	F	1981-02-07	6242877514	wpala91@nsw.gov.au	4017	\N	2020-12-17	cV7"H,nv?	2024-05-11	active
+840	Eugenio Covotti	F	1986-03-01	1217942953	ecovotti92@yandex.ru	453	\N	2022-01-29	zH2'3bJ%7#	2024-09-10	active
+841	Jelene Marriner	F	1982-02-14	6946554226	jmarriner93@shareasale.com	1201	\N	2020-12-15	xW0>yw\\ti9?Ww	2024-12-06	active
+842	Karlen Parlor	M	1994-09-13	9295323413	kparlor94@narod.ru	1975	\N	2020-10-22	hK5,18ifEZ5	2024-10-03	active
+843	Stephi Gorwood	F	1992-04-05	6203858446	sgorwood95@forbes.com	4717	\N	2020-08-15	fC4"\\CvJSfD`oWwB	2024-11-15	active
+844	Rebeca Hatwells	F	1986-04-25	5316922699	rhatwells96@blogger.com	2287	\N	2021-05-21	bB4!KY7Al07n`O	2024-09-05	active
+845	Norrie Fransewich	F	1989-11-09	3609086856	nfransewich97@home.pl	3233	\N	2020-05-08	fZ1'byi1K4XVsJ1	2024-06-19	active
+846	Chelsey Sperrett	M	1993-02-23	7496410262	csperrett98@123-reg.co.uk	100	\N	2022-08-13	lK9+o2J+|l	2024-08-23	active
+847	Urbanus Broadbear	M	1984-11-02	8979949662	ubroadbear99@craigslist.org	1964	\N	2021-04-18	kN6)dIhQn_<9qT	2024-02-22	active
+848	Zarah De Bruin	F	1997-06-11	1883011969	zde9a@about.me	3876	\N	2021-04-26	zD1+nwN2J(&	2024-04-04	active
+849	Maggy Lampet	M	1993-01-09	6535549317	mlampet9b@yahoo.com	590	\N	2022-11-17	lX2}wo##O!ha	2024-04-22	active
+850	Gardner Wheeler	F	2002-09-06	7908191608	gwheeler9c@lulu.com	2425	\N	2022-02-14	bP4%wcU~p	2024-07-07	active
+851	Jefferey Antuk	M	1984-02-03	6131180450	jantuk9d@meetup.com	4178	\N	2021-08-31	cA1{XI!rW\\(j/	2024-01-11	active
+852	Jerrilyn Bunnell	M	2004-11-22	1194837260	jbunnell9e@ustream.tv	1355	\N	2022-07-31	fQ9\\RM!ca	2024-11-21	active
+853	Brien Philippet	F	1985-03-06	7875907102	bphilippet9f@g.co	1596	\N	2021-06-10	oO7?bSXQsM	2024-05-16	active
+854	Napoleon Braybrooks	F	1992-02-29	9311123477	nbraybrooks9g@theguardian.com	2349	\N	2022-04-06	rN3*zga8KS>	2024-05-13	active
+855	Phillipe Igonet	M	1994-04-11	3477823840	pigonet9h@opera.com	2481	\N	2020-03-11	dR5|O6?@d	2024-09-07	active
+856	Myles Portriss	M	1998-09-09	9989417564	mportriss9i@friendfeed.com	4419	\N	2020-06-13	cV8}DlsZ"	2024-12-21	active
+857	Ragnar Stratford	M	2003-05-26	2275295840	rstratford9j@bbb.org	454	\N	2021-04-04	uZ3?>C(.mw	2024-02-04	active
+858	Alys Playden	M	1991-07-16	9023345180	aplayden9k@google.com.hk	3936	\N	2022-03-25	nF5>2tb*=+yb7f	2024-05-21	active
+859	Jake Paxton	F	1985-02-17	1796455853	jpaxton9l@pinterest.com	2400	\N	2021-09-21	iK8=&jvz	2024-07-15	active
+860	Reggis Chisnall	M	1983-05-29	3134941183	rchisnall9m@over-blog.com	2121	\N	2020-12-11	uM3<=KE46bG<m	2024-07-28	active
+861	Giorgio Calrow	M	1988-10-31	2299595375	gcalrow9n@wix.com	1245	\N	2020-12-24	jW9!PR7@KpZ5)i2p	2024-03-02	active
+862	Justinn Pelos	F	2002-12-31	1384173835	jpelos9o@google.es	3359	\N	2022-09-27	aS6(%~gsx	2024-11-10	active
+863	Abigale Jacqueme	M	1992-12-28	1793605620	ajacqueme9p@wsj.com	3678	\N	2022-07-13	fS7=H9,8wa	2024-02-06	active
+864	Earl Thaxton	F	1999-12-06	5127540019	ethaxton9q@over-blog.com	3811	\N	2021-12-02	qI3"i$<R(>QK~A7	2024-09-07	active
+865	Willy Botcherby	M	2004-07-01	3389318871	wbotcherby9r@blogspot.com	4743	\N	2021-07-28	nR4,y.eY	2024-10-23	active
+866	Sasha Bedrosian	F	1992-10-14	2617572545	sbedrosian9s@delicious.com	413	\N	2020-05-07	hS5/be$ygc	2024-11-19	active
+867	Alika Breeder	M	2002-01-02	3935943625	abreeder9t@uol.com.br	2105	\N	2022-11-11	nY0"%Z?T	2024-11-25	active
+868	Gualterio Obbard	F	1993-05-06	6801597113	gobbard9u@opensource.org	4815	\N	2020-10-26	pL6~K4"jtVys.ab	2024-04-17	active
+869	Alexina Dominichelli	F	1987-11-25	6935329753	adominichelli9v@163.com	3697	\N	2020-10-01	dB3$QJBk+w	2024-02-04	active
+870	Torrance Van Waadenburg	M	1994-04-23	9921233929	tvan9w@skype.com	4719	\N	2022-03-12	sJ3*2U#DHtxL	2024-11-04	active
+871	Myer Holleworth	M	1992-07-06	8311845096	mholleworth9x@oaic.gov.au	4288	\N	2021-01-08	gI5#(_QU8r%zzY	2024-06-30	active
+872	Chet Shewan	M	1993-11-27	3016113895	cshewan9y@ebay.com	400	\N	2021-05-17	iG8}/&xzBdq	2024-09-07	active
+873	Alyce Harmes	F	1985-02-13	9321058404	aharmes9z@deliciousdays.com	4797	\N	2020-10-18	vW4~x~M6	2024-11-14	active
+874	Dael Ruggs	M	1998-05-09	1655221907	druggsa0@slideshare.net	11	\N	2020-02-21	aP7/EY'/jA`P"3	2024-01-16	active
+875	Christophe Willford	M	1988-02-22	6086743209	cwillforda1@etsy.com	2386	\N	2022-07-12	oJ5!pe}|>$5'2	2024-08-20	active
+876	Nina Stanyforth	F	1983-08-13	9113836102	nstanyfortha2@quantcast.com	1236	\N	2021-05-30	sY5|z1Bq'xF~"12	2024-12-23	active
+877	Marleen Seabert	M	2002-11-18	4095894815	mseaberta3@amazon.de	4505	\N	2022-08-08	hX1$tmW<PL,h*Iu	2024-07-02	active
+878	Whitney Dupre	M	1988-09-26	6823618862	wduprea4@thetimes.co.uk	635	\N	2020-12-09	lT8(|~Q+Y78wjhZ0	2024-10-08	active
+879	Brier Canny	F	1989-06-26	5738725223	bcannya5@nytimes.com	3781	\N	2021-02-05	aR6~K5yo9ntysC5	2024-03-14	active
+880	Oralla Davenport	F	1984-12-18	1299281493	odavenporta6@ifeng.com	33	\N	2020-10-20	vX5,%CFugg7F	2024-07-15	active
+881	Faun Pepall	F	1988-03-27	6936705064	fpepalla7@tuttocitta.it	1298	\N	2021-12-11	fP4{4%"{4U'QlK?|	2024-07-22	active
+882	Maritsa Trusler	F	1984-04-14	1236059170	mtruslera8@opensource.org	306	\N	2022-08-05	pH7$Cp}36Ty#AjMW	2024-02-24	active
+883	Peterus Mutlow	M	2003-08-17	8807645849	pmutlowa9@rediff.com	968	\N	2021-03-15	jH4.Y&{~	2024-10-28	active
+884	Barbabra Heugh	M	1998-10-24	7192648292	bheughaa@senate.gov	4516	\N	2021-12-10	hB6@a_VlW%w/ki	2024-02-29	active
+885	Laurie Raatz	M	1999-09-18	2573593141	lraatzab@pagesperso-orange.fr	643	\N	2020-02-26	qH5?%dE{2	2024-03-09	active
+886	Leon Chomicki	M	1987-04-01	3221500501	lchomickiac@umich.edu	1318	\N	2022-01-12	hF7?J.8I8U	2024-12-28	active
+887	Chicky D'Andrea	M	2000-01-20	7146625101	cdandreaad@example.com	2465	\N	2020-06-09	iM7<+u*a5rN	2024-04-23	active
+888	Franciska Pearl	F	2001-10-10	6744356763	fpearlae@addtoany.com	1372	\N	2020-11-02	sN5/LS/8(&L'C	2024-01-16	active
+889	Elenore Beall	M	1986-07-24	5696535226	ebeallaf@engadget.com	983	\N	2020-06-19	uA8,b\\m_8s._o*lh	2024-11-21	active
+890	Lilas Bourdas	M	1984-02-28	5699193145	lbourdasag@free.fr	3924	\N	2022-02-05	tZ8%Na(xZ1xL	2024-04-27	active
+891	Leopold Cheatle	F	1980-05-27	7702483130	lcheatleah@wired.com	1693	\N	2020-11-12	sV4`=,GcWJjM	2024-02-03	active
+892	Kamila Lamport	M	1985-08-20	5202342622	klamportai@163.com	3350	\N	2020-01-09	bU8_6bNbz/B	2024-05-08	active
+893	Harbert Tuxwell	F	1996-12-09	8255523016	htuxwellaj@ezinearticles.com	4036	\N	2020-07-19	iD9*+I&0d!/_(*	2024-11-17	active
+894	Lory Gozzard	M	1983-10-07	7408322043	lgozzardak@dedecms.com	3387	\N	2021-03-01	rH7'UAmHp	2024-02-20	active
+895	Krista Tunder	F	2002-05-20	7028336735	ktunderal@cmu.edu	560	\N	2020-12-14	oW5=?rW53)gzbG	2024-05-05	active
+896	Ali Smallpiece	F	1998-07-22	3355000848	asmallpieceam@gnu.org	2669	\N	2020-07-26	iE9*cZf#(0T	2024-03-16	active
+897	Charmain Costain	F	1980-09-15	5573354654	ccostainan@apple.com	4447	\N	2020-04-15	dY2#KdN?#t6/M~a	2024-04-15	active
+898	Gordie Sawtell	F	1987-06-04	9438397291	gsawtellao@1688.com	3762	\N	2022-09-30	aV7=Xt\\j%GJ4	2024-06-26	active
+899	Niki Beauvais	M	2001-05-15	9336708948	nbeauvaisap@icio.us	2753	\N	2022-02-01	yM0+hySf&!Y0W"	2024-07-20	active
+900	Ibrahim Charity	M	1995-01-26	3242692043	icharityaq@shareasale.com	3436	\N	2021-10-10	cA7"KT*y8YzT}n'	2024-11-27	active
+901	Tracie Gravet	F	2004-01-15	6972638479	tgravetar@tripadvisor.com	4208	\N	2020-07-14	gP1,gvr}u1RQ	2024-10-20	active
+902	Page McCool	M	1985-01-01	9647225485	pmccoolas@wp.com	46	\N	2020-10-21	gJ7)IB&o%oT	2024-08-02	active
+903	Kamilah Maffioni	M	2002-04-15	4295256276	kmaffioniat@alexa.com	4022	\N	2021-06-16	jB8=jczn>7G%'&	2024-08-06	active
+904	Herman Ash	M	1987-04-17	2523104182	hashau@artisteer.com	2410	\N	2022-03-18	sI1_d*x!	2024-01-20	active
+905	Paloma Gammet	F	1990-05-24	6082813939	pgammetav@com.com	2060	\N	2022-07-12	tB6_ikw?ZXo}cO	2024-01-22	active
+906	Madelina McLellan	F	1983-02-05	5835954446	mmclellanaw@squidoo.com	2002	\N	2021-02-21	xF6,=oIw4oy	2024-11-06	active
+907	Philomena Carlucci	F	1999-09-09	7162173229	pcarlucciax@hc360.com	3356	\N	2022-09-24	zA5>6>e{V+	2024-03-06	active
+908	Joceline Godin	M	1998-09-21	8865401682	jgodinay@whitehouse.gov	3275	\N	2022-01-03	eJ3{("po>xQP	2024-03-28	active
+909	Noreen Savile	M	1980-06-17	9189668372	nsavileaz@homestead.com	2657	\N	2022-01-18	mI6*R|LM~"(W>I	2024-04-10	active
+910	Bonni Calterone	F	2000-04-26	8845068492	bcalteroneb0@prlog.org	1685	\N	2021-10-08	gM1|{2D67*?u	2024-11-24	active
+911	Cindie Ducker	M	1987-06-05	6742853310	cduckerb1@weather.com	3553	\N	2022-01-04	pT4_HV~GjaD0c_c<	2024-10-23	active
+912	Packston Burbury	F	2004-11-10	9653798995	pburburyb2@ucoz.ru	4887	\N	2022-03-29	aG2=I)11S	2024-12-30	active
+913	Wye Sandbatch	M	2002-06-06	7463179669	wsandbatchb3@marriott.com	950	\N	2022-11-14	dM7@O<AwBU	2024-07-11	active
+914	Shep Fernando	M	1995-11-28	5236090832	sfernandob4@123-reg.co.uk	3744	\N	2022-04-07	kE3*WYrB\\AXw	2024-08-19	active
+915	Bobbie Oppery	M	1984-03-27	9365333908	bopperyb5@java.com	3564	\N	2022-10-04	yC8<0>=IXm%F~iq	2024-05-15	active
+916	Dela Storror	M	1997-12-27	3016154665	dstorrorb6@goodreads.com	4801	\N	2022-03-04	uH7`dTdi*O%AF.	2024-02-06	active
+917	Loni Iiannone	M	2001-07-27	7444138060	liiannoneb7@rakuten.co.jp	976	\N	2022-08-30	cZ8,/ZMj&	2024-09-04	active
+918	Bobbie Hulls	M	1992-08-10	2039072069	bhullsb8@tripadvisor.com	275	\N	2022-12-18	cU4<o/3xb"%{	2024-07-21	active
+919	Dewey Roisen	M	1985-04-08	6584878882	droisenb9@arizona.edu	855	\N	2022-05-26	oV8#j"c1fK2}$c	2024-12-31	active
+920	Eve Eastham	F	1984-12-07	9107872533	eeasthamba@tumblr.com	3916	\N	2020-08-07	zQ3.rDMCy	2024-06-30	active
+921	Lanny Semark	M	2004-03-10	5207247905	lsemarkbb@com.com	1659	\N	2022-10-23	qU9|rODQuZ1rjE2	2024-10-09	active
+922	Tanhya Jacobsson	M	1999-03-13	1166349037	tjacobssonbc@deliciousdays.com	4756	\N	2020-12-14	bQ5\\y?Q~m2bao"3	2024-10-28	active
+923	Phillis Reide	F	1996-11-30	9157905359	preidebd@fastcompany.com	4393	\N	2022-03-11	pU6{9m9r|)K)RFW/	2024-04-17	active
+924	Burnaby O'Regan	M	1987-05-30	1946430661	boreganbe@skyrock.com	3675	\N	2021-11-09	uP5}TcOE%4(UXz>	2024-04-25	active
+925	Ree Gentreau	M	1983-08-26	2232607701	rgentreaubf@delicious.com	3174	\N	2021-01-13	hW8(4MgIr{x{Df	2024-03-09	active
+926	Daryn Sillars	F	1998-10-28	3164902709	dsillarsbg@ovh.net	2852	\N	2020-10-15	yZ9@$+|PC3)YP	2024-08-29	active
+927	Briana Ansty	F	1990-03-17	3199901814	banstybh@chicagotribune.com	2657	\N	2022-07-28	jU9~#GDHm@#onZI	2024-04-22	active
+928	Raf Solomonides	F	1995-02-16	6429290349	rsolomonidesbi@upenn.edu	2560	\N	2022-11-02	yW2&q$5&9r?Iy#R	2024-04-28	active
+929	Modestine Zmitrovich	M	1991-11-23	6738802351	mzmitrovichbj@who.int	486	\N	2022-03-15	nX4>_.w<8=7d\\~Ej	2024-05-28	active
+930	Gisele Duckit	F	1993-06-30	5003051014	gduckitbk@ebay.com	551	\N	2021-02-28	uM6+c'qF)x(S	2024-09-07	active
+931	Salomon Flewin	F	1990-01-10	1786452217	sflewinbl@youtube.com	3236	\N	2020-01-06	sH9\\l61lN1Yv	2024-06-19	active
+932	Nari Gouldstraw	M	1982-09-29	1889590154	ngouldstrawbm@blogspot.com	763	\N	2022-01-09	zR2*m~u/V5	2024-10-10	active
+933	Trudie Reyes	F	1991-01-30	4103332636	treyesbn@about.me	3074	\N	2022-10-10	dI0>xj4Vc	2024-01-03	active
+934	Licha Shacklady	M	2001-08-24	7089872656	lshackladybo@4shared.com	1411	\N	2022-09-14	eY0'8ShL0{<3*2Q	2024-12-08	active
+935	Zachary Kiehne	M	1998-08-11	2561468429	zkiehnebp@multiply.com	2774	\N	2022-11-17	vU5!t+&y1,{	2024-04-16	active
+936	Cecilio Aloshikin	F	1986-06-13	2277276626	caloshikinbq@mashable.com	4249	\N	2020-12-02	uN8$>aEep.$VR+'	2024-05-17	active
+937	Cosette Farrance	M	1984-10-15	5038819514	cfarrancebr@china.com.cn	3550	\N	2020-03-26	aD2|'>}q8QG	2024-11-11	active
+938	Kelly Cogle	F	1990-03-11	1472436334	kcoglebs@cisco.com	1558	\N	2021-04-02	eD5/?|c@Lg,8Y|6	2024-04-29	active
+939	Hadria McCreadie	M	1988-12-21	1604340955	hmccreadiebt@whitehouse.gov	1896	\N	2020-09-06	oC6{5jE,Q5B	2024-03-18	active
+940	Ted Barette	M	1988-09-08	8155709884	tbarettebu@cbc.ca	2285	\N	2020-02-14	eN7?KtBu0FfJ|#	2024-11-03	active
+941	Yank Snawdon	M	1992-06-01	2828198198	ysnawdonbv@boston.com	2976	\N	2021-12-31	zX2@KzS#G2$"A	2024-05-04	active
+942	Timofei Thaim	M	2001-02-10	2752519440	tthaimbw@ask.com	3237	\N	2022-10-24	sV7,Z&={@2|	2024-02-12	active
+943	Beniamino Noel	M	1992-10-04	6915580651	bnoelbx@dailymotion.com	1875	\N	2022-11-18	bI8>$2.=tm!J/	2024-01-11	active
+944	Matteo Upjohn	M	1997-01-11	1851400795	mupjohnby@edublogs.org	2895	\N	2022-01-16	jX2+TTD.a)Y_	2024-07-17	active
+945	Eugenia Tytler	F	1992-06-03	4161403338	etytlerbz@columbia.edu	4064	\N	2020-05-28	iH2_tb2LIulU	2024-05-24	active
+946	Lorne Francom	F	1986-10-30	2684508165	lfrancomc0@nhs.uk	2177	\N	2022-02-03	rK1$peWqh5_E\\{b	2024-10-15	active
+947	Oran Frankum	F	2003-10-23	6418121967	ofrankumc1@dailymotion.com	724	\N	2021-02-13	vF8|i#dd@#v	2024-02-24	active
+948	Chere Sarginson	F	1989-06-04	9616167260	csarginsonc2@histats.com	4733	\N	2021-07-22	jF7{}1SF	2024-09-12	active
+949	Ryun Fontenot	M	2003-04-02	8576656475	rfontenotc3@ocn.ne.jp	1775	\N	2020-08-30	fI1=19\\g{0*~12	2024-02-09	active
+950	Ivy Tidd	M	1981-02-07	1107342357	itiddc4@barnesandnoble.com	3193	\N	2021-04-30	cX8`M2E9	2024-05-11	active
+951	Nealy Ghiroldi	M	1997-03-13	6544996599	nghiroldic5@behance.net	4974	\N	2022-01-27	rE0{PVWU/	2024-01-09	active
+952	Kylen De Carlo	F	1986-02-12	2161268989	kdec6@wufoo.com	2718	\N	2021-12-08	eA6{n(iElF	2024-11-12	active
+953	Diandra Millott	M	1989-01-15	8641632305	dmillottc7@princeton.edu	1898	\N	2022-10-10	uR8`5<%zgwCM'7r=	2024-12-04	active
+954	Neel Armsby	F	2003-04-26	5576254307	narmsbyc8@bloomberg.com	1594	\N	2022-10-08	iM5/TKPc?QvNtV3#	2024-05-03	active
+955	Helaina Corteis	F	1995-07-07	4844548361	hcorteisc9@businessweek.com	2804	\N	2022-07-06	qH5%\\|,H/Jt/(M</	2024-09-25	active
+956	Stearne Cund	F	1993-02-14	7375807045	scundca@over-blog.com	3230	\N	2022-04-24	oS1%.1Xg<@@!'9U}	2024-05-14	active
+957	Nicola Hinrichsen	M	2000-11-02	9029694048	nhinrichsencb@samsung.com	525	\N	2020-04-17	eP4#iI}m&Xw9	2024-09-18	active
+958	Laryssa Bevens	F	1987-11-12	3571179085	lbevenscc@businessweek.com	2920	\N	2021-01-31	cA6_HnZ!zN!yY%,v	2024-12-17	active
+959	Aggie Kayne	M	2004-04-02	2358033138	akaynecd@phpbb.com	2409	\N	2020-06-23	yP3&NeT|<pt	2024-11-21	active
+960	Rudyard Castell	M	1984-12-12	1525197160	rcastellce@mozilla.com	2495	\N	2020-04-11	iX2'%cfTi|}'JQ|I	2024-12-04	active
+961	Ricca Maycey	M	1987-11-20	9049227305	rmayceycf@opensource.org	3050	\N	2022-04-30	wQ9=.(G!	2024-07-01	active
+962	Devan Hughesdon	M	1981-12-21	6243430419	dhughesdoncg@squarespace.com	2787	\N	2020-10-16	jV1!7x)v	2024-12-29	active
+963	Laure Verden	M	1996-01-19	5821148978	lverdench@sun.com	3677	\N	2020-12-27	pS4=301BhEw\\LAA	2024-02-23	active
+964	Tallulah Dumingo	M	1990-10-05	5787031934	tdumingoci@ihg.com	1894	\N	2021-02-10	fI0#fPhbvM`1Xp#L	2024-02-14	active
+965	Barrie Broader	F	1988-03-29	6262250608	bbroadercj@wiley.com	728	\N	2021-05-31	aW0"?Dz<M~`	2024-03-02	active
+966	Eal Tidbold	M	1980-01-13	6444660603	etidboldck@linkedin.com	2792	\N	2022-09-21	sL7{dv+sq0GV$e>	2024-08-04	active
+967	Heida Bridgwater	F	1993-05-27	2663024844	hbridgwatercl@sakura.ne.jp	4248	\N	2021-06-28	nA9?ySwNA=LnKs	2024-01-04	active
+968	Marcello Moles	M	2003-04-13	7952002853	mmolescm@1688.com	1794	\N	2021-09-02	sF2~iau8	2024-08-15	active
+969	Bing Woolger	M	1992-07-09	2673458136	bwoolgercn@e-recht24.de	3541	\N	2021-06-10	rY6>\\lw$x'6+@sq	2024-05-22	active
+970	Helenelizabeth Blues	F	2000-05-10	5748004323	hbluesco@indiatimes.com	3866	\N	2022-11-21	kI7&d+X2&n"2./se	2024-08-19	active
+971	Davine Loddon	M	1999-02-17	8466145651	dloddoncp@fc2.com	2968	\N	2021-07-27	nQ3%U}?0P=eTR	2024-11-26	active
+972	Bink Audus	M	2002-08-12	1452468410	bauduscq@deviantart.com	2347	\N	2020-12-28	eY2+fV83!*c>_	2024-01-15	active
+973	Myrvyn Broske	M	1982-07-22	4607468157	mbroskecr@telegraph.co.uk	4601	\N	2021-09-19	nK3"\\s\\bn<xuS	2024-07-05	active
+974	Pierrette Lagne	M	1991-02-03	1983417391	plagnecs@census.gov	4831	\N	2020-06-09	yU6.QAZF	2024-07-15	active
+975	Maison Dhenin	F	1995-02-21	3189903387	mdheninct@squidoo.com	867	\N	2020-09-28	kL8(DXt4E>9(.r	2024-01-26	active
+976	Austine Thurman	M	2002-12-01	5986596650	athurmancu@google.com	1964	\N	2022-05-14	hZ5,&4I\\a9_sI	2024-03-03	active
+977	Catlaina Houlworth	F	1995-02-24	4804982672	choulworthcv@ca.gov	3735	\N	2020-05-01	uC3=osH/N	2024-01-13	active
+978	Lion Worssam	F	1982-11-17	9086593536	lworssamcw@hexun.com	765	\N	2022-03-31	wP3~>JB'Fif|zf{H	2024-09-04	active
+979	Rorke Goulbourne	F	1993-02-16	7377868541	rgoulbournecx@ocn.ne.jp	1727	\N	2021-10-03	pJ7!#0pn(}h	2024-04-03	active
+980	Laurel Chorley	M	1989-03-24	4231674119	lchorleycy@accuweather.com	787	\N	2022-08-05	cS6(jMOCRt5	2024-05-18	active
+981	Moyna Swire	M	1991-11-23	3399621903	mswirecz@com.com	4998	\N	2022-11-05	uF2.gd#c&gC	2024-12-11	active
+982	Austin Merle	M	1991-12-25	4556037812	amerled0@icq.com	569	\N	2022-11-20	oI4?3L+d	2024-06-09	active
+983	Jorge Piotrowski	F	1986-10-02	3256992672	jpiotrowskid1@macromedia.com	3485	\N	2021-05-21	xZ3$Ls8Y<	2024-02-01	active
+984	Zachary McNeely	F	1982-10-11	4532579564	zmcneelyd2@marriott.com	4097	\N	2022-10-12	kS4$b0T<od	2024-12-04	active
+985	Tilda Kwietek	F	1997-11-03	7434525692	tkwietekd3@toplist.cz	3001	\N	2022-01-09	oB9|Fi47QNE4+l+	2024-01-06	active
+986	Leona Babcock	M	2001-06-03	6969152038	lbabcockd4@washingtonpost.com	2385	\N	2020-03-05	pZ7?'?aIh	2024-09-22	active
+987	Laurella Duly	F	1988-06-29	6515643338	ldulyd5@indiatimes.com	2755	\N	2020-07-29	zL4\\ves>J0si+	2024-06-28	active
+988	Kary Eddicott	M	2000-04-26	7769683074	keddicottd6@springer.com	1640	\N	2022-07-22	qZ1%EK!4LO	2024-07-02	active
+989	Darn McIlraith	F	1993-05-02	9941088667	dmcilraithd7@miibeian.gov.cn	955	\N	2021-03-06	fP7~>WIqU.0goEo	2024-01-23	active
+990	Woodrow Carriage	F	1994-01-08	4577987150	wcarriaged8@weather.com	551	\N	2022-05-10	xB5'O>v_v	2024-07-02	active
+991	Lurlene Osbaldeston	M	1988-12-23	3486394991	losbaldestond9@twitter.com	1171	\N	2022-01-19	fX3@Go>L<VxdN	2024-07-31	active
+992	Koral Ruilton	F	1981-05-28	9879256197	kruiltonda@webeden.co.uk	4287	\N	2022-03-16	hH0_U>L3Qc_Uig4"	2024-06-16	active
+993	Bern Handrick	M	1986-08-01	6071700339	bhandrickdb@multiply.com	1687	\N	2022-07-10	gL3,dUOg	2024-08-29	active
+994	Wilt Scamadin	M	1983-09-11	4455401338	wscamadindc@homestead.com	3234	\N	2022-03-29	iU2_+>>Jmf	2024-07-12	active
+995	Dudley Krzyzaniak	F	1984-09-19	2058220909	dkrzyzaniakdd@themeforest.net	1484	\N	2021-01-28	jN8`=G%868u{MB	2024-12-20	active
+996	Lisabeth Becke	M	1992-08-01	9044818973	lbeckede@prlog.org	2029	\N	2021-06-03	mL1*fJ|)p`eRA%D	2024-12-08	active
+997	Dorey Mueller	M	1997-03-27	3312011797	dmuellerdf@ezinearticles.com	3468	\N	2022-09-27	bJ4|W03=eU\\f7=	2024-07-25	active
+998	Wynne Westney	F	1998-10-19	3153863309	wwestneydg@google.ru	2849	\N	2022-08-15	wK7}oz=|V9	2024-03-21	active
+999	Juditha Gillow	M	2004-03-09	9263804872	jgillowdh@google.fr	3420	\N	2021-05-07	cK9+c&"kLJ}tZ	2024-08-15	active
+1000	Betty Reiglar	F	2003-08-23	2581700823	breiglardi@state.tx.us	3928	\N	2021-01-12	hG7_\\8j&8s~	2024-03-26	active
+1001	Florrie Cornelisse	F	1990-03-11	3539043870	fcornelissedj@go.com	3524	\N	2020-02-01	aO8%sqrNU`	2024-07-11	active
+1002	Shelia Rawstron	F	1992-07-24	2346107935	srawstrondk@google.co.jp	4370	\N	2020-09-27	nU9<A_M/Xce	2024-02-26	active
+1003	Lisetta Smallridge	F	2003-02-12	9211956056	lsmallridgedl@netlog.com	4119	\N	2020-03-01	pC9##62KPc	2024-03-26	active
+1004	Marena Devinn	M	2004-05-16	2545503238	mdevinndm@ed.gov	2553	\N	2020-08-07	rS7+ZtP+	2024-04-24	active
+1005	Rici Tarquinio	M	2003-04-18	7005480450	rtarquiniodn@example.com	1831	\N	2020-12-07	xZ4/5EAWfVcKG*	2024-06-27	active
+1006	Cally Sarfati	F	1989-10-24	4641689647	csarfatido@eepurl.com	3355	\N	2022-08-28	kZ5&{Gg9	2024-09-30	active
+1007	Sandye Rubenchik	F	1990-08-02	7514392878	srubenchikdp@usatoday.com	3613	\N	2021-03-25	bZ0_ZUB71t	2024-06-28	active
+1008	Roscoe Wavish	F	1992-07-14	2576460946	rwavishdq@biblegateway.com	4770	\N	2020-11-23	iJ9|hldL7q	2024-08-16	active
+1009	Alli Wenham	M	1991-05-18	7711542504	awenhamdr@wix.com	2168	\N	2022-02-10	bK5<KY.6p/W+L|%U	2024-01-13	active
+1010	Pearle Brunsden	M	2004-09-28	2283770172	pbrunsdends@naver.com	223	\N	2021-04-25	jE1=czqh	2024-01-26	active
+1011	Filberte Yarham	M	2003-02-26	3114280681	fyarhamdt@time.com	2735	\N	2021-03-01	xQ2+2VxrMlvl`OM	2024-04-28	active
+1012	Josepha Jallin	F	1998-06-17	9686261128	jjallindu@nyu.edu	2855	\N	2021-09-26	aM3!`Lb5L'	2024-06-13	active
+1013	Hill Camoys	M	1989-11-08	9316384027	hcamoysdv@opensource.org	447	\N	2020-08-20	jJ5`|BHu0yp|=>X	2024-07-05	active
+1014	Ingaberg Marchetti	F	1986-02-26	5346282335	imarchettidw@ftc.gov	4199	\N	2020-05-12	tS7{PuH_yr	2024-01-22	active
+1015	Judie Richardes	F	2000-06-25	9061521071	jrichardesdx@paypal.com	2322	\N	2020-07-19	lM6_VaTt	2024-04-14	active
+1016	Fons Ryce	F	1984-01-26	3846316065	frycedy@myspace.com	3732	\N	2022-10-20	kI4|Nf>+	2024-11-21	active
+1017	Seana Mertel	F	1994-08-17	9702480500	smerteldz@ning.com	2147	\N	2022-12-04	pT2$a3eWEM3/NR	2024-01-16	active
+1018	Fredia Vittori	M	1995-03-26	3425697414	fvittorie0@reddit.com	4421	\N	2022-08-12	tR8*d8snH	2024-12-06	active
+1019	Ambrosi Casbolt	M	1986-01-23	4999904923	acasbolte1@ucsd.edu	1507	\N	2021-09-30	lT0\\F(C58+%$X4	2024-05-12	active
+1020	Bette-ann Cardenas	F	1997-07-06	4728786764	bcardenase2@goo.ne.jp	3391	\N	2022-01-16	mQ7,y&<A	2024-10-15	active
+1021	Edee Kearn	M	1981-03-27	3615168155	ekearne3@photobucket.com	458	\N	2021-06-03	tY8=8S$1E	2024-12-28	active
+1022	Orazio Haylett	F	1998-05-25	5082958824	ohaylette4@vk.com	811	\N	2020-10-20	iW0>KGK(	2024-10-10	active
+1023	Meir Eglington	M	1986-03-23	8829218792	meglingtone5@cbc.ca	2843	\N	2020-01-27	dB0#G'@t2a47	2024-05-12	active
+1024	Ola Boulton	M	1989-11-19	4484855226	oboultone6@businessweek.com	1974	\N	2020-01-19	rN1\\}IHcTvv	2024-01-09	active
+1025	Gabriello Pratten	F	1991-08-17	9509917103	gprattene7@hatena.ne.jp	4963	\N	2022-09-05	yM4_qciQYpWsEKF	2024-11-21	active
+1026	Gretal Chastelain	M	2001-09-25	4139486240	gchastelaine8@51.la	4089	\N	2020-02-15	qG3=R{JtA%>}	2024-11-13	active
+1027	Margaretha Medley	F	2004-11-08	4851647108	mmedleye9@qq.com	4204	\N	2020-05-17	xU6+!OK@\\="nG	2024-01-13	active
+1028	Ophelia Allicock	F	2004-05-09	8817666253	oallicockea@vkontakte.ru	4093	\N	2021-09-28	kZ5~nze*9/l	2024-04-14	active
 4	Pham Thi D	F	1995-04-04	0901000004	d.pham@email.com	21	silver	2024-06-04	password4	2025-06-01	active
 6	Bui Thi F	F	1991-06-06	0901000006	f.bui@email.com	21	silver	2024-06-06	password6	2025-06-01	active
 7	Doan Van G	M	1989-07-07	0901000007	g.doan@email.com	21	silver	2024-06-07	password7	2025-06-01	active
@@ -3893,6 +4408,491 @@ COPY public.customer (customer_id, full_name, gender, date_of_birth, phone, emai
 5	Vo Minh E	M	1993-05-05	0901000005	e.vo@email.com	21	silver	2024-06-05	password5	2025-06-02	active
 10	Tran Thi J	F	1997-10-10	0901000010	j.tran@email.com	21	silver	2024-06-10	password10	2025-06-01	active
 8	Dang Thi H	F	1996-08-08	0901000008	h.dang@email.com	21	silver	2024-06-08	password8	2025-06-02	active
+1029	Blaine Coverdill	M	2004-07-11	1094296032	bcoverdilleb@engadget.com	3432	\N	2022-10-12	mY0$|HpOOnQr1zz?	2024-09-10	active
+1030	Giles Jenson	M	1998-10-01	2613533671	gjensonec@buzzfeed.com	2550	\N	2022-07-14	kW9|SAFd},Y*gUw	2024-08-19	active
+1031	Franchot Avarne	M	1993-08-14	3615429898	favarneed@g.co	1714	\N	2020-10-22	cQ9=x+,BO1	2024-08-19	active
+1032	Leeland Fanning	F	1982-01-29	5635111287	lfanningee@uol.com.br	4868	\N	2021-09-22	iL3+0MiRX|Z>	2024-08-24	active
+1033	Almira Brunon	M	1994-10-09	2976350970	abrunonef@prlog.org	1235	\N	2021-03-09	yF6`f$oxqg1.	2024-11-07	active
+1034	Flossie Heinzler	M	2003-05-11	2494269497	fheinzlereg@amazonaws.com	4378	\N	2020-09-30	mL7)0F8rx|`.C1?/	2024-06-19	active
+1035	David Horstead	F	1991-12-10	9772077700	dhorsteadeh@friendfeed.com	2445	\N	2022-06-03	jH5~"+7oD!?m	2024-08-09	active
+1036	Joceline Cutting	F	1984-03-15	8535530073	jcuttingei@nps.gov	3339	\N	2022-07-06	dA6{yi2fGk)F5	2024-04-07	active
+1037	Calvin McConnal	M	1998-10-07	4886571960	cmcconnalej@ameblo.jp	1220	\N	2022-05-19	aS4<(+xf''0I	2024-04-04	active
+1038	Janice Parley	F	1982-04-18	8983327679	jparleyek@over-blog.com	2734	\N	2021-04-27	iE9@|b@MRHC	2024-11-28	active
+1039	Denni Gully	M	1983-01-03	6869051814	dgullyel@cargocollective.com	634	\N	2021-07-30	bV5"o@gXm0I	2024-02-20	active
+1040	Claude Brickner	F	1983-05-19	6634231847	cbricknerem@gnu.org	4817	\N	2022-01-20	xA5,)Udw&BPu4(W	2024-06-15	active
+1041	Aurea Bertl	F	1994-06-06	1795800528	abertlen@slideshare.net	4523	\N	2020-05-06	yS5+fs,{c47bMCOw	2024-09-19	active
+1042	Tamra Clabburn	F	1992-06-28	4017914493	tclabburneo@europa.eu	1038	\N	2022-10-20	aU3.eA\\4NG	2024-03-16	active
+1043	Ermengarde Necolds	M	1981-09-25	2932896411	enecoldsep@newsvine.com	3290	\N	2022-07-07	oM8#`D#K%	2024-09-11	active
+1044	Mervin Giacobini	M	1991-09-28	9919239777	mgiacobinieq@blogs.com	3593	\N	2022-08-11	jW6(qDE`16{F	2024-08-06	active
+1045	Andrej MacKibbon	M	1990-11-16	7421073836	amackibboner@wikipedia.org	2378	\N	2020-05-13	uU5%r8eZNs#2}t	2024-12-29	active
+1046	Bank Bascomb	F	1992-06-07	3852015617	bbascombes@pagesperso-orange.fr	1925	\N	2022-07-07	pA5,{zLosOPzS{	2024-04-13	active
+1047	Haskell Coenraets	F	2002-07-11	9434474914	hcoenraetset@flickr.com	558	\N	2022-07-02	fO1*Mi@?P.1Lk7	2024-01-14	active
+1048	Gaye Ceresa	M	1988-02-22	3712189537	gceresaeu@amazon.com	2746	\N	2021-02-24	lI4}\\i{/~jte	2024-12-02	active
+1049	Daveen Essam	M	1985-07-21	7405040194	dessamev@blogtalkradio.com	3486	\N	2020-08-20	qK8>l(%>%=0	2024-02-18	active
+1050	Meredithe Extill	F	1988-08-20	5097971802	mextillew@ca.gov	3230	\N	2020-06-24	aJ6`wA/e@T%KIc*	2024-12-22	active
+1051	Teodorico Ascroft	M	1981-08-29	2892815084	tascroftex@nature.com	1002	\N	2020-11-03	dC2|&Dra?t@XnbMW	2024-03-23	active
+1052	Cassandra Burnip	F	1984-06-15	8197463335	cburnipey@icq.com	1205	\N	2021-12-08	qO6%g9W#B	2024-03-12	active
+1053	Yuma Wainscoat	F	1993-10-30	3488419644	ywainscoatez@adobe.com	722	\N	2020-05-31	yF3=ZYC6Rk'	2024-06-11	active
+1054	Faun Bidwell	M	1989-03-05	4633784993	fbidwellf0@nytimes.com	4760	\N	2021-09-14	dA6~`pdYC~o/	2024-07-28	active
+1055	Mirabella Saxon	M	1980-04-20	2863539303	msaxonf1@businesswire.com	1836	\N	2022-03-23	zC3_"tRd&@\\WBqb	2024-04-15	active
+1056	Shelagh Liddell	F	1999-08-06	2569136331	sliddellf2@zimbio.com	4288	\N	2021-07-14	fF1|&bTPht'yQ	2024-04-01	active
+1057	Jaclin Grubbe	M	1996-07-15	4851138220	jgrubbef3@hubpages.com	3664	\N	2021-07-12	cD0_EWTF	2024-04-18	active
+1058	Doyle O'Calleran	F	1980-11-05	1426487897	docalleranf4@dropbox.com	564	\N	2021-03-23	mJ6=#HZc}H"S?AfH	2024-10-13	active
+1059	Marvin Sauvage	F	1987-12-14	3284512983	msauvagef5@sfgate.com	2447	\N	2020-08-18	vD3~z?gGgU	2024-01-06	active
+1060	Becca Cavalier	F	1997-01-22	2106229406	bcavalierf6@wix.com	3889	\N	2022-10-04	zW7(A!>|E6VW=Wz	2024-08-12	active
+1061	Letty Danielut	M	1983-09-24	1198264371	ldanielutf7@sciencedirect.com	608	\N	2022-03-30	bR9._w0P	2024-01-10	active
+1062	Karalee Godspede	F	1996-12-23	9267063942	kgodspedef8@washingtonpost.com	4898	\N	2020-05-24	uI6#L\\h$Fa80sN~	2024-07-06	active
+1063	Prescott Downage	M	1995-01-31	7877009147	pdownagef9@slideshare.net	734	\N	2022-11-14	pZ6!/Ydi|}	2024-06-23	active
+1064	Johan Monck	F	1995-06-20	5947562089	jmonckfa@addthis.com	4387	\N	2020-01-24	rD5/DD`.FEJ	2024-03-15	active
+1065	Zilvia O'Shields	F	1985-06-23	3809052191	zoshieldsfb@trellian.com	777	\N	2021-05-17	nE1{H8Sq	2024-12-31	active
+1066	Chastity Dosdell	F	1987-07-04	7681219232	cdosdellfc@mozilla.com	4488	\N	2022-03-17	cP3{{3J6	2024-07-03	active
+1067	Artemis Simonetti	F	1982-05-04	8002477510	asimonettifd@dailymail.co.uk	2667	\N	2022-09-17	eK1>%.eREJ@`z	2024-07-23	active
+1068	Morlee Flay	M	1980-05-18	5477615749	mflayfe@wikipedia.org	769	\N	2021-03-05	kO2+G#h5!NYP,1O	2024-08-02	active
+1069	Teodoor Ponnsett	M	1981-11-20	4384205940	tponnsettff@vk.com	4345	\N	2020-01-18	wU7\\&,fl9gfQ	2024-12-02	active
+1070	Lorita Quarton	F	1981-10-30	2741216244	lquartonfg@hexun.com	415	\N	2020-10-06	gK3~@n<j	2024-03-02	active
+1071	Jarrad Renison	M	2000-06-07	1466464991	jrenisonfh@reverbnation.com	4245	\N	2022-06-27	xN9}IGOqnB2VnXKf	2024-04-06	active
+1072	Raviv Geibel	F	1994-06-14	7375970618	rgeibelfi@ustream.tv	1970	\N	2021-10-27	nY3'R*_%	2024-11-18	active
+1073	Augustine Pobjoy	M	1997-11-06	6565715589	apobjoyfj@nyu.edu	1556	\N	2020-11-18	qV3/)soc)>7A,	2024-02-06	active
+1074	Raimondo Hainning	F	1983-01-25	2132257624	rhainningfk@goo.ne.jp	451	\N	2020-06-16	tJ8)Zz|ba,.55	2024-09-15	active
+1075	Kean Stirton	F	1996-07-09	3441784143	kstirtonfl@tinyurl.com	1304	\N	2020-03-04	iJ1>Y~NKGGVrrWmj	2024-03-16	active
+1076	Aubry Stollsteiner	F	1995-10-27	3352418811	astollsteinerfm@4shared.com	56	\N	2021-09-25	oX8{&OMHh!=2o	2024-02-13	active
+1077	Stafford Clarey	F	1980-12-02	8641384488	sclareyfn@prlog.org	1641	\N	2022-07-12	qR6{`yF~5	2024-05-16	active
+1078	Rodger Camplen	F	1998-12-04	5952116077	rcamplenfo@archive.org	1058	\N	2020-05-17	yY8*c|4MdN1Qq}{a	2024-03-28	active
+1079	Thorn Yacobsohn	M	1994-04-01	3897272045	tyacobsohnfp@nifty.com	1471	\N	2021-08-29	dI2}_{c!Y{'tOv&2	2024-08-26	active
+1080	Stearne Klas	M	1980-04-06	8017975680	sklasfq@discovery.com	3578	\N	2021-07-18	qQ8>,%P_h	2024-09-02	active
+1081	Scarlett Puve	F	1982-08-15	7864079487	spuvefr@pbs.org	3248	\N	2020-07-25	cH7\\x_kbaL/*{7*?	2024-01-09	active
+1082	Sunshine Lethibridge	F	1984-02-15	2891466015	slethibridgefs@google.it	4481	\N	2021-03-11	jW8|=Qh*`'c	2024-03-13	active
+1083	Reginald Ramme	F	1990-02-13	2077287976	rrammeft@foxnews.com	1267	\N	2021-05-05	cW2\\EMOD`arwMBO	2024-07-14	active
+1084	Clerc Hurndall	F	2002-06-28	4627733743	churndallfu@photobucket.com	2271	\N	2020-03-28	hB0_+jB/R`'~8&	2024-10-10	active
+1085	Leo Elmore	M	1991-08-30	3344163874	lelmorefv@fc2.com	311	\N	2022-10-11	aI4?d>Qmx@/	2024-12-21	active
+1086	Leigha Phalp	M	1985-12-01	2087395373	lphalpfw@usda.gov	2454	\N	2021-06-02	jZ1$ouo"REK$	2024-02-20	active
+1087	Donella Kusick	F	1996-12-23	8502564234	dkusickfx@comcast.net	1737	\N	2022-03-01	iA4`Iv,+H)jnVX	2024-11-02	active
+1088	Adolpho Wixey	F	2004-09-14	2883626066	awixeyfy@instagram.com	2644	\N	2021-10-08	zX4&6q3(N!x	2024-12-12	active
+1089	Aloisia Tukesby	F	2001-01-08	1031868325	atukesbyfz@wunderground.com	2301	\N	2022-07-09	nO8!bJ?|guQXh	2024-12-29	active
+1090	Gerik Le Pine	M	1996-11-04	5856317318	gleg0@naver.com	1432	\N	2020-08-19	sP2(oKLo	2024-12-10	active
+1091	Ardine Barhem	M	2002-06-11	1963959489	abarhemg1@wisc.edu	1746	\N	2022-03-29	dB7)yhn<cQ_@l,	2024-10-07	active
+1092	Violante Coomes	M	1980-11-30	5352463404	vcoomesg2@mysql.com	82	\N	2021-07-04	wD3*CO.Me*	2024-07-30	active
+1093	Romy Kloska	F	1997-12-08	3123464708	rkloskag3@istockphoto.com	491	\N	2021-03-02	yJ2(j9NUR3E4	2024-12-20	active
+1094	Nikolaus Shyram	F	1984-07-14	9654427543	nshyramg4@typepad.com	3575	\N	2020-10-07	gV0=`v81'B	2024-08-16	active
+1095	Pat Tatlowe	F	1987-09-09	7125284358	ptatloweg5@abc.net.au	4359	\N	2022-08-24	cX8=Q*_,G3eZ=	2024-07-20	active
+1096	Trace Kershaw	M	1991-06-01	1215953826	tkershawg6@comsenz.com	4888	\N	2021-04-23	eS0>Zp"t5oTf_"	2024-10-30	active
+1097	Alvina Saintpierre	F	1987-05-09	4701851714	asaintpierreg7@macromedia.com	4885	\N	2020-10-07	wP9,qE!t	2024-05-09	active
+1098	Knox Lanham	M	2001-10-19	2138386926	klanhamg8@google.it	4471	\N	2020-07-09	dS7*PkA%AD	2024-12-18	active
+1099	Betsy Danshin	M	1991-06-19	2634819307	bdanshing9@instagram.com	782	\N	2021-07-10	qL3!=Tdi,!{J'|F	2024-12-13	active
+1100	Feliks Croneen	M	1992-05-23	5196170335	fcroneenga@freewebs.com	53	\N	2020-04-05	aB2(CX/N",`p|	2024-06-02	active
+1101	Sally Sprull	F	2004-10-27	3997651741	ssprullgb@mac.com	1255	\N	2020-02-18	qI4>4`?oj(	2024-06-27	active
+1102	Huey Carbery	M	1986-12-03	7739944395	hcarberygc@fema.gov	4645	\N	2020-10-31	bG3,0YuZt	2024-01-03	active
+1103	Alene Burd	F	1991-10-16	6606954155	aburdgd@domainmarket.com	1089	\N	2022-09-25	wH4\\2+f0!'Yr8	2024-04-18	active
+1104	Danit Flode	M	1993-05-01	9177946412	dflodege@mit.edu	2466	\N	2022-07-06	lT4?9bPm	2024-08-11	active
+1105	Gabbie Mackerel	M	1983-11-02	3744250626	gmackerelgf@exblog.jp	877	\N	2021-09-13	vP3/0DQ1	2024-06-23	active
+1106	Dill Folbig	M	2002-05-12	6221344840	dfolbiggg@illinois.edu	2176	\N	2021-04-09	fQ8!qbZPfxottI	2024-09-16	active
+1107	Brande Hritzko	M	2001-09-22	2463405964	bhritzkogh@wikimedia.org	1129	\N	2020-06-02	gP0>B0%yQ`2Ws4	2024-08-07	active
+1108	Ninnette Beckey	F	1982-02-15	7958407612	nbeckeygi@vimeo.com	4801	\N	2022-12-30	vO8*?6BlDw7	2024-01-15	active
+1109	Ev Longfut	F	1984-04-12	8012012930	elongfutgj@google.com.au	826	\N	2022-04-25	eV5~Y|P&//>8+	2024-06-24	active
+1110	Gavrielle Rickert	M	2001-06-12	8721999637	grickertgk@indiatimes.com	3903	\N	2020-03-10	sQ3|CgS0	2024-04-18	active
+1111	Claybourne Croll	M	1980-05-22	5788817531	ccrollgl@eepurl.com	132	\N	2022-09-16	sM2,oFNHuk	2024-07-18	active
+1112	Minerva Scoyles	M	2000-04-10	4951719262	mscoylesgm@springer.com	1476	\N	2020-01-16	uY0*/s%kX=t.	2024-05-04	active
+1113	Joell Molan	F	1992-01-03	9104530939	jmolangn@arizona.edu	2064	\N	2021-10-23	nJ8*|C#,tzx	2024-11-03	active
+1114	Suellen Woodcraft	M	1991-01-03	5259741052	swoodcraftgo@mlb.com	4392	\N	2020-06-12	hS8@DCixJi``j)T	2024-10-15	active
+1115	Shaylyn Scurr	F	1986-04-24	4781695865	sscurrgp@cbslocal.com	814	\N	2022-03-30	gE2}G57XoQd`	2024-01-16	active
+1116	Devan Grzes	M	1995-03-19	9372269337	dgrzesgq@netscape.com	3787	\N	2020-01-17	fA7>*9YI&g1a	2024-05-07	active
+1117	Boy Burness	F	2004-12-28	5142033154	bburnessgr@businessinsider.com	1234	\N	2022-03-13	pR2`F&IeJ\\P!*G12	2024-05-05	active
+1118	Tana Snap	M	1983-05-31	4419034560	tsnapgs@bigcartel.com	3508	\N	2022-03-10	fX6`%j>H'3%}z	2024-05-12	active
+1119	Ilaire Kretschmer	F	2000-01-21	7142820016	ikretschmergt@ed.gov	1249	\N	2020-08-23	xQ9>a\\GaWDb5	2024-01-27	active
+1120	Ruy Dunsmuir	M	1999-09-02	6256025886	rdunsmuirgu@oakley.com	1294	\N	2021-03-04	xT5}0virP%zGZng>	2024-02-02	active
+1121	Barb Vowden	F	1992-03-07	4093500785	bvowdengv@theglobeandmail.com	236	\N	2021-05-08	aL8_WOXi)|rNe	2024-04-19	active
+1122	Eunice Jurkiewicz	M	1994-02-05	4501432250	ejurkiewiczgw@chron.com	1827	\N	2021-06-16	xS4>aqIoZs~	2024-12-18	active
+1123	Kaitlyn Steeden	F	2001-09-13	6424873306	ksteedengx@imgur.com	301	\N	2020-07-03	gI2#UA_kNkKwRkG	2024-05-02	active
+1124	Jacquetta Early	F	1999-11-10	2331460104	jearlygy@lulu.com	4474	\N	2022-10-25	nM4#+2Ncv3NVS	2024-03-16	active
+1125	Sascha Carverhill	M	1994-10-23	2582251624	scarverhillgz@businessweek.com	1056	\N	2021-01-12	dY6,}lLBYg/l	2024-08-29	active
+1126	Madlen Sellman	M	2002-08-27	3539759442	msellmanh0@ebay.co.uk	959	\N	2021-07-25	jN0/GegT	2024-07-06	active
+1127	Page Sexon	M	1980-03-22	6468335432	psexonh1@latimes.com	1249	\N	2022-03-24	hG2/#y$dN8W3P	2024-03-28	active
+1128	Antony Cordsen	M	1983-05-09	5905991817	acordsenh2@zimbio.com	4505	\N	2022-06-25	kR3=/e*pyTNO	2024-10-21	active
+1129	Hercules Asprey	F	1981-06-07	1525921833	haspreyh3@amazon.com	4401	\N	2020-12-20	nT3@P(eJ!S_}N{	2024-03-26	active
+1130	Kylen Copsey	F	1993-05-13	4664199492	kcopseyh4@edublogs.org	2958	\N	2021-06-20	zA2+!o+J@>w,(	2024-11-13	active
+1131	Chrysler Gotcher	F	1998-09-30	4884658610	cgotcherh5@chicagotribune.com	3057	\N	2022-09-27	kB0=)pSXoQn@Z%r9	2024-06-30	active
+1132	Anatol Joret	F	1999-02-06	5687135510	ajoreth6@army.mil	1047	\N	2021-02-28	kT9_pgFZfda{viK	2024-07-26	active
+1133	Lynne Edards	F	2003-11-29	5753564529	ledardsh7@google.co.jp	1855	\N	2020-05-21	vR3`_)o+n)qE+<rG	2024-07-21	active
+1134	Stefa Garrick	M	2000-04-14	5856777649	sgarrickh8@mit.edu	1985	\N	2022-11-25	mJ6$Dl8ach'	2024-08-01	active
+1135	Jud Tomik	M	2001-07-02	9764945009	jtomikh9@dell.com	1739	\N	2021-10-19	hZ9!0P1'	2024-03-07	active
+1136	Clark Gilstoun	M	2002-04-11	9337656899	cgilstounha@shop-pro.jp	3333	\N	2022-11-29	zV4>Ca<!V)cO	2024-06-20	active
+1137	Cristian Acheson	M	1980-09-14	2236950409	cachesonhb@slate.com	341	\N	2020-10-11	jK0@i@d<iFN	2024-11-27	active
+1138	Daryl Rosenblath	M	2002-12-05	6273895852	drosenblathhc@aol.com	3388	\N	2020-08-26	yA3_{j,@9AmW	2024-10-17	active
+1139	Maitilde Jorczyk	F	2002-07-18	8787051560	mjorczykhd@tripod.com	2951	\N	2022-10-22	aS8.F_zSSEAh	2024-06-20	active
+1140	Vilhelmina Gillfillan	F	1999-01-12	9717823779	vgillfillanhe@blogtalkradio.com	3445	\N	2021-06-26	lH1~W}nrbKy(cgy/	2024-02-10	active
+1141	Marnie Plane	F	2001-02-08	4875061121	mplanehf@about.com	1549	\N	2022-01-12	xO4|9#?N9fm	2024-02-17	active
+1142	Shelbi Newing	M	2002-07-15	4602133731	snewinghg@answers.com	1929	\N	2022-02-26	jD7)bF_YROxlvB)	2024-11-02	active
+1143	Louis Peach	F	1983-01-18	6716126722	lpeachhh@digg.com	2617	\N	2020-10-22	pB6.<hW8V	2024-10-14	active
+1144	Marthe Ferryman	M	1986-07-06	7061161813	mferrymanhi@imgur.com	3060	\N	2020-10-02	bQ6&)$3&<	2024-06-03	active
+1145	Mauricio O'Noulane	M	1983-07-10	6989710825	monoulanehj@prnewswire.com	4247	\N	2020-07-20	yX1~7%3|Wmvfl	2024-05-27	active
+1146	Sallyann Trenear	M	1997-10-06	4847258215	strenearhk@xrea.com	4678	\N	2020-04-09	aA8!fLgQ6)y	2024-01-09	active
+1147	Marion Roft	M	1999-08-22	8886887471	mrofthl@theglobeandmail.com	10	\N	2022-05-23	tL2<rO!,>r	2024-08-16	active
+1148	Ashil Pairpoint	F	2004-12-24	5511604997	apairpointhm@usatoday.com	1999	\N	2022-11-26	zF7%%IftMTcq!~9	2024-01-17	active
+1149	Debera Adamek	F	1990-06-04	4005897834	dadamekhn@answers.com	4889	\N	2021-04-21	qP1*B`BT	2024-11-17	active
+1150	Kenn Peer	F	2001-07-26	8809466766	kpeerho@i2i.jp	1896	\N	2020-12-25	tE8.|X)T	2024-02-28	active
+1151	Waylan Redding	M	1981-07-29	9813396245	wreddinghp@mit.edu	4143	\N	2020-05-13	sY0`)>JD3b	2024-09-05	active
+1152	Lark Campe	F	1985-12-21	5487813903	lcampehq@ihg.com	62	\N	2022-10-28	xI9+knHj)1	2024-11-14	active
+1153	Lacey Hillborne	F	1983-09-25	2565253066	lhillbornehr@bbc.co.uk	2658	\N	2020-08-01	mZ0#E1?Biz1_"'	2024-02-02	active
+1154	Deeann De Pietri	M	1983-11-12	6036744800	ddehs@reference.com	267	\N	2020-11-08	zS8'zrWl8g%s6(Z5	2024-11-30	active
+1155	Ignazio Choulerton	F	1991-10-20	8883407615	ichoulertonht@state.tx.us	2802	\N	2022-01-16	sE1&*TuG$T4	2024-03-30	active
+1156	Edouard MacElane	M	1983-12-13	8642849040	emacelanehu@feedburner.com	83	\N	2020-07-13	sY0$c>4u+licUX	2024-02-05	active
+1157	Jacynth Hambleton	M	1997-03-28	7852537338	jhambletonhv@geocities.com	1104	\N	2021-02-03	nO7_!Lf\\7{dtc	2024-05-03	active
+1158	Jessey Tarbard	M	1997-12-31	6998609250	jtarbardhw@cbslocal.com	3311	\N	2021-12-31	qH2&ZYTh	2024-01-25	active
+1159	Penni Byers	F	1985-11-08	6098474430	pbyershx@yolasite.com	4639	\N	2020-07-26	cK7@R&@H@	2024-04-07	active
+1160	Elbertine Yuryaev	F	2002-06-29	7407654550	eyuryaevhy@last.fm	2871	\N	2021-06-08	fF9_fTwkWS!w$)	2024-01-23	active
+1161	Ty Weben	F	1990-05-04	4097650256	twebenhz@nasa.gov	2699	\N	2021-10-15	eZ3'/jdX0yE	2024-05-16	active
+1162	Simonne Makepeace	F	1990-12-03	2636651582	smakepeacei0@liveinternet.ru	2901	\N	2022-05-04	dI3+I`15	2024-07-06	active
+1163	Harriet Trower	F	1992-02-13	9096200801	htroweri1@ted.com	4247	\N	2022-11-18	yQ0&Q=UFi`ATw	2024-09-03	active
+1164	Adrian Weitzel	F	1995-11-19	7477768822	aweitzeli2@so-net.ne.jp	2407	\N	2021-11-24	sP6<&(i0h	2024-03-20	active
+1165	Myrle Wiggam	M	2004-04-04	2219416504	mwiggami3@reddit.com	2026	\N	2020-04-09	hZ1|YzM,	2024-11-28	active
+1166	Starla Sturdy	M	2000-05-16	2298772813	ssturdyi4@odnoklassniki.ru	4805	\N	2022-03-22	hN8+sZgTq}E	2024-12-26	active
+1167	Silas Wondraschek	F	1989-09-04	8292872312	swondrascheki5@adobe.com	4874	\N	2021-07-07	kW6`e14SmO4g|+d	2024-07-30	active
+1168	Benedicto Snellman	F	1994-07-20	2508712109	bsnellmani6@shutterfly.com	3852	\N	2020-06-05	nG0"ooB(d	2024-06-09	active
+1169	Javier Stiling	F	2003-08-15	2295060840	jstilingi7@fastcompany.com	1608	\N	2021-09-04	hO1|zt2%+lL9wZ}	2024-04-23	active
+1170	Dallon McCurley	F	1997-08-10	2335322236	dmccurleyi8@rediff.com	4784	\N	2022-07-04	mG3/hNloV6	2024-03-09	active
+1171	Beitris Beaufoy	M	2001-02-24	8771501710	bbeaufoyi9@youtube.com	1300	\N	2020-06-29	cV1"om!fslO}	2024-07-06	active
+1172	Cris Hickeringill	M	1990-01-06	1065120177	chickeringillia@ftc.gov	4305	\N	2021-12-09	mC6{%g3SKxZ+{V*	2024-06-28	active
+1173	Suzanna Crighten	F	1986-03-14	9719356666	scrightenib@php.net	3823	\N	2022-08-29	eG8$%TlsZ	2024-05-04	active
+1174	Phillis Pengilly	M	1984-06-25	7494727170	ppengillyic@google.ru	2348	\N	2021-06-22	qS2.(TGud3#aOR@	2024-09-20	active
+1175	Lynnet Wabey	F	1983-12-04	5078787530	lwabeyid@washington.edu	3758	\N	2021-04-04	fE8,`oCu5	2024-04-22	active
+1176	Genvieve Merfin	M	1987-10-28	1513364301	gmerfinie@chron.com	3607	\N	2021-03-20	uU9?/@fXPgO	2024-11-10	active
+1177	Ally Pimlock	M	1980-11-03	7015679894	apimlockif@sciencedirect.com	2647	\N	2021-01-15	cE2)'.KJbHcN|87B	2024-01-25	active
+1178	Anatollo Kleinber	F	2004-02-28	9964115637	akleinberig@fotki.com	4282	\N	2020-01-05	pV9})njKI}7"A	2024-06-08	active
+1179	Alastair Pidcock	F	1994-12-02	3257815753	apidcockih@php.net	843	\N	2021-09-08	hW4/'u$Y	2024-08-07	active
+1180	Karole Twaits	M	1983-09-15	1582325547	ktwaitsii@bravesites.com	131	\N	2020-10-31	zX8{Nl")_b@Mj.h	2024-09-03	active
+1181	Trevor Cutbirth	F	1980-03-07	4064709346	tcutbirthij@storify.com	1557	\N	2020-09-11	bA8|#d#h	2024-06-09	active
+1182	Danika De Maine	M	1985-04-12	7518512347	ddeik@netvibes.com	3248	\N	2020-04-18	hJ4#,?BY17uV4	2024-11-24	active
+1183	Bessie Bemlott	M	1997-03-16	6292307459	bbemlottil@senate.gov	4806	\N	2022-06-26	dU0`+0!b	2024-03-31	active
+1184	Ethelred Pringer	F	2000-06-20	6216518083	epringerim@hatena.ne.jp	2740	\N	2022-04-29	pM9=?4b3kxJ1	2024-10-27	active
+1185	Donny Capron	M	1990-12-09	2364044609	dcapronin@loc.gov	4810	\N	2020-05-05	cY8*sjtJ+V@7	2024-11-29	active
+1186	Tessie Bagger	F	1994-07-31	7062861903	tbaggerio@ustream.tv	20	\N	2020-08-06	dH0|g}qxT"Y'+2~n	2024-01-05	active
+1187	Eolande Khotler	F	2000-03-24	1522342363	ekhotlerip@pagesperso-orange.fr	215	\N	2020-12-19	uX6*DYi)_mR@j8	2024-06-11	active
+1188	Katharina Shakelade	M	1991-02-04	1406673271	kshakeladeiq@aol.com	490	\N	2020-03-20	cC2$_W2eHA2wii0Y	2024-08-04	active
+1189	Leigha Milmoe	F	1985-02-10	2045970552	lmilmoeir@cargocollective.com	4379	\N	2022-11-15	aY5"%"mWi??%dX	2024-08-05	active
+1190	Erminia Southcott	M	1982-11-30	6911386246	esouthcottis@gmpg.org	1813	\N	2022-06-08	hH7~2$wq>	2024-09-13	active
+1191	Even Lidell	M	1989-10-20	2511804128	elidellit@fda.gov	613	\N	2021-02-14	yH6}jIFy#	2024-07-28	active
+1192	Olvan Dunston	M	1992-11-01	7239559853	odunstoniu@t-online.de	3341	\N	2020-09-01	nI9.Y?>q	2024-12-24	active
+1193	Eleanor Eronie	F	1988-08-23	6744735237	eeronieiv@hubpages.com	1702	\N	2021-01-18	mE1(ywmH,	2024-11-08	active
+1194	Ludvig Kirsche	F	2002-11-02	3214708768	lkirscheiw@oracle.com	872	\N	2021-08-23	qQ5<Zk.lOcFKGE+5	2024-03-23	active
+1195	Christy Kears	F	1981-04-04	2699136215	ckearsix@linkedin.com	891	\N	2020-09-24	cG2~3UF.DTX#4#D	2024-05-29	active
+1196	Dawna Semper	M	1992-11-08	5702926724	dsemperiy@about.me	1088	\N	2022-05-20	bY2+`2WGLH47S_GI	2024-07-02	active
+1197	Becca Bathow	M	1998-02-04	1839227967	bbathowiz@ucoz.com	4166	\N	2021-06-18	hT9@EL\\.KdVp	2024-02-26	active
+1198	Cort Boothby	M	1997-12-07	5743726796	cboothbyj0@desdev.cn	2527	\N	2021-02-07	iK1?.hU}M?z`GY	2024-12-17	active
+1199	Basilius Sadler	F	1985-01-11	8876051383	bsadlerj1@delicious.com	4744	\N	2020-08-18	bJ8/zf8mMPr	2024-09-01	active
+1200	Cos Belly	M	1996-06-13	6339911975	cbellyj2@merriam-webster.com	2298	\N	2020-05-22	vN5/&OiNYz_F	2024-08-23	active
+1201	Leslie Morgan	M	1996-04-10	1838426446	lmorganj3@mozilla.com	1759	\N	2021-09-14	yM7@3pq!6C{	2024-08-02	active
+1202	Frederik Whitland	F	2000-08-18	8074040740	fwhitlandj4@acquirethisname.com	2789	\N	2021-08-01	eW0"hY42	2024-12-10	active
+1203	Adria Diment	M	1996-10-23	4662637896	adimentj5@boston.com	4012	\N	2022-08-12	vW2'P*bWFJ(`CXEG	2024-01-20	active
+1204	Kiah Donoher	M	1997-03-10	8691627728	kdonoherj6@geocities.jp	4057	\N	2020-02-18	aH9@t`#sA}f16&.	2024-05-06	active
+1205	Tobe Gealle	M	2002-07-25	9525565331	tgeallej7@nydailynews.com	2702	\N	2022-10-31	xR5#.y!"	2024-07-26	active
+1206	Leoine Weighell	F	1987-04-23	2132224303	lweighellj8@jigsy.com	3052	\N	2021-07-03	cS1`>3Y/	2024-08-29	active
+1207	Elva Debill	F	2004-09-12	1823515610	edebillj9@bloglovin.com	2874	\N	2022-12-16	iJ0>$.5LRap	2024-09-19	active
+1208	Marnia Hearsey	F	1980-12-13	1435720728	mhearseyja@sakura.ne.jp	1927	\N	2020-11-17	uI8$9?q4n#z`9C	2024-02-27	active
+1209	Deborah Richards	M	1995-03-06	7482240239	drichardsjb@cdc.gov	4477	\N	2022-03-08	vU6"d?Fs@<v	2024-05-28	active
+1210	Bennie McKelvey	M	1980-08-03	1365861464	bmckelveyjc@google.co.jp	2492	\N	2020-03-15	pS0,r9@W%ddj`+7	2024-07-13	active
+1211	Bard Peerman	F	1989-03-22	8313669674	bpeermanjd@yahoo.co.jp	4716	\N	2020-03-16	yA0@0O&r7$EY	2024-08-14	active
+1212	Roseanna Hewertson	F	1988-03-03	8603358688	rhewertsonje@tuttocitta.it	1954	\N	2021-07-31	qI3,?qE\\s	2024-06-26	active
+1213	Zulema Killbey	F	1982-12-31	4072284782	zkillbeyjf@businesswire.com	1964	\N	2022-07-17	xO5"Cbhh'e1i	2024-09-21	active
+1214	Misty Grzeskowski	F	2004-02-06	5176126162	mgrzeskowskijg@soundcloud.com	423	\N	2020-08-05	iE5=OZtc	2024-05-30	active
+1215	Konstanze Kirkness	F	1980-06-24	3812077944	kkirknessjh@sogou.com	2423	\N	2021-05-29	hL8\\8a7Q5)Qrr\\8	2024-04-06	active
+1216	Cy Gookes	F	1984-12-02	6488273794	cgookesji@google.ru	1962	\N	2020-10-03	sO8$bX!!9'>%1	2024-08-11	active
+1217	Cal Keeler	M	1980-07-15	7711990052	ckeelerjj@forbes.com	11	\N	2021-03-18	tO2''4`D	2024-06-09	active
+1218	Eilis Swaysland	F	2001-05-13	7737983207	eswayslandjk@sbwire.com	1692	\N	2021-02-18	bU8<&LH$8A	2024-12-09	active
+1219	Prue Springthorpe	M	2000-05-30	9041395514	pspringthorpejl@yolasite.com	2930	\N	2021-12-05	bL3_O@DOx@n	2024-10-17	active
+1220	Shannan Morman	F	2004-12-17	1901398607	smormanjm@msn.com	4434	\N	2022-12-18	qT4&2qi"<0PQ	2024-04-23	active
+1221	Josias Syfax	M	1987-05-14	5007403761	jsyfaxjn@mayoclinic.com	4379	\N	2020-01-29	bE8<%OTKqx$?	2024-02-21	active
+1222	Garold Wheowall	M	1995-03-06	2304574118	gwheowalljo@tumblr.com	3698	\N	2020-07-14	zZ5&8QTMAhX@mV	2024-11-20	active
+1223	Yolanthe Dalgarnocht	F	1983-07-02	9639526909	ydalgarnochtjp@ask.com	4280	\N	2021-11-30	vL5+hVMHu<==	2024-12-09	active
+1224	Tyrone Broomfield	M	1992-02-18	8361194698	tbroomfieldjq@wisc.edu	4362	\N	2022-10-03	cY4+\\N,xd.KoX	2024-11-27	active
+1225	Melita Eudall	F	1995-12-09	8994624817	meudalljr@163.com	3882	\N	2020-07-21	xA3`SC40cxA@RK"	2024-09-27	active
+1226	Wadsworth Nisot	M	2001-06-27	3017514378	wnisotjs@ftc.gov	1644	\N	2022-01-19	iN6/acB7eC*LxBQA	2024-03-10	active
+1227	Donovan Dufaire	M	1980-10-24	8453370581	ddufairejt@berkeley.edu	466	\N	2021-08-05	yW6(xU=D	2024-08-22	active
+1228	Pooh Sterrie	M	2004-08-05	7201487121	psterrieju@state.gov	3651	\N	2022-04-06	fB1|yXe<zO)YL	2024-03-25	active
+1229	Bobbette Jefford	F	2004-01-24	5794670836	bjeffordjv@odnoklassniki.ru	4855	\N	2020-03-09	mW2=<R.(gSP	2024-07-02	active
+1230	Vita Chalke	M	1985-08-23	5385970424	vchalkejw@upenn.edu	2875	\N	2020-11-30	aZ4}CkuXma=O	2024-08-07	active
+1231	Sheree Scarth	F	1989-11-23	1933721081	sscarthjx@xrea.com	1092	\N	2022-04-11	aT2\\.j+_ctHcL9p5	2024-12-03	active
+1232	Neda McGaraghan	F	1988-05-06	3322512898	nmcgaraghanjy@tinypic.com	4100	\N	2021-07-07	rY6>RkpP9X7Lw*	2024-05-13	active
+1233	Dannye Tomlins	M	2001-03-30	5953517923	dtomlinsjz@ehow.com	1073	\N	2020-08-31	aY7~}/ntXn	2024-03-13	active
+1234	Marcella Braham	F	1993-06-22	2369212474	mbrahamk0@miibeian.gov.cn	2436	\N	2021-01-23	aT1?D(Lix#4}$7v	2024-11-22	active
+1235	Feodor Boneham	F	1989-01-12	3566713258	fbonehamk1@bing.com	390	\N	2022-08-02	yJ6?CJam039.	2024-06-15	active
+1236	Birdie Benza	M	2000-03-24	8947724049	bbenzak2@mac.com	4843	\N	2020-04-09	mL5}Oi47%?/	2024-02-24	active
+1237	Courtnay Dullard	F	2000-10-01	6916849907	cdullardk3@scientificamerican.com	1709	\N	2020-05-27	gZ4|Oj@zb	2024-11-25	active
+1238	Drusilla Langtree	M	1990-07-30	9391878271	dlangtreek4@barnesandnoble.com	2614	\N	2020-12-04	pQ4}o%bLZ0yA"	2024-08-26	active
+1239	Pier Kegley	M	1998-12-13	4171289801	pkegleyk5@pen.io	3243	\N	2022-12-01	vL2,7=%YzLY\\\\	2024-07-13	active
+1240	Serene Rispin	M	1985-10-25	8824223577	srispink6@epa.gov	168	\N	2022-09-24	mJ1,%0%)(1W!	2024-04-29	active
+1241	Johnath Dranfield	F	2003-11-30	3504597161	jdranfieldk7@si.edu	1705	\N	2021-09-11	iF8<o"SX	2024-04-05	active
+1242	Darlleen Calton	M	2003-03-06	9255901065	dcaltonk8@businessinsider.com	606	\N	2022-07-31	pO2@X<DxMQjX	2024-01-30	active
+1243	Kylie Savins	F	1987-09-30	1295923226	ksavinsk9@state.tx.us	4250	\N	2021-04-24	jY0\\49,q'1	2024-07-27	active
+1244	Janot Grouvel	M	2002-06-16	9959543746	jgrouvelka@facebook.com	3677	\N	2020-02-07	yN2&pNs"228osS%	2024-08-22	active
+1245	Nev Andrejs	F	1988-03-04	1929512352	nandrejskb@google.ru	3940	\N	2021-03-10	mJ6{3A+Ad.>H	2024-08-12	active
+1246	Bryant Mateev	M	1986-02-18	5375049886	bmateevkc@gizmodo.com	4001	\N	2021-12-24	xQ7?L\\TyxK{	2024-10-14	active
+1247	Stefano Lorenzetti	F	1986-04-07	3056350002	slorenzettikd@naver.com	4172	\N	2022-01-28	gJ0!IcgGp	2024-05-02	active
+1248	Ainslee McGaughie	F	1990-12-19	5967727310	amcgaughieke@miibeian.gov.cn	3012	\N	2021-01-30	iM6{j6"=#*	2024-08-02	active
+1249	Ludwig Pirrone	F	1983-05-01	4179992784	lpirronekf@sciencedaily.com	3566	\N	2020-10-23	hV9#=D(Rdv3D{	2024-03-23	active
+1250	Donavon Tiesman	M	1986-11-08	7017513759	dtiesmankg@yolasite.com	520	\N	2022-11-16	uH8`79k)	2024-02-21	active
+1251	Livia Brindley	F	1999-05-15	2084157237	lbrindleykh@a8.net	1259	\N	2020-01-05	pR5+){BLfQgW	2024-05-02	active
+1252	Petra Yurtsev	F	1985-08-23	2812307224	pyurtsevki@dedecms.com	3558	\N	2020-09-19	gW8>#<&ITP)g	2024-11-21	active
+1253	Josy Van Zon	M	1991-10-22	7613427045	jvankj@ucsd.edu	2296	\N	2022-09-24	bV9)HIzLnbAF	2024-09-26	active
+1254	Olivero Paliser	M	1989-02-26	4104424817	opaliserkk@de.vu	1048	\N	2022-06-08	uV4'nAgJ0g)$	2024-06-09	active
+1255	Giff Hritzko	M	1987-03-06	4623186331	ghritzkokl@trellian.com	4979	\N	2022-05-30	yT3\\H!&+1A>e_	2024-03-26	active
+1256	Reagen Prozescky	M	1992-08-19	8763626819	rprozesckykm@google.it	3304	\N	2020-11-07	wV1$4n4j+sywEL	2024-05-31	active
+1257	Leonhard Orchart	F	1989-04-10	4769644356	lorchartkn@npr.org	1401	\N	2021-12-22	pO4+VUlPb3	2024-04-23	active
+1258	Renate Forman	F	2000-05-20	1208850038	rformanko@un.org	2821	\N	2020-01-28	mW5<hK~8Wed>0'	2024-06-05	active
+1259	Elwira Verty	F	1999-02-12	1729953387	evertykp@google.co.uk	3565	\N	2022-09-13	pA3,IZ\\hr_xe	2024-02-10	active
+1260	Albertine Maleham	M	1996-06-11	5561043103	amalehamkq@livejournal.com	4816	\N	2020-03-08	pP4@AR5?QFb	2024-12-30	active
+1261	Elie Wakely	M	1981-02-12	6152453870	ewakelykr@symantec.com	3394	\N	2021-11-03	oP3(C\\Yrj|	2024-06-01	active
+1262	Tish Connop	F	1987-11-30	8615724732	tconnopks@naver.com	4512	\N	2021-03-29	rB8&FngMx	2024-06-20	active
+1263	Madelena Ferrierio	M	1997-01-30	1387184946	mferrieriokt@ihg.com	952	\N	2021-10-24	jB4.Wi\\f>S7aV	2024-03-02	active
+1264	Art Pilch	F	1992-08-15	2936858157	apilchku@discuz.net	3187	\N	2021-12-17	jE6*PQCA	2024-05-19	active
+1265	Mendel Wortman	F	1991-01-19	8056420152	mwortmankv@purevolume.com	3333	\N	2022-12-01	bX4#Qw3e'|nX	2024-09-26	active
+1266	Umeko Zecchetti	F	2001-12-20	5503204943	uzecchettikw@google.fr	69	\N	2021-12-19	mT9}@}ao2~r	2024-09-08	active
+1267	Sophi Ffoulkes	M	1989-11-08	3427632910	sffoulkeskx@xinhuanet.com	2727	\N	2021-04-04	kQ9=qgf>@{81e2Wq	2024-12-18	active
+1268	Tades Skoate	F	1989-07-09	2916477932	tskoateky@flickr.com	2141	\N	2021-02-02	xE3`cJJx	2024-03-10	active
+1269	Gilberta McBratney	M	2004-02-13	7337032214	gmcbratneykz@joomla.org	2685	\N	2022-07-19	mW8~EwE7s=,<lg2X	2024-08-30	active
+1270	Paulie Ballam	F	1981-08-05	1394411019	pballaml0@mtv.com	3796	\N	2021-06-03	oG0>rYt<$$d_Z	2024-07-16	active
+1271	Rici Gilhouley	F	1995-04-01	1725084709	rgilhouleyl1@yale.edu	4482	\N	2020-02-04	cQ7{`cclkb	2024-12-07	active
+1272	Andie Adamini	M	1994-06-17	1975671016	aadaminil2@list-manage.com	769	\N	2022-12-12	tK0)bm}4+AtnQH	2024-12-07	active
+1273	Petra Tootell	M	1987-03-28	7296227718	ptootelll3@statcounter.com	2362	\N	2021-05-29	jE8(X}%zQI	2024-02-28	active
+1274	Burl Garr	M	1988-11-26	6405223516	bgarrl4@wsj.com	50	\N	2020-07-02	gW6&Cd(}Htc4	2024-09-11	active
+1275	Misti Dunge	F	1991-11-29	2644124329	mdungel5@squarespace.com	1422	\N	2022-01-22	aY1@0U/{s	2024-10-19	active
+1276	Carolan Ebbles	M	1997-11-10	5129091188	cebblesl6@auda.org.au	1743	\N	2022-07-24	kU1{132<DhZYq7O	2024-09-17	active
+1277	Sharl Pagnin	F	1987-04-27	1081631601	spagninl7@ezinearticles.com	3088	\N	2020-03-10	pG6"d{WrA	2024-12-27	active
+1278	Allie Largen	F	1993-07-25	9953071095	alargenl8@abc.net.au	4755	\N	2020-05-09	jA3%Wo6~PO	2024-06-03	active
+1279	Janaye Napper	F	1982-12-09	3887007018	jnapperl9@freewebs.com	482	\N	2022-05-16	uH9_U?!whL}zp	2024-09-04	active
+1280	Sigvard Fardell	F	2004-05-20	1791589300	sfardellla@parallels.com	3173	\N	2022-02-18	pY2+9Q4I8&QS_BS	2024-08-24	active
+1281	Alecia Calcut	M	1996-03-17	8127923021	acalcutlb@theguardian.com	4206	\N	2021-10-26	vG5//xfZH_C1Y8r	2024-02-09	active
+1282	Fabiano Balaison	M	1987-06-08	6931205615	fbalaisonlc@deviantart.com	2243	\N	2020-02-17	vT9%YaRN3GRG	2024-01-31	active
+1283	Rodolfo Watton	M	1996-04-08	2756028364	rwattonld@about.com	4249	\N	2022-11-29	zM3$R{z,hY	2024-02-22	active
+1284	Wilie Enefer	M	2001-09-18	4175135333	weneferle@newyorker.com	1882	\N	2020-07-16	wV2$qUb'=q@9	2024-03-04	active
+1285	Evania Heathcoat	F	1998-06-28	7148987820	eheathcoatlf@senate.gov	2314	\N	2021-06-30	wT2!MMWd0A}T	2024-04-09	active
+1286	Abigael Marking	F	1982-12-06	1177046563	amarkinglg@paginegialle.it	3799	\N	2022-07-24	wU6{TS~YK)Oj?6|{	2024-12-15	active
+1287	Florina Allenby	M	1982-08-23	7621577126	fallenbylh@washingtonpost.com	4222	\N	2022-04-01	hL9?=wdQI3'/=	2024-11-04	active
+1288	Terrye Rizon	M	1983-11-01	5078332815	trizonli@ycombinator.com	3920	\N	2021-04-22	fI6?p,@j\\+kzz"	2024-06-20	active
+1289	Matthiew MacGarrity	F	1999-01-26	9187150479	mmacgarritylj@mozilla.com	769	\N	2021-09-30	kK0_ZG8|lluVW$%w	2024-10-12	active
+1290	Dal Ellsbury	M	1997-11-28	5052979194	dellsburylk@joomla.org	2581	\N	2022-06-20	bO5'BIDcDQ9kjL	2024-12-08	active
+1291	Daphene Markushkin	F	1982-10-11	3539089609	dmarkushkinll@sakura.ne.jp	3535	\N	2020-07-30	rG7&4o3kc0	2024-07-08	active
+1292	Leta Lalevee	M	1985-03-10	4474603010	llaleveelm@patch.com	1176	\N	2022-03-20	pR7.T(9"_242S	2024-07-13	active
+1293	Ursula Staddart	M	1985-01-05	6383127957	ustaddartln@behance.net	4033	\N	2022-06-05	bY5,BNopB(|	2024-04-29	active
+1294	Gene Squires	F	1986-09-27	5003233152	gsquireslo@digg.com	3133	\N	2020-10-04	eT0)&|yMn@U,rft	2024-06-27	active
+1295	Gabbie Fritchly	F	1997-08-25	2112937849	gfritchlylp@berkeley.edu	1145	\N	2021-01-19	tH5++rivQZ@!N	2024-11-04	active
+1296	Delora Rennock	M	1999-03-19	7395894027	drennocklq@twitpic.com	274	\N	2022-08-24	vG7>{GZj9Rn|0mja	2024-09-23	active
+1297	Holly Champe	F	1986-03-15	6159188237	hchampelr@mit.edu	3302	\N	2022-02-17	aY7,Xr,FneVIM	2024-02-08	active
+1298	Kelcey Monnery	F	1991-07-10	6007811814	kmonneryls@acquirethisname.com	3150	\N	2020-01-27	hW9_"cz9cj#Hz{/?	2024-10-08	active
+1299	Denise Crews	M	1988-05-11	4236503192	dcrewslt@sakura.ne.jp	2737	\N	2020-06-07	aH5$XDq7DpBQ\\*f	2024-01-08	active
+1300	Robinetta Ledster	F	1985-10-21	7603995933	rledsterlu@hatena.ne.jp	4354	\N	2020-12-20	zW6!%yV'aJ%L`0+	2024-01-26	active
+1301	Silvie Dable	M	1983-05-31	8231075072	sdablelv@freewebs.com	1913	\N	2021-10-15	iY9@&mPmN#$	2024-04-13	active
+1302	Woodrow De Dei	F	2002-05-01	3217702660	wdelw@ibm.com	2915	\N	2020-04-25	nL8"c>gF	2024-11-22	active
+1303	Codie Gerretsen	M	2002-11-15	3083411378	cgerretsenlx@ftc.gov	4452	\N	2021-12-07	zC1*4wPY2/	2024-10-31	active
+1304	Amalle Orrey	F	2003-07-01	7836338057	aorreyly@dedecms.com	4880	\N	2021-08-09	gM9(W/p"c5ChES	2024-05-02	active
+1305	Geneva De Ambrosi	M	2000-04-22	7035131355	gdelz@forbes.com	4403	\N	2022-12-13	wB6|g)pQ	2024-04-19	active
+1306	Pierce Andreia	F	1987-02-16	5529889266	pandreiam0@google.cn	2173	\N	2021-09-12	aM6>dQtwyz?TdQ	2024-10-07	active
+1307	Billy Happert	F	1986-04-12	9496737780	bhappertm1@reverbnation.com	1311	\N	2020-10-16	yF8"LE*T	2024-11-14	active
+1308	Aland Cornish	M	1983-06-15	4463908818	acornishm2@mapy.cz	3652	\N	2021-12-05	nG8"%5>tajuSS\\1m	2024-12-17	active
+1309	Dallon McEnteggart	F	1986-10-10	8303008126	dmcenteggartm3@forbes.com	3258	\N	2021-11-19	xY1&t}Eb?Lq	2024-01-23	active
+1310	Karrah Baldack	F	1998-01-04	3806480412	kbaldackm4@usda.gov	3847	\N	2021-09-04	gC3!vXCGa	2024-12-21	active
+1311	Lilas Ragdale	M	1996-04-08	9847661577	lragdalem5@prweb.com	3670	\N	2020-04-04	mJ9>83OpH	2024-11-14	active
+1312	Dania Ebenezer	F	1993-11-19	7166956154	debenezerm6@cnet.com	875	\N	2020-06-27	rW1_Jn'o<Yk?2	2024-05-16	active
+1313	Claretta Camell	M	2001-10-10	4556559291	ccamellm7@mlb.com	2704	\N	2021-08-30	lM1_,*yh!!`	2024-06-10	active
+1314	Minerva Fennessy	F	1995-10-20	6408698476	mfennessym8@cdc.gov	3842	\N	2021-08-24	eX8/anoR)t	2024-04-03	active
+1315	Hugo Brandacci	M	1985-10-15	5493910554	hbrandaccim9@go.com	2986	\N	2020-12-01	fN4}KW4ZR7/	2024-05-13	active
+1316	Millard Castleton	M	1996-10-24	2631247109	mcastletonma@unc.edu	4539	\N	2022-04-06	iI1@ur6!{Ubh=#	2024-10-17	active
+1317	Beatrice Wix	M	2002-10-01	7856399684	bwixmb@cpanel.net	1082	\N	2020-03-08	mT0?qvVs	2024-04-17	active
+1318	Henriette Perrottet	M	2002-01-16	3956145928	hperrottetmc@ucoz.com	501	\N	2022-12-01	uP3#pgZp	2024-11-10	active
+1319	Ricky Jelley	M	2003-07-13	4558844399	rjelleymd@hud.gov	4224	\N	2022-07-22	dD1(a_T3QN&Sq'r	2024-06-03	active
+1320	Rosabella Castellet	F	1990-06-13	2701964857	rcastelletme@networksolutions.com	4556	\N	2021-01-29	lA2",jL}BCW/AY,	2024-04-06	active
+1321	Dylan Peteri	M	1988-08-06	7261890081	dpeterimf@xinhuanet.com	4026	\N	2022-07-21	hV5~V&3AJ.Y	2024-09-04	active
+1322	Tulley Offill	M	1996-09-25	5099993910	toffillmg@paginegialle.it	2660	\N	2021-03-26	dU0|hztqljZ_	2024-03-04	active
+1323	Aili Mandy	F	1993-01-06	6441568231	amandymh@shareasale.com	4972	\N	2021-09-03	bZ0$bO36Yw_."G*	2024-04-04	active
+1324	Mata Svanetti	F	2000-10-05	1052788233	msvanettimi@msu.edu	4571	\N	2021-04-21	fR8#y`4Se'0	2024-03-21	active
+1325	Stefania Axup	F	1995-08-17	9537842897	saxupmj@marketwatch.com	1126	\N	2022-05-17	tU9_yc<@Q	2024-05-29	active
+1326	Lauren Pretious	M	1994-09-27	1005958868	lpretiousmk@quantcast.com	1598	\N	2020-07-12	eB7_C%?p1rIEjrJ	2024-06-17	active
+1327	Nehemiah Frosdick	M	1993-02-01	8885460523	nfrosdickml@mac.com	1470	\N	2021-12-14	iL8<o*u}r1m>KK	2024-03-27	active
+1328	Joyce Walduck	F	2002-03-06	5442892928	jwalduckmm@bizjournals.com	4187	\N	2021-03-21	lA8$upll	2024-09-28	active
+1329	Bernhard Smallshaw	M	1999-10-30	5164333459	bsmallshawmn@techcrunch.com	1346	\N	2020-02-21	vK7<xjXb	2024-09-07	active
+1330	Ad Plimmer	F	1996-12-02	2882807934	aplimmermo@xinhuanet.com	4008	\N	2020-06-02	gE4(9fhSu	2024-09-21	active
+1331	Lind Brahan	M	1981-02-21	8001731267	lbrahanmp@merriam-webster.com	335	\N	2021-05-21	pA2=d.eXuo%,P	2024-03-19	active
+1332	Ula Baser	M	1983-03-30	8477551897	ubasermq@cargocollective.com	460	\N	2020-10-14	eA7*{)UT	2024-08-03	active
+1333	Allissa McMakin	M	1986-09-28	2856076758	amcmakinmr@creativecommons.org	542	\N	2022-02-14	sH3)s/MI	2024-04-08	active
+1334	Ellyn Westney	F	2001-04-04	6196401108	ewestneyms@odnoklassniki.ru	1260	\N	2020-07-02	dA4&<,Or1a,m	2024-07-28	active
+1335	Ugo Hasker	F	1993-02-17	4935207196	uhaskermt@geocities.jp	2369	\N	2022-11-15	fI7%MWF_	2024-02-22	active
+1336	Neville Darch	M	1985-11-12	8724472970	ndarchmu@europa.eu	2562	\N	2022-07-07	wF9>pSbt1<@,#@	2024-01-20	active
+1337	Noel Toulmin	M	1993-05-08	1969607900	ntoulminmv@yellowbook.com	77	\N	2022-02-21	uD9=}|x5	2024-11-18	active
+1338	Milka Annett	M	1984-07-09	7873799114	mannettmw@barnesandnoble.com	1780	\N	2020-04-28	aJ7@BI(|ds=rd	2024-04-27	active
+1339	Jodee De Vaan	F	1989-04-12	6438303544	jdemx@wisc.edu	1791	\N	2022-09-30	lM9)q9K*=M%0	2024-05-05	active
+1340	Selig Finicj	M	2000-02-17	9626641957	sfinicjmy@state.gov	1800	\N	2021-12-15	cQ0(UUb1g/7)	2024-12-25	active
+1341	Horton Witling	F	1981-11-24	1854270465	hwitlingmz@china.com.cn	4172	\N	2020-12-02	iE2`.{uRkB'Xy2	2024-03-10	active
+1342	Priscilla Blythin	M	1993-11-25	5611158494	pblythinn0@sourceforge.net	3296	\N	2022-11-01	fS5.Wp&TsaEO9S,p	2024-02-06	active
+1343	Milzie Porker	F	1997-04-18	9863484999	mporkern1@freewebs.com	1048	\N	2021-01-13	gN6+)P0y~	2024-05-20	active
+1344	Melita Conechie	F	1982-09-04	6748768630	mconechien2@sourceforge.net	1045	\N	2020-12-30	qR2+k/MX6ys(\\+_p	2024-02-15	active
+1345	Marcelia Burle	F	2001-07-05	4219309956	mburlen3@themeforest.net	2322	\N	2022-06-06	iJ3={Hxn>	2024-04-01	active
+1346	Celene Cavee	F	1981-05-09	6634363176	ccaveen4@ox.ac.uk	422	\N	2022-02-24	zF4"kJ`fmYmH1`n)	2024-08-22	active
+1347	Kathlin Beardmore	F	1982-03-23	4627713148	kbeardmoren5@java.com	1572	\N	2022-10-15	iJ7|WI7VD'$_	2024-03-02	active
+1348	Rakel MacAscaidh	F	1993-10-05	3251595682	rmacascaidhn6@hatena.ne.jp	2522	\N	2020-04-21	bR0=S&&q!CgjTd	2024-01-10	active
+1349	Nelie Brownsmith	M	1992-09-11	3814254767	nbrownsmithn7@google.de	547	\N	2021-04-10	gR3+$jov5se+&	2024-07-06	active
+1350	Alisha Wellbelove	M	1989-06-08	6652239175	awellbeloven8@homestead.com	2146	\N	2020-03-03	qV5,%Jl)X=	2024-11-06	active
+1351	Erik Theodore	F	2004-10-19	8848596841	etheodoren9@amazon.co.jp	4184	\N	2020-11-19	lR1+C,BeE1Cs	2024-07-25	active
+1352	Lanae Barwack	M	1996-01-24	9033095059	lbarwackna@liveinternet.ru	2268	\N	2022-12-22	dN1'K5v4JiJeo,	2024-12-17	active
+1353	Tiebout Murie	M	1991-09-16	6849832856	tmurienb@zdnet.com	4722	\N	2021-04-13	kF3#s{s5ef)J9Ob	2024-03-15	active
+1354	Jonas Jachimczak	F	1998-04-04	6054622872	jjachimczaknc@si.edu	4574	\N	2020-11-27	xE7!C%8jffr/oVy	2024-07-16	active
+1355	Clemence McGavin	F	1988-08-28	5027537433	cmcgavinnd@auda.org.au	4938	\N	2022-09-30	vL6(O08z	2024-08-13	active
+1356	Mary Furst	M	1980-01-12	7176692169	mfurstne@noaa.gov	4056	\N	2020-09-13	oW5%0EfD=dYaR	2024-01-16	active
+1357	Savina Wozencroft	F	1990-06-27	3982819739	swozencroftnf@stanford.edu	2014	\N	2021-06-16	uQ2"{H"86{/JfHI	2024-05-10	active
+1358	Harris McClintock	M	1995-10-01	6389561489	hmcclintockng@meetup.com	477	\N	2020-12-16	iI5/?3Iu\\	2024-05-14	active
+1359	Eugene Buttel	F	1999-05-26	4863684078	ebuttelnh@npr.org	616	\N	2022-11-25	xN1)>(UyN)$!.}g	2024-12-24	active
+1360	Eberhard Everist	F	1983-09-11	2201486654	eeveristni@w3.org	2654	\N	2021-02-06	rX6<93c=Z>	2024-04-16	active
+1361	Heddie Saxon	M	1981-07-14	6112018890	hsaxonnj@uiuc.edu	3379	\N	2021-04-29	fV0=9e5Q{6DiMR?	2024-10-30	active
+1362	Joly Wellstead	F	1997-12-04	6894071733	jwellsteadnk@163.com	2072	\N	2021-06-20	tB6%C0pp@_2+R|Si	2024-09-20	active
+1363	Cybill Linton	F	1995-07-04	1498741619	clintonnl@edublogs.org	2593	\N	2022-03-26	lA0"MnHzg*S	2024-01-20	active
+1364	Englebert Bellany	M	1989-06-05	9065516956	ebellanynm@t.co	2228	\N	2021-02-27	xK3>@vHSYS7x	2024-02-03	active
+1365	Gweneth Limon	F	1997-09-19	3144134962	glimonnn@narod.ru	4465	\N	2020-05-03	qP1$GSQ`OnE>|AI	2024-03-01	active
+1366	Allin Glasman	F	1996-11-19	3998111617	aglasmanno@qq.com	1011	\N	2022-11-24	zY1'!>Eg/vpbR413	2024-11-03	active
+1367	Barron Braisher	M	2003-01-01	1579144117	bbraishernp@engadget.com	3068	\N	2021-07-23	vG4{$t7aFdvm3	2024-11-22	active
+1368	Job Beldam	M	2002-03-04	3336428298	jbeldamnq@oracle.com	4109	\N	2021-07-14	kR6&,RmF	2024-01-16	active
+1369	Jaclin Imison	F	1990-03-01	5277480159	jimisonnr@aol.com	1305	\N	2022-07-16	pR7{yB'>x1n	2024-09-19	active
+1370	Celestia Wickwarth	M	1988-12-31	9738917103	cwickwarthns@google.co.uk	2101	\N	2021-08-15	qB9`&r8B?g&UR	2024-11-05	active
+1371	Ferdy Spini	F	2003-10-22	1323187625	fspinint@theatlantic.com	813	\N	2022-08-15	bT1+Q,xI8`C"9m	2024-04-26	active
+1372	Salomo Druitt	F	1984-02-06	9498390521	sdruittnu@slashdot.org	4779	\N	2022-09-28	jF4,_BT9K	2024-05-26	active
+1373	Eartha Densey	F	1992-02-28	7249281394	edenseynv@nymag.com	643	\N	2022-11-08	rO1*3{'_	2024-03-27	active
+1374	Giselbert Pohlak	F	1987-03-10	9855512412	gpohlaknw@scientificamerican.com	1945	\N	2021-07-10	bP1@"JxZ	2024-11-14	active
+1375	Noellyn Scroggs	M	1992-05-19	7968748996	nscroggsnx@auda.org.au	1969	\N	2022-05-29	hZ7|xI8ypT7	2024-06-04	active
+1376	Mic Kerr	M	2003-02-15	4882570441	mkerrny@microsoft.com	219	\N	2020-02-02	fH9?%wzLNl.d$gVE	2024-12-02	active
+1377	Ericka Nano	M	1992-04-20	6977001380	enanonz@sun.com	784	\N	2021-01-02	hR0!eIjlW}@X	2024-11-06	active
+1378	Brandyn Kayzer	M	2000-04-22	1494678257	bkayzero0@usa.gov	2959	\N	2022-12-23	xR7,$a|*9{Qe*l.	2024-11-30	active
+1379	Jamesy Cundy	M	2000-06-02	8125851638	jcundyo1@sohu.com	2895	\N	2021-07-07	jB1=aEC,W&q	2024-05-01	active
+1380	Nanci Gilroy	M	1998-02-19	6535492656	ngilroyo2@mashable.com	3773	\N	2022-12-31	bC3%rlc|QPJrZ}	2024-02-17	active
+1381	Tobiah Portch	F	1982-08-11	6658478061	tportcho3@paginegialle.it	1327	\N	2021-07-25	sT7!su?=P	2024-02-08	active
+1382	Virge Coughlan	M	1994-06-23	9468899428	vcoughlano4@bluehost.com	378	\N	2021-07-28	nX9+UjwRE\\N!p	2024-08-06	active
+1383	Roberto Neiland	M	1987-04-13	5529625562	rneilando5@auda.org.au	48	\N	2022-08-27	yX7(!UgX{+%1eX'q	2024-03-10	active
+1384	Lacee Aronowitz	M	1988-09-09	1562095256	laronowitzo6@homestead.com	3636	\N	2021-01-26	qQ8}6(nB?F	2024-05-01	active
+1385	Elsy Boerderman	M	1986-07-21	3119211186	eboerdermano7@alibaba.com	539	\N	2021-07-29	zF9&4lx5M&F2q_y	2024-01-26	active
+1386	Emmye Georgelin	F	1987-07-14	8798463837	egeorgelino8@tripod.com	4954	\N	2020-07-04	uZ5.yS%>b{2"G	2024-02-15	active
+1387	Linet Staniland	F	1999-03-07	3589100630	lstanilando9@dedecms.com	3724	\N	2022-11-23	rS7.gErDU	2024-05-13	active
+1388	Brittni Honig	F	2004-03-02	7727186054	bhonigoa@trellian.com	3553	\N	2022-04-07	yX9<G55N<r!C8+6	2024-07-14	active
+1389	Enoch Prophet	F	1981-02-08	2345095543	eprophetob@ustream.tv	2836	\N	2021-11-28	cV6}dg_Ia"	2024-06-09	active
+1390	Gavra Burkill	M	1989-09-03	7473701315	gburkilloc@mail.ru	4295	\N	2021-11-07	rA8&v0<J	2024-12-03	active
+1391	Anjela Gummow	F	1994-07-07	8597346033	agummowod@mashable.com	4793	\N	2021-11-20	hR2.W{vqFI4	2024-07-28	active
+1392	Marietta Feares	F	2000-10-16	1283669816	mfearesoe@bizjournals.com	163	\N	2022-08-22	yU4.v#Kx!5F>	2024-10-30	active
+1393	Sheena Grastye	F	1991-01-17	8938942962	sgrastyeof@oracle.com	2580	\N	2021-03-06	eE8()/dkqsq=d	2024-08-25	active
+1394	Marcille Celli	M	1984-11-07	9051167999	mcelliog@mashable.com	214	\N	2021-07-01	fL9{H<DVNV	2024-10-06	active
+1395	Danica Gopsill	M	1997-01-24	5814577368	dgopsilloh@intel.com	3056	\N	2022-11-11	aU8(O7|4ELE	2024-03-08	active
+1396	Nicolle Fossey	F	2001-12-30	4713156516	nfosseyoi@yelp.com	4229	\N	2022-02-17	hI2'2wMV(7L	2024-08-03	active
+1397	Leela Webb-Bowen	M	1986-12-09	5248687973	lwebbbowenoj@weebly.com	1710	\N	2022-01-30	hP7_=JLfla!*zShy	2024-05-23	active
+1398	Francyne Seally	M	1997-07-01	7166561589	fseallyok@photobucket.com	3703	\N	2021-07-31	fG1_a$sa	2024-08-08	active
+1399	Audrey Mac Giany	F	2003-11-25	7471442893	amacol@csmonitor.com	3838	\N	2020-05-14	wH7(vKbX_	2024-08-09	active
+1400	Jesus Ranby	F	1980-08-05	8266109972	jranbyom@intel.com	1233	\N	2021-05-24	aQ5/{P.QFh_	2024-11-07	active
+1401	Reynolds Litchmore	F	1993-04-29	4003190978	rlitchmoreon@oaic.gov.au	1360	\N	2022-03-04	zE3_)},7gQ&1h7tj	2024-10-24	active
+1402	Auberon Fuxman	F	1999-07-23	1758769802	afuxmanoo@about.me	609	\N	2021-07-04	gY2}l0tz,`Vv	2024-04-19	active
+1403	Eziechiele Gilliam	F	2004-11-16	9868873738	egilliamop@kickstarter.com	3251	\N	2022-06-11	dQ3?b_xhiX0R`Sg	2024-02-09	active
+1404	Keri Eldrett	F	2001-11-18	5645682335	keldrettoq@flavors.me	1992	\N	2021-04-29	pC9/MRz21\\I	2024-09-14	active
+1405	Grannie Winnard	M	1980-06-23	4444286586	gwinnardor@cornell.edu	4047	\N	2020-05-07	iL4!yAgmNbx	2024-04-30	active
+1406	Tracy Rahill	F	1996-12-01	5213983167	trahillos@lulu.com	4218	\N	2021-06-15	cN6?!KUy~~	2024-03-27	active
+1407	Nikolia Antcliffe	M	1982-11-24	2884710101	nantcliffeot@ameblo.jp	4799	\N	2020-04-22	iS7@pOV+py}iU	2024-10-09	active
+1408	Holli Treversh	F	1992-10-26	5855211429	htrevershou@cam.ac.uk	3431	\N	2020-08-25	rT0'T{P&@sKJz{A	2024-04-22	active
+1409	Farleigh Kneesha	F	1993-10-07	7893335473	fkneeshaov@liveinternet.ru	4412	\N	2021-02-11	kF2|W9kR_~L5	2024-06-02	active
+1410	Brent Dockree	F	1993-02-28	8479639148	bdockreeow@technorati.com	4514	\N	2022-09-10	bT9/5,oMO+i0	2024-06-14	active
+1411	Daffy Ochterlonie	M	1990-04-14	8984990194	dochterlonieox@fema.gov	293	\N	2021-10-15	vJ4,#asEq3	2024-05-29	active
+1412	Gaven D'Onise	M	1980-02-11	8444620106	gdoniseoy@twitter.com	1670	\N	2020-05-06	fE9_Lh6Twg`c	2024-09-20	active
+1413	Cob Taylot	F	1993-10-15	8771856374	ctaylotoz@businessweek.com	1869	\N	2020-11-19	lW9.8+`+M"sxT.'7	2024-03-23	active
+1414	Wallie Pummell	M	1998-09-20	8947209098	wpummellp0@issuu.com	4207	\N	2022-09-05	hP2)Q|bmP8ihX	2024-09-19	active
+1415	Reece Cinnamond	M	1993-02-12	5932651625	rcinnamondp1@blinklist.com	1133	\N	2022-07-12	mT6.Zm?5+t<bQ'*?	2024-10-29	active
+1416	Alexandra Astridge	M	1999-08-11	3538060273	aastridgep2@disqus.com	290	\N	2020-05-21	yC7%B$m%sKgy	2024-01-24	active
+1417	Edwina D'Aulby	M	1999-02-13	4712642757	edaulbyp3@livejournal.com	4182	\N	2021-02-13	mM8&layMJMfd)ki	2024-01-05	active
+1418	Alf deKnevet	F	1983-06-10	8185116453	adeknevetp4@nih.gov	4840	\N	2020-03-30	dF6$oi\\D+6+P`tf	2024-08-12	active
+1419	Larissa Gifford	M	1993-08-20	1981014673	lgiffordp5@springer.com	3569	\N	2022-01-31	vI9>IRQFAB|a}!	2024-01-08	active
+1420	Melisa Elam	F	1999-06-28	3191366336	melamp6@oracle.com	3169	\N	2021-07-04	kS0?<.DV#H~f~$_.	2024-11-12	active
+1421	Callie Peoples	F	1989-06-29	9396728317	cpeoplesp7@about.com	1988	\N	2021-12-16	fC2!v8&mG#XB'f%	2024-05-28	active
+1422	Tonye Selbie	F	1995-07-17	3808483549	tselbiep8@friendfeed.com	1703	\N	2020-06-09	zW3$>',?9	2024-02-20	active
+1423	Urbain Alderson	M	1998-08-20	4292670365	ualdersonp9@redcross.org	598	\N	2020-12-26	uN2{.2O9@7u3fvxE	2024-06-30	active
+1424	Yalonda Yallowley	F	1988-10-16	4472817374	yyallowleypa@pagesperso-orange.fr	52	\N	2020-04-16	eA1)GVndOu	2024-08-07	active
+1425	Tracey Chimes	F	1982-05-30	1136657448	tchimespb@springer.com	525	\N	2021-05-14	uG3$6m3uFH>94/	2024-07-27	active
+1426	Arturo Young	F	1984-09-28	4706192739	ayoungpc@sfgate.com	1795	\N	2022-12-08	kF3$D%kiXXFA	2024-11-23	active
+1427	Gavrielle Valentin	M	2000-04-12	2549917965	gvalentinpd@mashable.com	1912	\N	2021-05-10	vP5&Bw?.	2024-05-10	active
+1428	Merv Peirson	F	1995-09-17	1887181633	mpeirsonpe@zdnet.com	2635	\N	2022-06-07	yA8_?A!Mzx#	2024-02-09	active
+1429	Jojo Strover	F	2001-04-29	1786089686	jstroverpf@columbia.edu	114	\N	2022-02-28	fJ0=y.qlW'	2024-06-12	active
+1430	Vinita MacGillavery	F	1991-09-23	2028781230	vmacgillaverypg@example.com	2651	\N	2022-05-02	sU5&h#r`3	2024-02-12	active
+1431	Kikelia Braizier	F	1991-10-27	6706063181	kbraizierph@elpais.com	1668	\N	2022-06-15	hT0|'67u{	2024-10-09	active
+1432	Jessalin Collcott	F	1993-06-01	2791952526	jcollcottpi@yolasite.com	707	\N	2021-08-20	pY3$)`ZqPn	2024-05-20	active
+1433	Vikky Le Breton	F	1995-06-06	7842474693	vlepj@reverbnation.com	3228	\N	2022-05-10	mX5%*5$vL!p	2024-06-29	active
+1434	Harrie Dodle	M	1998-09-30	3089904981	hdodlepk@wordpress.com	2987	\N	2021-07-29	iJ4<K9)GVzJ%F	2024-08-15	active
+1435	Cindee Olivie	F	1993-08-21	6854231972	coliviepl@quantcast.com	4993	\N	2020-12-14	nH3{r&jQV(Q*	2024-10-22	active
+1436	Stella Sloley	F	1994-04-19	4837016126	ssloleypm@miibeian.gov.cn	486	\N	2022-11-14	yR8*9Ij4C	2024-01-14	active
+1437	Erminia Balkwill	M	2004-10-28	6583111445	ebalkwillpn@de.vu	4368	\N	2020-10-24	uD0_ZPTX9HTqdd}E	2024-11-13	active
+1438	Marietta Serris	M	2002-12-11	5958589151	mserrispo@gmpg.org	1660	\N	2021-05-14	jW3{A.\\U5q	2024-09-25	active
+1439	Erminia Olford	M	1996-05-25	8398100807	eolfordpp@surveymonkey.com	3705	\N	2021-02-18	gJ5?}bR,X	2024-07-12	active
+1440	Kerrie Pauleau	M	1990-07-06	7043498724	kpauleaupq@usda.gov	1327	\N	2021-05-26	rK5!V{)refU(g#}	2024-01-09	active
+1441	Cleo Fischer	M	1994-12-06	4172597983	cfischerpr@techcrunch.com	19	\N	2021-01-27	yV4_t?Kk`6w7%wm	2024-01-19	active
+1442	Christophorus Giocannoni	F	1999-02-21	9445075271	cgiocannonips@cam.ac.uk	858	\N	2020-11-20	eU2*{W+FZ1mhm	2024-10-10	active
+1443	Mil Grassin	F	1994-10-17	1774730905	mgrassinpt@dot.gov	1278	\N	2020-04-27	zI1|K(9j/9W*L	2024-06-04	active
+1444	Cody Symons	M	2002-04-25	4854275805	csymonspu@symantec.com	3916	\N	2022-10-06	uH2)>T_@6M	2024-09-10	active
+1445	Bucky McCrackan	F	1986-09-10	6959040687	bmccrackanpv@state.tx.us	3780	\N	2021-05-05	bZ8<{od{.}ZOk4=	2024-07-28	active
+1446	Erena Offin	M	1988-05-23	6506712972	eoffinpw@prlog.org	2798	\N	2022-08-09	kM2}K()zmqh>u	2024-07-30	active
+1447	Llywellyn Ortes	M	1995-08-05	1297794481	lortespx@slashdot.org	3497	\N	2020-03-15	vF9\\VV#hFwKA/a	2024-03-29	active
+1448	Eudora Prendiville	F	1994-02-10	8542542065	eprendivillepy@imgur.com	4977	\N	2020-09-01	eU6.<f9q1V	2024-09-19	active
+1449	Doro Badham	M	1992-07-20	2716876899	dbadhampz@com.com	4796	\N	2020-06-09	aQ4"Lg3IflHf3	2024-09-23	active
+1450	Bevvy Mattersley	M	2004-12-20	8983704646	bmattersleyq0@zimbio.com	632	\N	2021-09-03	nP5'RMqP'vs%4Y	2024-08-20	active
+1451	Asa Ivamy	F	1994-07-29	8134751169	aivamyq1@usgs.gov	4437	\N	2020-07-26	tI8@ZU~B<iS	2024-09-17	active
+1452	Yoshiko Walak	M	1997-12-16	3853187966	ywalakq2@dedecms.com	425	\N	2021-12-20	sH0{,{Q6b0O$ho	2024-12-02	active
+1453	Ara Wallett	F	1997-08-08	3901642298	awallettq3@last.fm	4473	\N	2021-06-07	lI4~Rr$!,P>	2024-03-09	active
+1454	Gallard Habard	M	2001-10-17	6758208431	ghabardq4@opensource.org	1702	\N	2021-09-24	aP9$e=`<Tuo%,dk%	2024-03-17	active
+1455	Lura Ruberry	F	1983-07-30	3508191618	lruberryq5@adobe.com	3085	\N	2020-02-08	oF2"`v)7r/*HBj3	2024-05-11	active
+1456	Tadeo Tomasino	M	1982-03-23	4763490179	ttomasinoq6@ask.com	4967	\N	2022-03-13	oA4=<9<Su5090z~	2024-11-13	active
+1457	Jinny Blaksland	F	1997-03-11	4781323441	jblakslandq7@privacy.gov.au	3626	\N	2021-03-10	dK4!adduuAp~#	2024-04-05	active
+1458	Thorvald Harrower	F	2002-08-11	7652236704	tharrowerq8@people.com.cn	4182	\N	2021-10-18	eF8$Hhcixq	2024-07-21	active
+1459	Stanleigh Fores	F	1983-02-21	3006952367	sforesq9@bloglines.com	1146	\N	2020-02-28	jG9=*'66	2024-12-11	active
+1460	Mara Digger	M	1999-12-05	8733804875	mdiggerqa@cloudflare.com	794	\N	2020-12-05	lI6<MP"QGsar~p	2024-06-01	active
+1461	Henry Dary	M	1988-02-27	3504043384	hdaryqb@addthis.com	2019	\N	2021-09-01	yZ3>ZwJl	2024-11-18	active
+1462	Alana MacGilmartin	F	1994-03-18	3087957464	amacgilmartinqc@alibaba.com	1788	\N	2020-08-03	oS5.Wf=\\,x.	2024-08-17	active
+1463	Barn Robinson	M	1991-09-05	7349473664	brobinsonqd@addtoany.com	345	\N	2022-01-16	mX2"!n$y*c#A_l=r	2024-09-15	active
+1464	Jayme Cammacke	F	1987-12-28	5908675968	jcammackeqe@go.com	4018	\N	2020-01-25	oX7|/!He&I3	2024-01-07	active
+1465	Gery Alenichicov	F	1991-10-12	1378757175	galenichicovqf@discuz.net	4005	\N	2021-05-26	yZ8#VgJEv1G8.	2024-06-26	active
+1466	Eileen Fullwood	M	1990-07-01	1199057539	efullwoodqg@google.nl	4306	\N	2022-04-14	jO5)G{X$	2024-12-01	active
+1467	Carmine Courcey	F	1981-06-13	6013399374	ccourceyqh@auda.org.au	1884	\N	2022-12-10	nC7`O"zSgy	2024-01-13	active
+1468	Danika Cheesworth	M	1986-01-01	8482183431	dcheesworthqi@disqus.com	606	\N	2020-12-15	oM8)fTp"GE	2024-06-02	active
+1469	Hersch Jozsika	F	1996-08-14	3979854518	hjozsikaqj@theguardian.com	3110	\N	2020-05-02	vF7.8`0_+	2024-03-08	active
+1470	Eldredge Tod	M	1998-06-17	5058833602	etodqk@angelfire.com	495	\N	2020-12-05	bO4)~jEE#myT#q/	2024-06-18	active
+1471	Robin Lamers	M	1992-06-09	4985013157	rlamersql@blogspot.com	724	\N	2021-02-24	pR6?U7Dpvdz	2024-12-01	active
+1472	Sarita Voak	M	1988-06-22	7592432424	svoakqm@icq.com	3157	\N	2022-01-30	aF0)6QoK	2024-06-01	active
+1473	Corrinne Kyte	F	2003-03-06	6447023512	ckyteqn@wikipedia.org	2344	\N	2020-06-05	mL1&SruK,	2024-10-02	active
+1474	Cynde Loades	M	1999-07-09	4401840134	cloadesqo@chron.com	2856	\N	2022-10-22	eJ4*9~!<$cT#&vd	2024-12-12	active
+1475	Selie Wanderschek	F	1984-07-04	1733600907	swanderschekqp@tmall.com	3790	\N	2022-08-01	wU3%B/bT!7	2024-06-25	active
+1476	Colette Catherine	F	1996-01-10	1816059515	ccatherineqq@cam.ac.uk	4306	\N	2022-05-19	dV0+V7d}/Pr,O|Gv	2024-05-14	active
+1477	Nessa Klamman	M	2001-12-07	6052120908	nklammanqr@fotki.com	319	\N	2020-05-27	sO3|PjKKU8	2024-06-17	active
+1478	Adolphus Shubotham	F	1996-08-27	4883395024	ashubothamqs@foxnews.com	1288	\N	2021-12-04	gF2=#DH5<?v	2024-06-22	active
+1479	Friedrich Tring	F	1980-02-05	2924201604	ftringqt@slideshare.net	1569	\N	2021-05-09	oE9,P'ms	2024-12-17	active
+1480	Mattie Gepheart	F	2004-07-24	4042007333	mgepheartqu@wufoo.com	3936	\N	2022-10-05	wN8<JCGp2"Ri	2024-02-07	active
+1481	Ilaire MacGlory	M	1986-04-10	7971842622	imacgloryqv@dyndns.org	1236	\N	2021-02-02	tH2'rb=T8t/jH5?0	2024-04-14	active
+1482	Johnna Chatres	F	1994-03-31	9723493066	jchatresqw@twitpic.com	835	\N	2021-05-18	vP2\\QE)EbrpfP>9@	2024-02-28	active
+1483	Verina McGlaud	M	1985-04-08	2478898885	vmcglaudqx@msu.edu	4120	\N	2022-12-06	cH0?WN|NZX373<'	2024-09-21	active
+1484	Jena Friday	F	2003-06-25	5165329783	jfridayqy@skype.com	4786	\N	2020-10-14	zM4@|g$?qB0+zB	2024-12-07	active
+1485	Lindi Arblaster	M	1993-08-17	2588836177	larblasterqz@usa.gov	242	\N	2022-03-07	hG0,UR@=J`my7A	2024-09-11	active
+1486	Abbey Hanhard	M	1982-08-22	9878349628	ahanhardr0@feedburner.com	3842	\N	2020-09-08	tH1}D)o$)@PvLDE	2024-02-15	active
+1487	Harrietta Pittle	M	1982-11-19	5745224838	hpittler1@accuweather.com	3612	\N	2021-04-27	nK2`X@@oT'Q	2024-08-18	active
+1488	Phyllys Lindro	M	2004-06-14	7253695205	plindror2@mediafire.com	3299	\N	2020-12-19	eW6$s0ct'6!3du3	2024-10-16	active
+1489	Fanchon Baribal	M	1988-08-04	6121787012	fbaribalr3@ucoz.com	1918	\N	2020-05-23	zD4,6`_i	2024-12-25	active
+1490	Modesty Bener	M	1990-05-14	5819669470	mbenerr4@timesonline.co.uk	1711	\N	2020-10-02	iJ3$5u3ig>N1Fuv	2024-08-30	active
+1491	Dody Hellwich	F	2003-03-28	7307007369	dhellwichr5@istockphoto.com	953	\N	2020-07-19	fA6*awLw}BI_dt	2024-01-18	active
+1492	Teriann Preston	M	1985-10-24	1204041012	tprestonr6@amazon.com	2189	\N	2022-07-16	bL7!mV+!<`kd	2024-05-23	active
+1493	Rocky Calway	F	1983-10-20	3182258053	rcalwayr7@disqus.com	2704	\N	2022-02-02	lA0|vecv6	2024-03-09	active
+1494	Anne-marie Gammel	F	1989-12-25	2756582227	agammelr8@chron.com	2710	\N	2020-05-05	jH9`S(B5vB$	2024-04-17	active
+1495	Rhea Sinnock	M	1986-01-27	6444382549	rsinnockr9@cdc.gov	1507	\N	2022-10-26	cO8|wvKu!)pfz	2024-05-23	active
+1496	Sherrie Pabel	F	1985-02-10	8308800847	spabelra@google.co.uk	183	\N	2021-12-11	jO9?9tN"	2024-12-13	active
+1497	Orelle Ayris	F	1988-06-06	1651957276	oayrisrb@un.org	3694	\N	2020-12-13	cV8|3eYoT"NVOW.(	2024-05-15	active
+1498	Norma Voyce	M	1995-05-17	2574182910	nvoycerc@sciencedirect.com	3995	\N	2020-03-18	yP2'Y(0Ne	2024-03-12	active
+1499	Oliver Jealous	F	1983-12-01	7585598488	ojealousrd@spotify.com	2565	\N	2022-02-07	xB7>Qs(5	2024-09-20	active
+1500	Nikolaus Pengilley	F	1992-10-30	7037013940	npengilleyre@walmart.com	396	\N	2022-06-25	nG6=(!IAad/#gS}3	2024-05-27	active
+1501	Hanna Stolte	F	2004-05-15	4046215403	hstolterf@microsoft.com	1275	\N	2020-02-07	sW2(9}81\\	2024-08-11	active
+1502	Cyb Parlor	F	1997-11-22	4401890721	cparlorrg@comsenz.com	3977	\N	2020-03-21	hV5"1Y?`\\	2024-04-26	active
+1503	Rowe Stoad	M	1997-07-30	5867170975	rstoadrh@github.com	2017	\N	2021-12-31	iG3>hEeM{F5	2024-02-09	active
+1504	Delainey Bompas	M	1983-08-10	4397255412	dbompasri@stumbleupon.com	1513	\N	2021-01-12	vO8/MLq|	2024-07-19	active
+1505	Emmy Emes	M	1983-11-19	7387801622	eemesrj@paypal.com	4345	\N	2021-03-23	sR3+h+/Q	2024-02-20	active
+1506	Darell Fairbrass	F	1988-08-22	6717772756	dfairbrassrk@sciencedaily.com	671	\N	2021-07-01	fQ2"<U%M6ar	2024-02-24	active
+1507	Carmela Blewitt	M	1996-09-01	1022289178	cblewittrl@independent.co.uk	1438	\N	2022-03-21	cT1'Mi)5	2024-01-20	active
+1508	Jack Adamiak	F	1997-04-17	6774341244	jadamiakrm@mapquest.com	2396	\N	2020-11-27	uF2@Co{Rl'MLrOgb	2024-06-06	active
+1509	Shani Rhys	M	1994-11-01	2446230072	srhysrn@gmpg.org	668	\N	2022-11-03	nX9@|XS4drn2!	2024-11-02	active
+1510	Hilton Sawyer	M	1993-10-06	2747513652	hsawyerro@telegraph.co.uk	2615	\N	2022-12-12	dF9\\O!DUw<q	2024-02-15	active
+1511	Boigie Mitcham	F	1980-02-15	3101270195	bmitchamrp@rakuten.co.jp	3762	\N	2021-12-31	uE8?+H4<ACo<H,hL	2024-10-07	active
+1512	Jarrad Bauduin	M	1989-01-21	3021944893	jbauduinrq@dailymotion.com	2030	\N	2022-01-10	pS2?blF9h+eh60u	2024-06-28	active
+1513	Judon Gother	F	1985-08-21	9744661179	jgotherrr@microsoft.com	4592	\N	2021-11-27	kA4|?mypk#0	2024-03-19	active
 \.
 
 
@@ -4639,6 +5639,1006 @@ COPY public.employment_contract (contract_id, employee_id, contract_date, termin
 --
 
 COPY public.operating_expense_log (log_id, expense_type, amount_paid, pay_date, note) FROM stdin;
+1	other	9549046.15	2020-10-16	\N
+2	water	2784757.28	2020-03-29	\N
+3	tax	2820979.97	2022-10-18	\N
+4	rent	4687260.56	2020-09-16	\N
+5	water	2315742.32	2020-04-03	\N
+6	water	2776000.60	2024-06-27	\N
+7	rent	984210.42	2021-11-02	\N
+8	water	6766218.79	2020-04-20	\N
+9	water	4654484.38	2020-06-22	\N
+10	other	9278298.20	2024-05-15	\N
+11	water	3760231.56	2022-01-05	\N
+12	electricity	492260.56	2021-04-24	\N
+13	rent	6640364.34	2025-01-30	\N
+14	tax	5176891.50	2020-02-23	\N
+15	water	3193243.42	2021-04-30	\N
+16	rent	4311836.84	2024-05-16	\N
+17	tax	1644710.39	2024-07-25	\N
+18	other	2506160.74	2024-06-09	\N
+19	tax	5243168.24	2023-10-29	\N
+20	water	6673165.98	2024-01-01	\N
+21	rent	5304752.88	2023-06-07	\N
+22	electricity	9128284.73	2025-05-05	\N
+23	other	1286920.87	2022-08-12	\N
+24	rent	1774928.10	2024-07-20	\N
+25	water	2640028.00	2022-09-16	\N
+26	water	7340282.49	2022-12-31	\N
+27	electricity	9887417.09	2022-12-12	\N
+28	electricity	1369764.71	2025-04-27	\N
+29	tax	7551738.56	2023-11-13	\N
+30	water	4356690.16	2022-10-12	\N
+31	water	7762317.90	2020-12-12	\N
+32	other	9228140.86	2024-11-30	\N
+33	other	6071533.65	2022-01-16	\N
+34	water	4364901.21	2022-01-05	\N
+35	electricity	398401.51	2020-04-07	\N
+36	other	6865147.99	2024-10-12	\N
+37	electricity	8766930.93	2023-10-10	\N
+38	electricity	3046376.89	2020-08-14	\N
+39	other	653849.31	2020-09-03	\N
+40	rent	8845244.69	2023-06-13	\N
+41	rent	6455102.92	2020-01-25	\N
+42	other	7052358.96	2024-04-27	\N
+43	electricity	9522898.22	2021-10-15	\N
+44	electricity	3617172.86	2024-11-23	\N
+45	electricity	7510762.53	2022-01-23	\N
+46	tax	3302640.87	2023-12-27	\N
+47	water	8430177.24	2025-05-25	\N
+48	other	5564594.74	2022-07-28	\N
+49	tax	8282066.56	2020-01-11	\N
+50	water	9923214.08	2020-08-23	\N
+51	electricity	4364392.30	2021-03-26	\N
+52	electricity	8259127.77	2024-04-19	\N
+53	other	9314256.59	2020-05-30	\N
+54	tax	403516.17	2020-10-17	\N
+55	electricity	2064711.06	2024-02-01	\N
+56	rent	7934647.86	2023-11-10	\N
+57	electricity	2541585.27	2023-06-29	\N
+58	rent	4678260.25	2023-01-30	\N
+59	water	4901916.47	2024-07-19	\N
+60	electricity	4029449.50	2020-09-13	\N
+61	rent	9507032.11	2024-02-27	\N
+62	rent	8029767.00	2020-05-09	\N
+63	electricity	6094308.48	2024-01-24	\N
+64	other	3251846.69	2023-09-18	\N
+65	rent	2344612.06	2020-11-12	\N
+66	electricity	9832450.00	2022-11-08	\N
+67	water	7821500.31	2022-11-28	\N
+68	water	8100314.21	2025-03-20	\N
+69	other	6356530.10	2022-04-28	\N
+70	electricity	152770.21	2024-06-12	\N
+71	water	6129764.93	2022-05-19	\N
+72	water	3321617.43	2023-02-11	\N
+73	other	5894409.78	2024-05-23	\N
+74	rent	1345864.33	2024-12-22	\N
+75	electricity	7955221.65	2022-05-27	\N
+76	electricity	3956913.14	2022-02-04	\N
+77	water	5684762.29	2024-02-26	\N
+78	rent	1854531.73	2024-02-24	\N
+79	electricity	4109314.36	2024-07-29	\N
+80	electricity	7281721.60	2020-12-29	\N
+81	water	1437112.65	2020-11-07	\N
+82	other	983993.60	2023-10-20	\N
+83	tax	3911445.09	2023-03-01	\N
+84	water	8160818.46	2021-11-03	\N
+85	other	5601352.71	2022-05-16	\N
+86	other	1148087.78	2023-02-25	\N
+87	tax	3488190.59	2022-01-08	\N
+88	rent	118738.09	2024-10-28	\N
+89	electricity	4762836.13	2023-05-03	\N
+90	water	9147647.11	2022-03-05	\N
+91	electricity	6811918.85	2025-03-18	\N
+92	other	3217201.88	2020-01-13	\N
+93	tax	1165552.11	2021-08-02	\N
+94	electricity	2312167.94	2021-06-23	\N
+95	electricity	2151952.71	2023-09-28	\N
+96	water	1886681.47	2023-09-05	\N
+97	tax	8586930.41	2021-05-13	\N
+98	electricity	4432335.67	2021-11-01	\N
+99	electricity	1114634.27	2021-09-13	\N
+100	other	6624987.31	2021-12-05	\N
+101	water	7482775.52	2022-05-15	\N
+102	other	2607354.01	2020-02-23	\N
+103	tax	2037231.14	2024-11-05	\N
+104	rent	9299782.21	2024-06-27	\N
+105	electricity	3413317.43	2023-10-10	\N
+106	other	1667723.45	2024-10-16	\N
+107	water	4582980.37	2024-09-27	\N
+108	electricity	1154945.27	2022-09-23	\N
+109	tax	8759814.62	2020-02-04	\N
+110	tax	1420354.95	2024-10-29	\N
+111	rent	7347731.46	2020-02-18	\N
+112	rent	1061738.06	2021-11-18	\N
+113	water	4023650.69	2022-02-16	\N
+114	water	3317131.44	2022-09-27	\N
+115	electricity	4719577.45	2020-06-30	\N
+116	tax	6896266.39	2024-06-20	\N
+117	other	1553338.90	2024-01-21	\N
+118	rent	1637242.30	2021-09-01	\N
+119	rent	6875200.10	2022-12-05	\N
+120	electricity	6842735.67	2022-07-14	\N
+121	electricity	8936310.13	2020-05-22	\N
+122	other	166153.12	2024-03-12	\N
+123	rent	1368456.77	2020-02-12	\N
+124	water	3664564.37	2024-05-30	\N
+125	other	8143839.62	2024-01-31	\N
+126	tax	797600.23	2024-12-11	\N
+127	rent	1152313.94	2022-08-27	\N
+128	other	3971205.63	2021-01-09	\N
+129	tax	7611022.48	2021-08-16	\N
+130	rent	6908883.84	2020-02-29	\N
+131	rent	4674981.78	2022-02-17	\N
+132	tax	5334209.89	2022-12-20	\N
+133	water	9630617.21	2021-02-09	\N
+134	electricity	1590634.45	2021-03-17	\N
+135	electricity	4077788.83	2020-02-06	\N
+136	tax	9206672.59	2024-04-22	\N
+137	rent	5763030.59	2021-11-28	\N
+138	rent	3714896.62	2021-05-07	\N
+139	electricity	8699118.09	2021-01-28	\N
+140	rent	7014126.06	2023-03-13	\N
+141	rent	3484362.03	2021-06-08	\N
+142	tax	4114263.51	2025-05-18	\N
+143	tax	233164.59	2024-05-28	\N
+144	other	948453.33	2024-10-24	\N
+145	electricity	9227073.29	2021-07-02	\N
+146	electricity	6094959.55	2022-11-13	\N
+147	electricity	1121481.43	2022-06-04	\N
+148	electricity	2232956.22	2021-08-17	\N
+149	water	8369630.28	2023-02-16	\N
+150	other	9337287.39	2022-08-25	\N
+151	electricity	9880650.46	2020-04-03	\N
+152	rent	5948772.80	2020-04-27	\N
+153	tax	6096313.97	2021-02-08	\N
+154	rent	2720687.74	2021-02-26	\N
+155	water	2105124.11	2020-06-29	\N
+156	electricity	9839686.92	2021-10-19	\N
+157	tax	413027.53	2020-09-08	\N
+158	other	510257.81	2024-05-24	\N
+159	water	6668160.25	2024-03-29	\N
+160	water	9395622.48	2021-11-15	\N
+161	rent	7038148.67	2023-04-28	\N
+162	water	168904.32	2022-02-04	\N
+163	water	5475398.51	2021-10-02	\N
+164	tax	9955549.61	2024-08-06	\N
+165	tax	6180537.89	2021-01-13	\N
+166	other	4516728.01	2024-05-17	\N
+167	rent	9810452.59	2020-01-18	\N
+168	other	6284797.94	2022-06-25	\N
+169	electricity	6769651.26	2020-09-30	\N
+170	rent	9518728.16	2023-06-16	\N
+171	other	5376097.21	2020-02-10	\N
+172	rent	4077086.25	2020-04-21	\N
+173	electricity	3278543.72	2021-10-29	\N
+174	electricity	1733034.53	2021-10-18	\N
+175	electricity	1329767.03	2023-03-31	\N
+176	rent	3690886.70	2024-02-02	\N
+177	other	557144.70	2022-03-01	\N
+178	water	5268283.38	2021-11-01	\N
+179	electricity	3109100.78	2025-03-09	\N
+180	rent	352224.63	2022-01-29	\N
+181	water	6675411.98	2024-12-07	\N
+182	other	1570661.19	2023-10-27	\N
+183	electricity	4963538.26	2020-02-03	\N
+184	other	9941657.93	2020-10-03	\N
+185	water	6436312.51	2020-06-23	\N
+186	electricity	7000931.96	2023-11-05	\N
+187	rent	4924644.53	2021-01-02	\N
+188	rent	8335967.36	2022-02-01	\N
+189	other	7441688.37	2021-05-22	\N
+190	other	6291315.49	2020-02-25	\N
+191	rent	9678768.38	2024-08-28	\N
+192	rent	4085140.61	2023-06-10	\N
+193	water	4041595.81	2020-09-02	\N
+194	other	4868194.64	2021-09-10	\N
+195	other	7479828.86	2020-04-16	\N
+196	water	7204189.37	2024-03-21	\N
+197	water	3422180.97	2024-12-27	\N
+198	rent	3891573.29	2021-02-11	\N
+199	electricity	9636762.49	2022-06-20	\N
+200	water	9414522.75	2022-06-05	\N
+201	other	1250765.71	2020-10-18	\N
+202	rent	5508742.90	2021-02-19	\N
+203	tax	7004403.50	2020-08-24	\N
+204	water	3865102.80	2022-09-05	\N
+205	rent	8252413.10	2020-04-28	\N
+206	water	3178282.83	2020-06-10	\N
+207	tax	3155382.84	2021-02-06	\N
+208	rent	5958041.99	2024-11-24	\N
+209	electricity	7448533.81	2021-11-30	\N
+210	rent	5186650.76	2023-04-09	\N
+211	other	7105259.19	2021-05-31	\N
+212	water	6107137.01	2020-11-04	\N
+213	electricity	4210454.29	2024-10-22	\N
+214	rent	468247.57	2025-02-26	\N
+215	rent	8013150.00	2021-09-08	\N
+216	tax	8948257.17	2024-05-30	\N
+217	rent	8309372.92	2021-01-07	\N
+218	electricity	5423500.90	2025-05-13	\N
+219	water	8436974.66	2020-07-25	\N
+220	rent	3277935.16	2022-08-16	\N
+221	rent	2017875.17	2020-08-22	\N
+222	other	3801561.70	2020-08-15	\N
+223	water	3759340.11	2023-09-13	\N
+224	water	3107615.32	2020-03-20	\N
+225	electricity	1189873.05	2022-12-09	\N
+226	other	2772833.36	2021-09-22	\N
+227	rent	2879842.88	2022-12-05	\N
+228	rent	1353229.32	2024-08-12	\N
+229	tax	2970054.87	2024-07-28	\N
+230	other	5568795.91	2024-11-18	\N
+231	rent	7607484.81	2022-02-14	\N
+232	rent	6235825.41	2024-01-17	\N
+233	water	8692313.59	2020-07-31	\N
+234	electricity	4973737.05	2023-10-20	\N
+235	electricity	5008037.54	2022-01-11	\N
+236	water	2000022.36	2024-07-17	\N
+237	electricity	1793885.02	2024-05-02	\N
+238	rent	2101594.82	2020-06-05	\N
+239	rent	7036020.46	2021-04-25	\N
+240	rent	4616152.55	2024-08-02	\N
+241	tax	8378778.45	2021-02-03	\N
+242	tax	7828947.70	2024-09-03	\N
+243	water	7545192.35	2021-06-14	\N
+244	water	1325491.00	2020-05-06	\N
+245	tax	4766753.45	2021-12-23	\N
+246	electricity	4255921.44	2023-07-21	\N
+247	other	5342720.13	2024-09-26	\N
+248	electricity	4022755.85	2022-11-04	\N
+249	electricity	4266682.54	2020-03-03	\N
+250	electricity	6912243.83	2024-09-24	\N
+251	rent	5692532.51	2021-06-09	\N
+252	rent	912602.76	2020-01-17	\N
+253	other	964405.97	2022-07-22	\N
+254	water	6493575.25	2021-12-02	\N
+255	electricity	6995174.75	2024-12-19	\N
+256	tax	7052330.15	2020-09-22	\N
+257	other	1439221.15	2021-11-20	\N
+258	tax	5467709.04	2021-06-24	\N
+259	other	6379215.20	2020-03-04	\N
+260	tax	3915321.36	2023-09-08	\N
+261	tax	1913692.70	2023-06-07	\N
+262	water	9181270.20	2022-12-10	\N
+263	water	7644410.99	2023-12-03	\N
+264	water	1843526.69	2024-01-01	\N
+265	tax	6500256.77	2023-06-22	\N
+266	tax	4163205.86	2024-12-19	\N
+267	other	9710980.40	2024-06-17	\N
+268	electricity	2013928.36	2024-12-20	\N
+269	electricity	3401946.83	2020-12-23	\N
+270	water	5407904.80	2020-09-03	\N
+271	tax	4306513.57	2023-02-04	\N
+272	tax	618084.09	2022-11-03	\N
+273	rent	3346306.05	2022-08-20	\N
+274	rent	942467.67	2023-03-12	\N
+275	electricity	435143.99	2022-09-29	\N
+276	electricity	3990964.61	2024-11-11	\N
+277	tax	6651087.33	2023-01-10	\N
+278	water	8891343.78	2022-09-21	\N
+279	tax	8116713.42	2025-03-10	\N
+280	water	2411370.90	2025-05-14	\N
+281	rent	9162441.72	2024-07-20	\N
+282	tax	6947098.62	2024-01-15	\N
+283	electricity	2039718.55	2021-09-12	\N
+284	electricity	9330144.39	2022-12-26	\N
+285	tax	9706199.07	2023-01-15	\N
+286	water	5389868.31	2024-12-26	\N
+287	electricity	9960462.00	2021-08-15	\N
+288	tax	8516743.89	2020-09-06	\N
+289	tax	2109946.14	2023-11-06	\N
+290	tax	4515224.18	2021-12-13	\N
+291	tax	7731781.31	2024-10-10	\N
+292	tax	2330905.28	2020-02-01	\N
+293	water	1323899.90	2020-11-07	\N
+294	other	9752479.45	2021-12-26	\N
+295	rent	5314913.00	2025-01-31	\N
+296	water	4587114.52	2025-05-02	\N
+297	electricity	6476340.10	2020-08-16	\N
+298	rent	9691074.96	2022-06-11	\N
+299	other	8617882.17	2022-03-13	\N
+300	water	5921091.80	2022-09-30	\N
+301	tax	4865196.18	2024-04-21	\N
+302	tax	8040561.65	2021-10-09	\N
+303	water	8826974.03	2023-05-19	\N
+304	water	800533.49	2020-09-21	\N
+305	tax	6253968.36	2024-01-10	\N
+306	rent	1918342.62	2024-12-16	\N
+307	water	2168445.58	2020-05-25	\N
+308	electricity	8148353.80	2023-02-26	\N
+309	electricity	8583700.10	2024-09-25	\N
+310	tax	9919479.00	2022-12-07	\N
+311	electricity	7496369.06	2020-08-27	\N
+312	electricity	5453425.69	2022-02-27	\N
+313	other	6966001.63	2025-05-08	\N
+314	other	609288.67	2022-08-17	\N
+315	rent	3483069.15	2024-08-28	\N
+316	other	7752196.49	2020-02-18	\N
+317	electricity	4566261.13	2023-02-18	\N
+318	electricity	327514.10	2025-03-23	\N
+319	other	7800677.86	2020-04-10	\N
+320	tax	3753437.04	2024-03-16	\N
+321	tax	153019.65	2024-11-24	\N
+322	tax	1993352.60	2023-07-18	\N
+323	electricity	1746462.13	2021-03-09	\N
+324	rent	165807.56	2024-12-12	\N
+325	other	8921576.88	2024-05-13	\N
+326	tax	6161846.09	2022-10-03	\N
+327	electricity	4050479.74	2024-11-28	\N
+328	tax	1181953.85	2023-01-07	\N
+329	water	1284894.85	2023-04-12	\N
+330	other	764736.21	2020-02-29	\N
+331	water	1438257.19	2020-02-23	\N
+332	other	6674645.51	2022-12-26	\N
+333	tax	954751.39	2024-08-02	\N
+334	water	3454952.60	2023-11-02	\N
+335	rent	8398403.76	2024-04-30	\N
+336	water	8443057.41	2021-05-18	\N
+337	water	5703963.28	2020-10-27	\N
+338	rent	9835255.03	2021-11-26	\N
+339	other	2894347.26	2023-02-28	\N
+340	water	3130197.24	2024-09-12	\N
+341	electricity	7725349.81	2021-02-25	\N
+342	rent	2861941.29	2021-05-14	\N
+343	tax	4677168.76	2024-10-12	\N
+344	water	5458395.81	2021-05-22	\N
+345	tax	9115778.94	2021-07-17	\N
+346	other	5330759.39	2021-03-18	\N
+347	other	677649.32	2021-08-02	\N
+348	tax	343253.10	2025-02-04	\N
+349	water	2256610.49	2023-08-26	\N
+350	rent	9716121.90	2023-02-27	\N
+351	electricity	4404123.50	2020-05-14	\N
+352	water	107941.09	2020-07-27	\N
+353	tax	3094337.86	2021-07-09	\N
+354	other	3035267.51	2024-06-17	\N
+355	electricity	4010301.78	2023-10-29	\N
+356	water	9675500.39	2022-08-26	\N
+357	tax	7879206.52	2021-10-30	\N
+358	tax	3422292.62	2020-11-13	\N
+359	electricity	7777358.65	2020-08-20	\N
+360	tax	9843876.33	2024-12-08	\N
+361	water	5862480.50	2021-02-23	\N
+362	tax	1443677.89	2021-10-19	\N
+363	other	3016930.98	2023-06-24	\N
+364	other	3111541.11	2020-04-04	\N
+365	water	101799.42	2022-02-24	\N
+366	other	6801807.40	2022-07-04	\N
+367	electricity	6979052.29	2021-01-09	\N
+368	water	6250760.77	2024-04-28	\N
+369	rent	9169591.29	2024-12-23	\N
+370	rent	943120.06	2024-02-05	\N
+371	electricity	135790.58	2021-03-04	\N
+372	other	6147203.02	2023-11-21	\N
+373	tax	2205516.43	2023-06-07	\N
+374	rent	9309858.72	2020-08-01	\N
+375	rent	340372.12	2024-09-06	\N
+376	other	5800040.83	2023-09-24	\N
+377	water	465081.03	2022-06-18	\N
+378	other	4093415.70	2022-02-26	\N
+379	other	5264094.25	2024-04-09	\N
+380	tax	313308.67	2024-02-11	\N
+381	tax	4257080.45	2022-08-20	\N
+382	rent	6275461.73	2023-09-07	\N
+383	rent	7317200.94	2023-06-10	\N
+384	water	857444.92	2020-09-14	\N
+385	water	3653082.51	2021-12-09	\N
+386	rent	8082600.80	2023-01-23	\N
+387	rent	6569176.10	2022-06-07	\N
+388	tax	5933279.75	2020-03-16	\N
+389	electricity	357304.86	2024-06-14	\N
+390	other	7897923.96	2023-05-01	\N
+391	rent	2613180.25	2023-12-16	\N
+392	other	6864983.12	2021-08-18	\N
+393	other	1823307.98	2024-09-27	\N
+394	rent	2713980.65	2024-03-10	\N
+395	rent	2456285.64	2021-02-23	\N
+396	electricity	5041241.77	2024-01-29	\N
+397	electricity	450361.08	2024-09-06	\N
+398	other	2968132.66	2023-05-03	\N
+399	tax	9761818.24	2021-11-16	\N
+400	electricity	4799615.54	2021-06-11	\N
+401	rent	5668832.41	2023-10-07	\N
+402	other	2370583.90	2022-01-12	\N
+403	tax	3827249.91	2025-05-06	\N
+404	rent	2650492.22	2023-02-05	\N
+405	tax	3859610.64	2020-04-05	\N
+406	electricity	5634643.17	2025-05-11	\N
+407	water	5739500.57	2021-01-12	\N
+408	electricity	2651213.68	2022-03-22	\N
+409	tax	684619.23	2020-07-10	\N
+410	electricity	3841635.06	2024-12-19	\N
+411	rent	7013155.02	2024-06-20	\N
+412	tax	9898949.64	2021-08-07	\N
+413	tax	2337310.19	2020-01-07	\N
+414	electricity	8476209.07	2024-02-24	\N
+415	electricity	175131.41	2022-02-17	\N
+416	water	1519132.13	2023-05-27	\N
+417	rent	6027299.85	2021-02-26	\N
+418	electricity	913110.39	2020-03-08	\N
+419	tax	4820311.10	2024-12-26	\N
+420	electricity	7684143.62	2023-02-21	\N
+421	electricity	9910198.56	2023-06-11	\N
+422	electricity	6548829.58	2021-02-17	\N
+423	tax	3707632.77	2021-12-20	\N
+424	other	4732939.46	2021-01-16	\N
+425	rent	5628246.05	2022-10-27	\N
+426	tax	6703172.53	2022-09-09	\N
+427	rent	2690137.95	2020-08-14	\N
+428	other	5485357.95	2024-05-07	\N
+429	other	6069224.31	2020-11-10	\N
+430	water	6760381.86	2020-02-22	\N
+431	tax	946313.96	2025-05-03	\N
+432	electricity	9582823.57	2023-01-28	\N
+433	rent	3930042.21	2020-07-01	\N
+434	electricity	7593606.36	2022-03-05	\N
+435	tax	9815401.60	2024-02-18	\N
+436	other	4644339.02	2023-07-08	\N
+437	other	5259661.95	2020-05-12	\N
+438	rent	2110133.56	2020-05-30	\N
+439	tax	9292177.52	2025-04-30	\N
+440	water	4582633.51	2023-11-15	\N
+441	rent	4920896.30	2024-02-01	\N
+442	tax	4698349.76	2025-03-01	\N
+443	rent	4056027.63	2020-09-09	\N
+444	electricity	2920766.96	2021-09-23	\N
+445	electricity	2364717.27	2021-10-25	\N
+446	tax	7263282.04	2025-01-29	\N
+447	other	1178650.18	2024-05-15	\N
+448	water	5374119.61	2024-08-05	\N
+449	water	3185558.24	2021-05-05	\N
+450	tax	3713606.02	2020-05-29	\N
+451	rent	2467099.15	2023-03-19	\N
+452	tax	3325508.60	2024-09-04	\N
+453	electricity	556377.17	2020-04-07	\N
+454	rent	4641727.00	2023-02-17	\N
+455	other	8375602.83	2025-01-28	\N
+456	other	1656955.49	2024-06-13	\N
+457	tax	3025519.53	2020-03-15	\N
+458	electricity	5139124.35	2020-06-17	\N
+459	water	5490246.77	2020-10-18	\N
+460	electricity	321770.42	2024-02-26	\N
+461	rent	2060112.13	2021-06-01	\N
+462	tax	4929987.19	2023-02-23	\N
+463	water	2906756.72	2020-06-08	\N
+464	other	7258423.48	2022-11-06	\N
+465	other	8371288.77	2023-07-06	\N
+466	electricity	8557824.31	2020-11-16	\N
+467	electricity	7425228.24	2020-06-25	\N
+468	water	618666.82	2022-08-28	\N
+469	water	5931677.59	2020-05-14	\N
+470	electricity	4888343.04	2023-06-05	\N
+471	other	9419536.10	2021-05-05	\N
+472	electricity	2841556.29	2021-01-08	\N
+473	electricity	1884932.99	2023-05-05	\N
+474	rent	9778994.38	2022-09-03	\N
+475	tax	382433.69	2021-11-03	\N
+476	rent	7319768.09	2024-12-03	\N
+477	rent	6732179.55	2022-01-15	\N
+478	rent	1271400.58	2023-04-12	\N
+479	rent	4915416.07	2024-02-17	\N
+480	electricity	1626997.89	2024-02-28	\N
+481	rent	3749662.70	2025-02-11	\N
+482	electricity	7512064.44	2020-02-03	\N
+483	rent	952713.40	2022-03-28	\N
+484	water	3205472.53	2022-03-03	\N
+485	electricity	4801524.15	2023-10-04	\N
+486	rent	2713812.57	2020-10-25	\N
+487	electricity	5170656.86	2022-03-20	\N
+488	water	4764806.31	2024-07-18	\N
+489	other	5115592.70	2023-05-14	\N
+490	water	5363807.13	2024-01-27	\N
+491	electricity	2385848.84	2023-10-26	\N
+492	electricity	2701863.34	2023-09-15	\N
+493	tax	4898034.89	2022-07-09	\N
+494	water	2666140.58	2023-04-09	\N
+495	rent	6041320.08	2025-03-03	\N
+496	other	2463936.97	2020-04-04	\N
+497	tax	5571262.45	2020-12-25	\N
+498	water	7090407.32	2022-01-02	\N
+499	tax	2220955.71	2024-12-09	\N
+500	water	6227773.76	2024-06-13	\N
+501	tax	7072622.20	2023-08-25	\N
+502	water	5026383.31	2023-07-18	\N
+503	other	8154408.46	2022-03-16	\N
+504	rent	6205399.78	2023-02-16	\N
+505	rent	9461076.38	2024-03-14	\N
+506	tax	5830522.40	2020-10-10	\N
+507	other	830538.47	2021-07-09	\N
+508	electricity	7265974.25	2020-09-25	\N
+509	other	6739692.51	2020-02-06	\N
+510	other	5962873.86	2023-05-27	\N
+511	electricity	421328.47	2020-02-16	\N
+512	other	5105591.37	2023-01-12	\N
+513	electricity	174798.47	2022-05-24	\N
+514	water	319418.70	2020-12-02	\N
+515	other	2775313.88	2020-05-03	\N
+516	water	9705761.79	2022-04-18	\N
+517	electricity	183402.43	2024-09-20	\N
+518	other	8294137.05	2023-01-13	\N
+519	water	2000044.24	2023-11-23	\N
+520	tax	9977590.56	2024-07-11	\N
+521	other	5262664.61	2024-06-04	\N
+522	electricity	7313492.55	2022-09-06	\N
+523	tax	2795384.02	2025-04-11	\N
+524	other	4397144.61	2022-10-27	\N
+525	rent	9905317.31	2021-05-23	\N
+526	rent	3618504.92	2022-06-16	\N
+527	rent	2568565.76	2023-03-24	\N
+528	rent	1039854.70	2024-04-08	\N
+529	rent	557895.56	2021-02-03	\N
+530	rent	7572687.65	2023-11-02	\N
+531	other	8456987.29	2021-08-31	\N
+532	rent	1666345.23	2023-12-01	\N
+533	tax	1644737.82	2024-12-20	\N
+534	rent	1220836.53	2024-03-25	\N
+535	rent	2887130.88	2025-04-13	\N
+536	other	1872652.83	2020-12-16	\N
+537	rent	3443487.36	2024-06-14	\N
+538	water	2470631.12	2021-12-30	\N
+539	other	3169484.63	2024-08-04	\N
+540	electricity	4085139.83	2024-03-17	\N
+541	other	7509338.91	2024-09-27	\N
+542	electricity	2917244.98	2021-02-12	\N
+543	electricity	5386835.20	2023-12-29	\N
+544	water	2371273.39	2020-02-22	\N
+545	electricity	3828027.23	2020-09-24	\N
+546	rent	8885592.84	2024-09-25	\N
+547	other	2101809.13	2025-04-12	\N
+548	tax	1319908.76	2020-05-27	\N
+549	other	9121994.23	2024-10-29	\N
+550	other	286719.44	2022-09-10	\N
+551	other	1935937.35	2021-12-14	\N
+552	rent	1789864.90	2024-04-27	\N
+553	electricity	1095877.64	2021-09-08	\N
+554	rent	7767390.21	2022-04-26	\N
+555	electricity	7926467.55	2020-10-01	\N
+556	tax	8279555.59	2024-05-23	\N
+557	tax	4361437.52	2024-10-31	\N
+558	other	6111746.59	2020-02-14	\N
+559	electricity	4701387.30	2024-03-17	\N
+560	electricity	5399261.67	2020-04-09	\N
+561	other	6774596.45	2024-09-07	\N
+562	rent	8805852.95	2023-10-13	\N
+563	rent	3832248.39	2020-03-24	\N
+564	other	6140150.19	2024-05-24	\N
+565	electricity	8631473.73	2023-12-16	\N
+566	water	1005832.20	2022-12-27	\N
+567	rent	255187.33	2023-07-15	\N
+568	electricity	2749172.11	2024-02-16	\N
+569	electricity	1714897.17	2021-03-05	\N
+570	electricity	5228630.10	2021-06-09	\N
+571	other	9869304.60	2024-01-26	\N
+572	tax	2347251.31	2022-05-11	\N
+573	other	6265678.37	2022-02-02	\N
+574	electricity	5307131.79	2021-05-10	\N
+575	tax	6529073.09	2023-10-14	\N
+576	rent	5723157.94	2023-07-29	\N
+577	rent	4769233.46	2024-07-16	\N
+578	water	5775892.03	2022-02-17	\N
+579	electricity	4819267.30	2024-06-07	\N
+580	tax	4137672.20	2023-05-30	\N
+581	other	3085426.36	2023-09-02	\N
+582	rent	5175148.88	2022-09-22	\N
+583	water	1986933.71	2025-04-11	\N
+584	electricity	863885.06	2020-04-07	\N
+585	rent	3031346.90	2023-02-20	\N
+586	other	5439767.44	2023-04-29	\N
+587	other	2272075.50	2021-07-06	\N
+588	rent	7662944.94	2022-09-26	\N
+589	tax	8311965.70	2020-05-06	\N
+590	rent	9475348.49	2024-12-26	\N
+591	other	208223.73	2020-12-14	\N
+592	rent	4766812.76	2020-10-09	\N
+593	electricity	684160.47	2020-08-08	\N
+594	water	4589140.93	2021-01-28	\N
+595	rent	3631382.57	2023-10-11	\N
+596	rent	493168.23	2022-11-01	\N
+597	electricity	3762324.60	2021-03-08	\N
+598	rent	907785.41	2023-06-05	\N
+599	water	1916657.88	2020-07-29	\N
+600	water	8273873.19	2021-08-11	\N
+601	tax	2949806.97	2023-08-23	\N
+602	water	161768.29	2021-01-09	\N
+603	other	7184103.94	2022-02-16	\N
+604	tax	8309357.43	2020-10-23	\N
+605	tax	1234478.64	2025-04-22	\N
+606	water	8997602.65	2023-08-16	\N
+607	water	9563671.45	2022-02-26	\N
+608	rent	8656458.65	2021-12-29	\N
+609	water	3035868.68	2021-09-20	\N
+610	electricity	8992072.51	2023-09-11	\N
+611	rent	1747534.37	2022-07-27	\N
+612	electricity	7370055.83	2021-12-23	\N
+613	other	4784465.11	2025-03-13	\N
+614	water	9745689.03	2024-06-19	\N
+615	other	2768983.18	2023-05-28	\N
+616	other	1770500.23	2023-11-13	\N
+617	electricity	9949184.12	2020-03-03	\N
+618	water	6546121.34	2023-11-09	\N
+619	electricity	3099603.19	2023-12-26	\N
+620	water	2146598.39	2024-08-09	\N
+621	water	9398825.90	2020-06-16	\N
+622	tax	9042027.49	2021-07-01	\N
+623	electricity	1139735.99	2023-09-27	\N
+624	water	1892147.32	2020-08-07	\N
+625	tax	3268252.91	2024-11-25	\N
+626	rent	2278072.58	2024-04-24	\N
+627	tax	4770569.96	2024-08-15	\N
+628	rent	4364793.45	2022-07-08	\N
+629	other	9615771.84	2022-01-22	\N
+630	electricity	5192598.41	2022-11-22	\N
+631	rent	619743.25	2022-03-04	\N
+632	water	2654077.71	2023-07-04	\N
+633	water	3560145.14	2022-01-19	\N
+634	tax	3905930.38	2025-05-14	\N
+635	tax	6220901.60	2020-11-20	\N
+636	electricity	6199430.21	2025-03-27	\N
+637	electricity	7363535.72	2023-10-03	\N
+638	other	2540948.21	2022-12-13	\N
+639	tax	6627176.11	2020-12-26	\N
+640	other	8250476.16	2024-11-25	\N
+641	electricity	2492744.38	2024-04-16	\N
+642	rent	7914565.83	2020-09-09	\N
+643	water	857086.07	2020-04-30	\N
+644	other	7379620.39	2021-06-22	\N
+645	other	2432773.97	2021-12-14	\N
+646	electricity	8612802.12	2024-09-03	\N
+647	water	6294621.20	2024-07-26	\N
+648	tax	3215541.34	2020-05-30	\N
+649	other	2656296.46	2020-05-08	\N
+650	other	8610264.05	2021-06-18	\N
+651	rent	5929363.70	2024-06-20	\N
+652	water	5031801.63	2023-11-01	\N
+653	tax	5879336.68	2021-06-13	\N
+654	tax	480663.24	2021-02-04	\N
+655	tax	8237778.81	2021-02-09	\N
+656	other	7473176.42	2022-04-12	\N
+657	tax	4354218.85	2020-08-25	\N
+658	electricity	8667783.60	2020-12-02	\N
+659	tax	3476826.83	2022-04-09	\N
+660	rent	3197729.20	2022-10-29	\N
+661	electricity	8780769.68	2024-05-24	\N
+662	electricity	2511111.81	2023-08-07	\N
+663	electricity	8652667.61	2020-12-30	\N
+664	electricity	2119319.60	2020-10-03	\N
+665	rent	3341158.73	2024-08-06	\N
+666	tax	7262780.40	2024-06-29	\N
+667	electricity	2245587.07	2020-11-09	\N
+668	tax	8293416.21	2025-04-27	\N
+669	electricity	6189823.58	2023-01-11	\N
+670	rent	4830147.67	2022-11-23	\N
+671	tax	3187910.99	2020-10-28	\N
+672	rent	1384808.58	2025-05-22	\N
+673	water	5924306.80	2025-05-16	\N
+674	electricity	6347268.30	2021-04-10	\N
+675	electricity	4390135.74	2024-05-08	\N
+676	other	5673978.76	2022-02-04	\N
+677	electricity	1660241.44	2021-01-02	\N
+678	rent	2738331.48	2021-04-06	\N
+679	tax	9958113.22	2024-02-10	\N
+680	electricity	4250492.99	2025-04-22	\N
+681	other	4524140.18	2025-02-01	\N
+682	other	3084216.15	2020-01-12	\N
+683	tax	2698144.91	2021-09-04	\N
+684	tax	6149438.69	2020-07-01	\N
+685	rent	7029046.87	2025-03-28	\N
+686	other	8592524.99	2021-05-03	\N
+687	other	5962134.35	2022-08-16	\N
+688	other	4947807.37	2023-01-18	\N
+689	rent	4507474.91	2024-02-18	\N
+690	water	3526453.01	2023-07-15	\N
+691	rent	3283626.91	2021-03-07	\N
+692	rent	7305143.60	2025-01-24	\N
+693	tax	3808500.69	2024-05-16	\N
+694	other	514303.72	2022-07-07	\N
+695	rent	7445396.47	2020-06-04	\N
+696	tax	1470120.60	2020-02-16	\N
+697	electricity	3556329.12	2022-10-15	\N
+698	water	5790840.14	2022-02-13	\N
+699	rent	5401405.36	2021-05-03	\N
+700	water	4855998.69	2022-01-24	\N
+701	electricity	2895143.71	2020-01-29	\N
+702	rent	8159220.23	2020-06-03	\N
+703	water	6370089.23	2020-04-24	\N
+704	tax	2448665.25	2023-11-07	\N
+705	tax	8685681.75	2023-01-10	\N
+706	other	7956899.82	2024-07-29	\N
+707	rent	590104.93	2022-12-27	\N
+708	water	7199878.64	2021-02-04	\N
+709	rent	4528181.78	2023-05-18	\N
+710	water	5149300.42	2020-03-15	\N
+711	electricity	3265777.25	2022-10-21	\N
+712	electricity	6940654.85	2024-03-27	\N
+713	other	1881002.50	2024-08-24	\N
+714	tax	1673227.73	2023-10-10	\N
+715	other	6780413.14	2023-10-04	\N
+716	other	2394495.32	2023-01-17	\N
+717	tax	9423392.42	2022-03-06	\N
+718	electricity	4921406.95	2021-11-08	\N
+719	other	742253.95	2024-08-31	\N
+720	electricity	8882938.06	2021-08-20	\N
+721	tax	9146811.64	2020-08-28	\N
+722	water	2698016.29	2022-01-04	\N
+723	rent	4685872.81	2024-10-14	\N
+724	electricity	9723869.94	2024-03-27	\N
+725	electricity	3978563.51	2020-01-06	\N
+726	other	5141622.75	2020-04-22	\N
+727	electricity	1423525.13	2021-02-06	\N
+728	tax	1619984.47	2022-10-15	\N
+729	water	8769733.73	2022-10-06	\N
+730	electricity	4895050.82	2022-03-03	\N
+731	tax	5631335.83	2025-04-30	\N
+732	water	6871852.04	2022-09-10	\N
+733	rent	7943634.51	2023-11-03	\N
+734	tax	1412531.91	2023-03-07	\N
+735	water	2277061.74	2023-03-08	\N
+736	water	6734964.02	2023-04-13	\N
+737	tax	5479627.13	2022-01-05	\N
+738	water	4414829.71	2023-10-06	\N
+739	rent	997389.70	2023-11-14	\N
+740	tax	6325117.51	2024-09-02	\N
+741	tax	4574254.24	2021-02-20	\N
+742	electricity	516793.34	2021-04-04	\N
+743	rent	9153620.30	2024-01-22	\N
+744	tax	6018398.99	2021-02-14	\N
+745	water	9016278.63	2025-02-12	\N
+746	tax	5968267.67	2022-04-14	\N
+747	tax	249083.70	2021-01-24	\N
+748	tax	6477454.25	2025-04-10	\N
+749	other	214161.86	2020-10-15	\N
+750	water	7631578.23	2020-08-26	\N
+751	tax	9765162.66	2022-05-08	\N
+752	tax	7519930.76	2022-06-27	\N
+753	other	1333204.54	2022-01-13	\N
+754	tax	7000555.46	2024-12-28	\N
+755	tax	3856527.33	2020-11-17	\N
+756	tax	1867817.81	2020-05-29	\N
+757	water	3046668.60	2023-03-25	\N
+758	rent	8090428.82	2022-09-13	\N
+759	electricity	6568296.29	2022-10-15	\N
+760	tax	524608.12	2022-02-08	\N
+761	other	5896623.58	2024-06-18	\N
+762	water	6082724.35	2020-07-30	\N
+763	water	9107284.85	2023-03-31	\N
+764	electricity	9092151.54	2024-02-09	\N
+765	electricity	8186349.51	2024-04-02	\N
+766	electricity	9434849.55	2025-04-16	\N
+767	water	917876.68	2022-09-21	\N
+768	rent	3952573.85	2024-06-09	\N
+769	rent	5376995.01	2022-04-07	\N
+770	water	9033388.45	2024-04-16	\N
+771	other	2104842.28	2023-11-07	\N
+772	water	1285571.45	2024-07-21	\N
+773	electricity	6069851.08	2024-11-14	\N
+774	other	6222851.63	2022-04-08	\N
+775	tax	4162544.72	2021-06-21	\N
+776	water	6828756.78	2022-11-20	\N
+777	other	3818134.42	2020-06-02	\N
+778	water	4944668.63	2024-07-07	\N
+779	rent	8881586.78	2020-10-06	\N
+780	tax	4503859.85	2020-11-06	\N
+781	electricity	5866402.81	2022-10-14	\N
+782	rent	8223425.51	2020-04-11	\N
+783	electricity	7915826.91	2022-04-05	\N
+784	electricity	484348.00	2023-05-22	\N
+785	electricity	2748104.82	2023-02-17	\N
+786	rent	913556.78	2021-12-26	\N
+787	rent	3926841.85	2022-03-17	\N
+788	rent	7032662.89	2025-05-09	\N
+789	other	6504299.52	2020-12-08	\N
+790	tax	4712883.57	2021-10-17	\N
+791	other	9597274.12	2024-08-27	\N
+792	water	6852446.26	2023-01-25	\N
+793	rent	5267983.11	2024-02-03	\N
+794	tax	8635879.53	2024-10-12	\N
+795	tax	3219319.40	2024-04-27	\N
+796	water	9631561.91	2021-07-22	\N
+797	water	5718513.27	2021-02-28	\N
+798	electricity	6382700.20	2023-08-02	\N
+799	rent	9682370.35	2022-11-17	\N
+800	other	7133529.79	2024-07-09	\N
+801	water	7371926.11	2023-02-19	\N
+802	tax	8744337.69	2020-01-10	\N
+803	tax	3704142.82	2023-08-09	\N
+804	electricity	8857922.76	2024-08-28	\N
+805	other	5439020.77	2023-08-16	\N
+806	rent	3270141.43	2020-07-12	\N
+807	other	5771027.78	2024-05-25	\N
+808	other	3815667.63	2021-04-09	\N
+809	electricity	3192959.58	2020-05-15	\N
+810	other	8203615.93	2023-05-22	\N
+811	water	4752713.40	2025-01-16	\N
+812	rent	5155108.76	2025-02-11	\N
+813	tax	8312044.47	2021-05-13	\N
+814	other	6773283.83	2023-04-27	\N
+815	tax	2544436.42	2023-01-17	\N
+816	tax	6050956.40	2025-05-02	\N
+817	other	4992561.06	2024-06-22	\N
+818	electricity	6405795.66	2021-12-23	\N
+819	tax	4408747.05	2021-01-21	\N
+820	rent	9691929.20	2021-02-19	\N
+821	tax	4051531.49	2022-08-13	\N
+822	electricity	1498446.04	2024-04-25	\N
+823	electricity	4046057.90	2023-06-17	\N
+824	tax	8663775.02	2020-03-25	\N
+825	other	421539.42	2021-12-06	\N
+826	electricity	2427694.76	2020-07-03	\N
+827	other	3438620.09	2024-05-13	\N
+828	electricity	4931327.91	2024-05-14	\N
+829	tax	9369086.33	2020-10-26	\N
+830	water	7740545.86	2024-04-09	\N
+831	other	8411253.14	2021-02-20	\N
+832	tax	9135196.27	2024-02-16	\N
+833	water	194640.36	2021-10-12	\N
+834	rent	9737983.31	2020-05-07	\N
+835	other	675480.14	2023-12-12	\N
+836	water	1542279.92	2021-06-25	\N
+837	electricity	9500014.65	2024-03-03	\N
+838	rent	1626697.58	2024-08-03	\N
+839	electricity	3232755.96	2024-06-10	\N
+840	rent	3873316.20	2024-07-25	\N
+841	rent	713536.39	2024-03-03	\N
+842	rent	5408071.37	2023-11-15	\N
+843	tax	4615257.94	2023-05-10	\N
+844	electricity	7313580.73	2021-12-05	\N
+845	rent	3930958.09	2020-03-15	\N
+846	tax	776950.00	2021-11-13	\N
+847	rent	9042084.86	2024-02-27	\N
+848	rent	6045654.14	2024-04-23	\N
+849	tax	5516710.36	2023-05-08	\N
+850	other	7155030.50	2020-10-26	\N
+851	other	1208901.41	2024-06-19	\N
+852	electricity	1923501.94	2024-04-17	\N
+853	rent	9999844.42	2023-08-24	\N
+854	rent	9709987.62	2025-03-01	\N
+855	rent	3413409.77	2024-03-31	\N
+856	rent	6954677.78	2022-01-28	\N
+857	tax	7844154.72	2020-10-19	\N
+858	electricity	8346119.77	2023-11-03	\N
+859	tax	1451625.93	2023-01-24	\N
+860	other	2365873.09	2023-11-26	\N
+861	tax	1627476.14	2020-07-24	\N
+862	tax	4540771.80	2025-03-06	\N
+863	tax	8963574.28	2023-04-27	\N
+864	other	7220100.61	2022-07-03	\N
+865	tax	3286449.73	2021-04-27	\N
+866	tax	5840623.40	2021-12-19	\N
+867	electricity	7189686.85	2020-06-07	\N
+868	tax	9160916.93	2024-12-19	\N
+869	other	7766188.61	2023-12-29	\N
+870	rent	9612258.51	2025-01-03	\N
+871	water	3355372.31	2020-12-03	\N
+872	rent	9737788.59	2024-12-15	\N
+873	electricity	8622767.02	2024-11-02	\N
+874	rent	6325866.74	2022-06-06	\N
+875	electricity	3441603.40	2024-08-06	\N
+876	electricity	5685521.44	2022-03-17	\N
+877	tax	2868271.73	2024-02-12	\N
+878	electricity	9903885.15	2021-11-23	\N
+879	tax	2336220.50	2022-01-05	\N
+880	water	9848523.47	2022-03-03	\N
+881	other	9578347.35	2020-12-25	\N
+882	other	3459262.54	2021-10-05	\N
+883	water	5565882.27	2024-06-18	\N
+884	tax	430517.88	2025-05-16	\N
+885	tax	8467031.17	2023-08-31	\N
+886	tax	8715792.25	2024-08-26	\N
+887	water	6910879.77	2023-11-10	\N
+888	tax	3855523.53	2021-08-31	\N
+889	electricity	7597570.77	2023-05-30	\N
+890	tax	533893.04	2025-04-28	\N
+891	water	4594398.59	2023-08-02	\N
+892	tax	2030467.38	2023-04-11	\N
+893	electricity	6960475.83	2024-03-29	\N
+894	other	9151755.63	2021-08-25	\N
+895	water	224015.18	2022-10-13	\N
+896	electricity	8235896.67	2022-12-03	\N
+897	other	3346629.59	2023-12-27	\N
+898	water	4427473.58	2020-05-11	\N
+899	tax	4072381.92	2023-09-22	\N
+900	water	9411471.67	2024-10-25	\N
+901	tax	1451354.03	2020-03-02	\N
+902	rent	1889813.41	2023-06-25	\N
+903	electricity	8798274.84	2021-04-06	\N
+904	other	8644274.57	2024-03-17	\N
+905	tax	339146.32	2024-01-07	\N
+906	other	7309341.11	2023-04-02	\N
+907	rent	810666.85	2024-03-23	\N
+908	tax	8578209.56	2024-04-20	\N
+909	tax	9314900.71	2025-04-15	\N
+910	water	5163411.75	2021-03-24	\N
+911	other	3905599.11	2023-12-04	\N
+912	water	2982106.52	2022-01-09	\N
+913	other	9178058.04	2023-09-20	\N
+914	other	5076062.63	2022-02-20	\N
+915	electricity	3338836.35	2020-05-30	\N
+916	tax	630632.13	2025-02-12	\N
+917	water	5837493.03	2024-06-22	\N
+918	rent	2042528.65	2022-03-21	\N
+919	tax	8779558.20	2021-08-29	\N
+920	water	5416709.38	2024-12-22	\N
+921	tax	2390358.23	2023-10-21	\N
+922	other	4053112.41	2020-04-21	\N
+923	tax	1336555.00	2020-08-09	\N
+924	electricity	8974271.13	2022-09-10	\N
+925	other	1759026.18	2023-08-16	\N
+926	electricity	2590978.34	2020-05-02	\N
+927	rent	9431695.21	2021-05-22	\N
+928	rent	2199711.19	2024-02-12	\N
+929	tax	7865989.42	2023-08-17	\N
+930	tax	5681442.14	2024-12-06	\N
+931	rent	5232686.63	2022-09-29	\N
+932	rent	7209323.95	2023-09-09	\N
+933	electricity	7181677.34	2020-04-30	\N
+934	tax	3009434.14	2021-02-20	\N
+935	water	2806843.84	2022-05-19	\N
+936	rent	120894.89	2023-09-15	\N
+937	rent	888186.96	2022-07-15	\N
+938	water	2694685.95	2024-11-30	\N
+939	tax	4931869.05	2020-05-19	\N
+940	rent	1146222.80	2024-03-25	\N
+941	tax	8171043.96	2022-08-02	\N
+942	electricity	6562354.69	2024-02-15	\N
+943	tax	7024856.82	2024-09-01	\N
+944	water	4671616.96	2023-05-25	\N
+945	other	6269631.50	2022-11-03	\N
+946	electricity	3119717.40	2022-10-17	\N
+947	other	9463485.72	2024-02-15	\N
+948	other	1506304.11	2021-10-27	\N
+949	water	5228255.33	2021-07-09	\N
+950	tax	482197.95	2025-03-25	\N
+951	tax	2044351.43	2022-06-29	\N
+952	water	4582876.89	2020-02-24	\N
+953	tax	966945.01	2020-04-04	\N
+954	tax	5341050.50	2024-06-04	\N
+955	water	1305465.04	2021-08-16	\N
+956	water	8422809.91	2020-05-03	\N
+957	water	2498328.13	2020-04-08	\N
+958	rent	389778.35	2025-02-25	\N
+959	other	1612109.43	2020-07-11	\N
+960	electricity	3543186.30	2021-02-09	\N
+961	rent	5998054.11	2024-12-14	\N
+962	rent	3249389.86	2024-12-03	\N
+963	tax	514218.49	2020-04-09	\N
+964	other	9613098.74	2021-11-16	\N
+965	water	8377416.60	2023-02-13	\N
+966	rent	899571.73	2021-05-20	\N
+967	other	5615156.20	2023-02-10	\N
+968	water	1169254.48	2022-08-31	\N
+969	rent	7582221.13	2024-12-27	\N
+970	water	1164299.44	2020-11-29	\N
+971	other	2195511.69	2022-09-13	\N
+972	rent	7329381.33	2023-03-14	\N
+973	electricity	7121448.22	2021-04-03	\N
+974	electricity	4144293.38	2024-11-12	\N
+975	water	9846425.98	2022-05-02	\N
+976	electricity	8582701.30	2020-04-09	\N
+977	water	9622661.11	2022-11-15	\N
+978	electricity	762848.40	2024-04-24	\N
+979	other	6994137.20	2025-01-28	\N
+980	tax	2507687.28	2022-05-08	\N
+981	tax	2622806.62	2024-12-27	\N
+982	rent	4915986.45	2020-03-28	\N
+983	water	667657.52	2020-08-26	\N
+984	water	1984821.91	2021-10-01	\N
+985	other	4661937.03	2021-05-19	\N
+986	water	3073907.33	2024-11-11	\N
+987	electricity	7255889.71	2020-06-29	\N
+988	water	2264884.35	2020-09-29	\N
+989	other	7519841.52	2024-04-16	\N
+990	tax	3865849.48	2023-01-30	\N
+991	water	9289534.77	2022-07-14	\N
+992	water	2439381.67	2020-12-08	\N
+993	electricity	3439604.12	2021-07-15	\N
+994	other	2497869.16	2020-06-20	\N
+995	electricity	4549760.39	2024-03-23	\N
+996	rent	7906325.22	2021-12-02	\N
+997	rent	6491596.97	2022-12-13	\N
+998	other	5597174.66	2021-07-05	\N
+999	other	3234346.64	2022-09-12	\N
+1000	water	4754362.71	2022-12-27	\N
 \.
 
 
@@ -4734,6 +6734,1006 @@ COPY public.product_category (product_category_id, name, warehouse_category_id) 
 --
 
 COPY public.salary_bonus_log (log_id, employee_id, pay_period, pay_type, amount_paid, pay_date, note) FROM stdin;
+1	319	2020-04	salary	14631139.63	2020-04-28	\N
+2	429	2021-08	bonus	18693209.75	2021-08-11	\N
+3	200	2021-04	bonus	13993065.50	2021-04-21	\N
+4	16	2024-02	penalty	30573219.30	2024-02-03	\N
+5	287	2023-10	bonus	44069551.39	2023-10-12	\N
+6	261	2025-02	bonus	35873470.46	2025-02-12	\N
+7	1	2024-04	penalty	39613595.43	2024-04-09	\N
+8	492	2023-07	bonus	36619999.77	2023-07-07	\N
+9	378	2025-01	bonus	43231590.61	2025-01-19	\N
+10	340	2021-02	penalty	32653767.41	2021-02-27	\N
+11	229	2022-02	salary	41968367.30	2022-02-23	\N
+12	34	2024-10	penalty	14087533.00	2024-10-06	\N
+13	49	2024-08	bonus	13093302.83	2024-08-19	\N
+14	140	2024-10	salary	3614601.93	2024-10-04	\N
+15	466	2024-10	salary	24685208.18	2024-10-26	\N
+16	463	2025-01	bonus	42666812.94	2025-01-28	\N
+17	244	2025-04	bonus	5958199.77	2025-04-05	\N
+18	383	2022-12	penalty	2434134.40	2022-12-28	\N
+19	290	2022-04	salary	5438225.33	2022-04-26	\N
+20	45	2021-09	penalty	2180322.61	2021-09-04	\N
+21	448	2024-02	salary	15642040.96	2024-02-14	\N
+22	98	2022-10	bonus	10434561.23	2022-10-21	\N
+23	312	2022-03	salary	44908209.13	2022-03-26	\N
+24	13	2023-11	bonus	10850648.39	2023-11-23	\N
+25	479	2020-04	penalty	41476997.15	2020-04-30	\N
+26	352	2022-03	bonus	43792999.98	2022-03-17	\N
+27	477	2024-05	bonus	10661182.90	2024-05-03	\N
+28	269	2020-04	salary	2832102.02	2020-04-14	\N
+29	316	2021-06	salary	17261072.30	2021-06-15	\N
+30	264	2024-07	penalty	36183464.66	2024-07-10	\N
+31	170	2021-03	penalty	13553699.40	2021-03-11	\N
+32	71	2021-08	penalty	48683183.65	2021-08-07	\N
+33	293	2021-09	bonus	26036546.63	2021-09-12	\N
+34	35	2024-04	salary	36637717.31	2024-04-01	\N
+35	299	2020-12	bonus	31125238.09	2020-12-05	\N
+36	203	2024-08	bonus	5481648.11	2024-08-01	\N
+37	391	2022-05	penalty	13427877.90	2022-05-13	\N
+38	488	2025-02	penalty	48668559.46	2025-02-15	\N
+39	252	2024-02	penalty	25302607.44	2024-02-06	\N
+40	245	2020-11	penalty	25759382.70	2020-11-10	\N
+41	210	2021-01	bonus	35917477.82	2021-01-21	\N
+42	498	2021-12	salary	18703226.75	2021-12-04	\N
+43	270	2020-08	bonus	16679804.71	2020-08-07	\N
+44	300	2024-10	salary	20823483.53	2024-10-17	\N
+45	426	2021-11	penalty	32059980.25	2021-11-24	\N
+46	201	2023-09	salary	35067882.61	2023-09-14	\N
+47	253	2022-03	salary	47133415.58	2022-03-10	\N
+48	93	2021-12	bonus	33433409.73	2021-12-21	\N
+49	409	2021-03	penalty	4900346.86	2021-03-03	\N
+50	90	2023-01	bonus	19607414.54	2023-01-02	\N
+51	365	2024-12	bonus	47014250.63	2024-12-29	\N
+52	490	2023-10	bonus	18479415.66	2023-10-19	\N
+53	212	2020-09	salary	18122451.88	2020-09-28	\N
+54	86	2021-01	bonus	40888650.75	2021-01-12	\N
+55	310	2024-11	bonus	49715007.73	2024-11-27	\N
+56	113	2021-08	penalty	13396074.20	2021-08-06	\N
+57	156	2022-10	salary	21184197.20	2022-10-10	\N
+58	375	2023-04	bonus	2443062.19	2023-04-28	\N
+59	442	2022-10	bonus	5162319.32	2022-10-30	\N
+60	55	2025-04	salary	42609458.53	2025-04-11	\N
+61	97	2022-10	bonus	14151384.61	2022-10-05	\N
+62	382	2024-09	bonus	19851615.14	2024-09-25	\N
+63	352	2022-02	penalty	43317181.32	2022-02-23	\N
+64	157	2023-02	bonus	9732641.64	2023-02-04	\N
+65	52	2021-05	penalty	2229532.79	2021-05-05	\N
+66	499	2020-07	bonus	24397569.71	2020-07-18	\N
+67	71	2025-02	bonus	6504976.90	2025-02-02	\N
+68	211	2021-12	salary	15513619.69	2021-12-02	\N
+69	468	2021-07	bonus	47118991.86	2021-07-19	\N
+70	468	2023-06	penalty	32924301.03	2023-06-17	\N
+71	193	2022-12	salary	15306356.24	2022-12-22	\N
+72	404	2022-10	penalty	46860816.92	2022-10-24	\N
+73	86	2023-05	salary	26750278.64	2023-05-07	\N
+74	130	2024-12	bonus	46305442.85	2024-12-24	\N
+75	1	2024-01	bonus	48496132.37	2024-01-19	\N
+76	224	2021-02	bonus	11108032.16	2021-02-19	\N
+77	432	2023-06	penalty	6375203.70	2023-06-21	\N
+78	86	2020-03	salary	23656216.30	2020-03-19	\N
+79	333	2021-11	bonus	43538858.31	2021-11-18	\N
+80	389	2023-02	bonus	24789780.53	2023-02-04	\N
+81	245	2021-07	bonus	3474876.09	2021-07-03	\N
+82	364	2022-09	penalty	1482018.92	2022-09-14	\N
+83	140	2020-02	penalty	19362710.26	2020-02-29	\N
+84	309	2020-04	bonus	49514481.27	2020-04-09	\N
+85	407	2021-08	salary	34444046.40	2021-08-24	\N
+86	351	2024-10	salary	35364700.79	2024-10-06	\N
+87	198	2020-08	salary	38808150.37	2020-08-27	\N
+88	196	2024-11	penalty	7774377.37	2024-11-07	\N
+89	461	2020-10	bonus	13947108.62	2020-10-09	\N
+90	217	2022-02	penalty	23417112.03	2022-02-20	\N
+91	411	2020-10	penalty	37109764.99	2020-10-01	\N
+92	109	2023-11	bonus	44097896.70	2023-11-25	\N
+93	353	2020-01	bonus	4977333.84	2020-01-05	\N
+94	301	2022-02	salary	18910277.67	2022-02-10	\N
+95	148	2021-07	bonus	908499.09	2021-07-30	\N
+96	32	2022-01	salary	27475982.43	2022-01-09	\N
+97	245	2020-10	salary	10110354.19	2020-10-13	\N
+98	71	2022-08	salary	24532407.78	2022-08-23	\N
+99	238	2023-07	bonus	33111992.38	2023-07-31	\N
+100	448	2020-01	penalty	48747055.96	2020-01-17	\N
+101	276	2020-09	bonus	17572633.15	2020-09-08	\N
+102	37	2021-10	penalty	44415895.82	2021-10-31	\N
+103	168	2023-02	penalty	48680560.85	2023-02-22	\N
+104	440	2020-07	bonus	19868595.43	2020-07-17	\N
+105	149	2021-10	bonus	18541945.41	2021-10-26	\N
+106	178	2022-12	bonus	33590173.15	2022-12-17	\N
+107	478	2024-10	bonus	40690921.39	2024-10-24	\N
+108	386	2021-08	bonus	13756404.29	2021-08-08	\N
+109	414	2020-04	penalty	14890722.64	2020-04-29	\N
+110	266	2020-04	bonus	38464323.45	2020-04-09	\N
+111	385	2022-10	penalty	15754851.09	2022-10-27	\N
+112	60	2021-01	bonus	23666660.00	2021-01-18	\N
+113	258	2022-05	salary	32684625.48	2022-05-05	\N
+114	483	2023-07	salary	12496843.51	2023-07-27	\N
+115	319	2023-03	penalty	2838944.53	2023-03-31	\N
+116	327	2020-03	penalty	5358156.33	2020-03-04	\N
+117	165	2020-10	salary	25911188.24	2020-10-24	\N
+118	247	2022-12	penalty	29456541.72	2022-12-03	\N
+119	401	2021-07	penalty	32916916.55	2021-07-16	\N
+120	393	2022-02	bonus	26529762.99	2022-02-26	\N
+121	63	2025-02	salary	19548748.59	2025-02-14	\N
+122	108	2023-12	bonus	34447110.56	2023-12-05	\N
+123	401	2021-11	penalty	46993901.02	2021-11-17	\N
+124	385	2023-05	salary	48014007.64	2023-05-29	\N
+125	51	2020-12	salary	32086198.68	2020-12-01	\N
+126	274	2024-05	penalty	18523987.87	2024-05-07	\N
+127	410	2023-08	salary	49335911.02	2023-08-01	\N
+128	188	2023-03	bonus	37803906.36	2023-03-11	\N
+129	46	2021-08	penalty	46792676.52	2021-08-02	\N
+130	304	2025-04	salary	46477974.97	2025-04-28	\N
+131	325	2025-04	bonus	45233551.94	2025-04-07	\N
+132	306	2021-11	bonus	33053515.52	2021-11-26	\N
+133	388	2022-01	bonus	6280834.01	2022-01-22	\N
+134	39	2025-05	salary	49816888.19	2025-05-16	\N
+135	255	2023-06	bonus	1404485.00	2023-06-13	\N
+136	377	2023-05	penalty	49446255.61	2023-05-05	\N
+137	155	2023-05	penalty	49445045.23	2023-05-02	\N
+138	480	2023-06	salary	43252919.17	2023-06-20	\N
+139	106	2021-06	bonus	8812801.22	2021-06-18	\N
+140	340	2021-06	bonus	45488985.11	2021-06-14	\N
+141	368	2020-10	penalty	13717414.66	2020-10-29	\N
+142	470	2024-04	bonus	22145599.57	2024-04-06	\N
+143	340	2022-03	bonus	19617123.99	2022-03-16	\N
+144	29	2020-07	salary	27286667.56	2020-07-31	\N
+145	500	2024-04	penalty	15360850.03	2024-04-04	\N
+146	326	2023-07	penalty	38213621.36	2023-07-11	\N
+147	231	2024-07	bonus	11657934.32	2024-07-22	\N
+148	441	2021-05	bonus	6675837.28	2021-05-22	\N
+149	120	2022-07	salary	40031465.40	2022-07-19	\N
+150	488	2022-10	salary	42277426.27	2022-10-27	\N
+151	273	2021-07	bonus	25441235.85	2021-07-19	\N
+152	242	2023-08	penalty	9727356.58	2023-08-15	\N
+153	363	2020-07	penalty	3325245.57	2020-07-24	\N
+154	271	2025-05	bonus	46977107.11	2025-05-11	\N
+155	485	2023-08	penalty	3581852.30	2023-08-30	\N
+156	155	2024-09	bonus	26309233.21	2024-09-28	\N
+157	207	2024-04	penalty	8508209.21	2024-04-28	\N
+158	80	2020-12	salary	4980040.41	2020-12-19	\N
+159	362	2022-08	penalty	15594515.08	2022-08-23	\N
+160	76	2022-06	penalty	23782400.13	2022-06-02	\N
+161	28	2024-03	bonus	41268487.71	2024-03-04	\N
+162	404	2022-08	bonus	48208263.93	2022-08-12	\N
+163	261	2024-06	penalty	17866591.22	2024-06-08	\N
+164	212	2021-12	salary	34322361.55	2021-12-20	\N
+165	273	2021-03	bonus	47907468.43	2021-03-29	\N
+166	87	2024-12	salary	34219772.01	2024-12-10	\N
+167	81	2023-12	bonus	6606792.23	2023-12-10	\N
+168	250	2021-08	bonus	3247627.74	2021-08-03	\N
+169	345	2022-01	bonus	13336112.62	2022-01-14	\N
+170	275	2022-04	penalty	20780789.45	2022-04-05	\N
+171	245	2023-01	penalty	48067451.71	2023-01-10	\N
+172	26	2023-08	bonus	12008413.69	2023-08-04	\N
+173	353	2021-11	penalty	7251551.60	2021-11-18	\N
+174	21	2025-01	penalty	30659203.67	2025-01-25	\N
+175	223	2020-10	penalty	14480407.17	2020-10-26	\N
+176	188	2024-04	bonus	44161807.63	2024-04-14	\N
+177	40	2022-06	penalty	44781220.20	2022-06-01	\N
+178	330	2024-06	penalty	17624424.44	2024-06-18	\N
+179	297	2022-03	bonus	25984174.41	2022-03-07	\N
+180	2	2023-06	penalty	19222050.57	2023-06-28	\N
+181	473	2023-12	bonus	4121906.27	2023-12-10	\N
+182	474	2024-11	bonus	24392520.62	2024-11-09	\N
+183	293	2021-05	penalty	38580274.63	2021-05-01	\N
+184	498	2020-04	salary	16433422.50	2020-04-15	\N
+185	314	2022-01	salary	14963197.89	2022-01-25	\N
+186	430	2022-09	penalty	26525071.72	2022-09-07	\N
+187	112	2024-04	penalty	23719738.27	2024-04-12	\N
+188	16	2021-04	salary	7222350.92	2021-04-16	\N
+189	448	2021-09	penalty	16421846.92	2021-09-13	\N
+190	365	2025-03	salary	14967531.63	2025-03-19	\N
+191	247	2024-02	salary	24832281.17	2024-02-09	\N
+192	446	2024-10	bonus	27909535.68	2024-10-26	\N
+193	336	2023-04	penalty	3130281.84	2023-04-19	\N
+194	134	2024-03	bonus	25890281.25	2024-03-11	\N
+195	60	2023-06	penalty	33949102.12	2023-06-19	\N
+196	462	2022-04	penalty	28521802.11	2022-04-06	\N
+197	458	2023-02	salary	45303502.66	2023-02-25	\N
+198	294	2020-07	salary	38310546.02	2020-07-15	\N
+199	64	2020-11	bonus	35898834.01	2020-11-04	\N
+200	112	2023-12	bonus	28264999.25	2023-12-19	\N
+201	230	2020-03	salary	39392797.81	2020-03-27	\N
+202	211	2020-03	bonus	20346485.34	2020-03-21	\N
+203	436	2024-08	penalty	31388231.08	2024-08-11	\N
+204	46	2020-02	penalty	30248197.97	2020-02-25	\N
+205	99	2022-12	salary	14348127.78	2022-12-20	\N
+206	315	2021-11	bonus	20581540.32	2021-11-10	\N
+207	52	2024-08	salary	42419985.64	2024-08-28	\N
+208	313	2020-07	salary	15769113.83	2020-07-13	\N
+209	499	2021-03	bonus	44859445.91	2021-03-02	\N
+210	315	2020-12	salary	46901643.51	2020-12-26	\N
+211	322	2023-09	penalty	7917121.92	2023-09-16	\N
+212	383	2020-05	penalty	3808949.67	2020-05-07	\N
+213	309	2020-12	bonus	36821662.48	2020-12-03	\N
+214	30	2021-07	salary	33928400.17	2021-07-05	\N
+215	196	2021-01	penalty	27660523.87	2021-01-23	\N
+216	430	2025-01	penalty	11928529.08	2025-01-20	\N
+217	401	2021-05	salary	32853971.06	2021-05-11	\N
+218	300	2024-03	penalty	42063146.20	2024-03-19	\N
+219	156	2022-07	penalty	788071.77	2022-07-04	\N
+220	312	2022-04	penalty	24492059.07	2022-04-15	\N
+221	30	2022-05	salary	28113436.56	2022-05-22	\N
+222	174	2024-03	salary	25833265.53	2024-03-22	\N
+223	157	2023-06	bonus	41520245.17	2023-06-22	\N
+224	142	2020-09	salary	5984712.43	2020-09-16	\N
+225	456	2021-07	bonus	5622045.70	2021-07-18	\N
+226	376	2021-03	salary	18771343.79	2021-03-19	\N
+227	174	2025-03	bonus	41398855.90	2025-03-16	\N
+228	305	2020-05	salary	38733237.16	2020-05-01	\N
+229	286	2020-10	penalty	4249724.58	2020-10-07	\N
+230	251	2023-08	penalty	48817302.26	2023-08-22	\N
+231	228	2021-10	salary	39280110.76	2021-10-16	\N
+232	10	2023-05	salary	15717836.89	2023-05-14	\N
+233	203	2023-08	salary	34554632.60	2023-08-14	\N
+234	67	2022-03	penalty	30224759.05	2022-03-20	\N
+235	465	2020-11	bonus	22227964.84	2020-11-18	\N
+236	367	2022-02	salary	9443711.54	2022-02-16	\N
+237	152	2023-06	bonus	17397016.27	2023-06-22	\N
+238	482	2024-12	salary	16720649.02	2024-12-04	\N
+239	117	2020-01	penalty	28482581.88	2020-01-15	\N
+240	413	2022-01	bonus	7476388.03	2022-01-10	\N
+241	353	2022-01	salary	32617517.14	2022-01-19	\N
+242	301	2021-01	salary	38813608.52	2021-01-02	\N
+243	255	2021-08	penalty	9725708.29	2021-08-28	\N
+244	397	2022-02	salary	24538167.39	2022-02-06	\N
+245	487	2024-03	salary	44630051.71	2024-03-10	\N
+246	345	2023-08	salary	30307917.29	2023-08-19	\N
+247	194	2023-10	bonus	17747410.64	2023-10-22	\N
+248	271	2020-10	bonus	29037331.83	2020-10-12	\N
+249	200	2022-11	salary	6753227.14	2022-11-10	\N
+250	482	2020-08	salary	38303198.97	2020-08-27	\N
+251	234	2022-03	salary	19333882.09	2022-03-18	\N
+252	458	2023-08	salary	45628650.81	2023-08-22	\N
+253	371	2022-03	salary	36584080.66	2022-03-12	\N
+254	476	2022-06	penalty	40743355.96	2022-06-26	\N
+255	357	2022-02	penalty	29634696.36	2022-02-17	\N
+256	283	2023-07	penalty	22651046.33	2023-07-21	\N
+257	294	2024-06	penalty	44228010.96	2024-06-27	\N
+258	389	2024-11	penalty	28017092.42	2024-11-21	\N
+259	117	2021-07	bonus	40052932.73	2021-07-14	\N
+260	69	2022-06	salary	1713484.40	2022-06-04	\N
+261	42	2020-11	bonus	37380745.36	2020-11-29	\N
+262	426	2020-01	salary	26891009.53	2020-01-20	\N
+263	78	2023-08	penalty	22608046.91	2023-08-29	\N
+264	246	2023-09	penalty	33272882.18	2023-09-03	\N
+265	331	2020-10	penalty	8089460.78	2020-10-28	\N
+266	450	2021-04	bonus	45867987.73	2021-04-09	\N
+267	393	2020-12	penalty	47366738.73	2020-12-26	\N
+268	86	2024-02	penalty	48899943.87	2024-02-26	\N
+269	293	2024-12	salary	9325545.12	2024-12-01	\N
+270	65	2025-05	bonus	29657148.25	2025-05-27	\N
+271	227	2024-11	salary	47986563.88	2024-11-22	\N
+272	216	2024-02	salary	48628300.19	2024-02-01	\N
+273	144	2020-06	penalty	4921874.73	2020-06-23	\N
+274	366	2024-11	penalty	25052611.90	2024-11-01	\N
+275	301	2025-04	penalty	34525094.19	2025-04-30	\N
+276	401	2024-06	penalty	9689124.81	2024-06-21	\N
+277	242	2024-11	salary	41951735.42	2024-11-24	\N
+278	95	2020-09	salary	17536072.53	2020-09-01	\N
+279	145	2021-02	bonus	2614949.43	2021-02-07	\N
+280	53	2021-11	salary	40736505.67	2021-11-14	\N
+281	230	2021-06	salary	35763402.01	2021-06-27	\N
+282	75	2021-10	penalty	28016440.28	2021-10-04	\N
+283	196	2020-09	penalty	42072982.81	2020-09-25	\N
+284	179	2024-06	bonus	34955173.12	2024-06-04	\N
+285	56	2022-09	bonus	1087680.17	2022-09-16	\N
+286	113	2020-06	salary	28089055.18	2020-06-25	\N
+287	133	2020-03	bonus	44290886.71	2020-03-14	\N
+288	439	2022-11	penalty	40623699.35	2022-11-08	\N
+289	443	2021-10	bonus	2636240.20	2021-10-08	\N
+290	390	2023-08	salary	6333381.56	2023-08-30	\N
+291	264	2021-07	penalty	30834570.25	2021-07-11	\N
+292	1	2023-05	penalty	19962463.20	2023-05-31	\N
+293	102	2025-05	salary	8242357.96	2025-05-15	\N
+294	463	2022-10	bonus	41349589.73	2022-10-30	\N
+295	347	2022-07	penalty	15690267.13	2022-07-08	\N
+296	145	2024-06	salary	30543737.64	2024-06-06	\N
+297	87	2023-07	bonus	19465118.28	2023-07-24	\N
+298	232	2024-03	bonus	39977065.34	2024-03-04	\N
+299	462	2021-10	penalty	35204238.21	2021-10-11	\N
+300	228	2023-11	bonus	30666617.95	2023-11-01	\N
+301	409	2020-12	bonus	30252664.93	2020-12-21	\N
+302	345	2023-12	penalty	31061610.56	2023-12-20	\N
+303	146	2022-04	penalty	25858724.39	2022-04-14	\N
+304	17	2023-01	salary	48279615.60	2023-01-17	\N
+305	105	2022-06	bonus	17875301.94	2022-06-28	\N
+306	139	2021-07	bonus	35680402.19	2021-07-15	\N
+307	332	2024-05	penalty	45430441.14	2024-05-01	\N
+308	265	2022-05	penalty	47167661.24	2022-05-07	\N
+309	315	2022-09	salary	43279820.37	2022-09-03	\N
+310	467	2022-09	bonus	42965160.60	2022-09-05	\N
+311	110	2024-05	bonus	4324919.58	2024-05-01	\N
+312	324	2020-11	penalty	570139.82	2020-11-20	\N
+313	485	2024-07	bonus	34852533.72	2024-07-09	\N
+314	298	2024-02	penalty	29353558.34	2024-02-29	\N
+315	135	2022-11	salary	19709550.49	2022-11-16	\N
+316	386	2023-04	salary	28256169.96	2023-04-20	\N
+317	277	2020-12	bonus	13483936.31	2020-12-04	\N
+318	311	2025-04	salary	32981836.35	2025-04-30	\N
+319	427	2023-11	salary	48890161.48	2023-11-23	\N
+320	20	2023-09	bonus	20668303.05	2023-09-09	\N
+321	301	2025-05	salary	41491669.47	2025-05-25	\N
+322	318	2021-11	penalty	45125422.51	2021-11-10	\N
+323	159	2023-08	penalty	11748332.85	2023-08-23	\N
+324	471	2022-01	bonus	12550074.14	2022-01-23	\N
+325	60	2022-09	salary	29114690.49	2022-09-17	\N
+326	66	2025-05	salary	42135562.28	2025-05-07	\N
+327	18	2023-11	bonus	6688637.45	2023-11-01	\N
+328	398	2020-07	salary	22356164.07	2020-07-16	\N
+329	67	2025-03	bonus	39702905.30	2025-03-20	\N
+330	44	2024-02	salary	13199446.61	2024-02-28	\N
+331	136	2023-01	penalty	34042362.81	2023-01-19	\N
+332	345	2021-12	penalty	23656737.41	2021-12-11	\N
+333	291	2025-01	salary	49892934.78	2025-01-24	\N
+334	499	2022-08	bonus	13296952.79	2022-08-01	\N
+335	113	2022-10	bonus	20750004.30	2022-10-10	\N
+336	143	2021-04	penalty	37301455.42	2021-04-10	\N
+337	313	2022-11	penalty	21139506.35	2022-11-30	\N
+338	435	2022-01	salary	21849399.75	2022-01-22	\N
+339	136	2022-07	penalty	37570928.04	2022-07-11	\N
+340	369	2020-05	bonus	46392726.12	2020-05-15	\N
+341	304	2024-01	salary	26320366.99	2024-01-20	\N
+342	473	2021-07	bonus	14444424.11	2021-07-15	\N
+343	407	2020-11	salary	24234197.79	2020-11-14	\N
+344	40	2024-01	bonus	40531424.23	2024-01-22	\N
+345	268	2022-02	penalty	10962769.72	2022-02-16	\N
+346	468	2024-09	bonus	38642103.65	2024-09-25	\N
+347	413	2020-08	salary	9483119.73	2020-08-13	\N
+348	292	2022-12	penalty	6358726.19	2022-12-05	\N
+349	341	2021-04	penalty	13743017.79	2021-04-12	\N
+350	209	2020-10	penalty	3305876.93	2020-10-24	\N
+351	244	2022-08	salary	38433067.78	2022-08-15	\N
+352	170	2024-10	salary	31437381.58	2024-10-04	\N
+353	184	2024-02	bonus	33080239.74	2024-02-08	\N
+354	450	2022-03	salary	44477815.99	2022-03-25	\N
+355	479	2020-01	bonus	22316238.05	2020-01-16	\N
+356	195	2024-02	salary	29405208.53	2024-02-20	\N
+357	46	2022-04	penalty	33487387.85	2022-04-03	\N
+358	388	2024-05	bonus	44635765.39	2024-05-31	\N
+359	90	2024-08	penalty	10441100.95	2024-08-16	\N
+360	492	2022-07	penalty	7881096.18	2022-07-30	\N
+361	289	2023-07	penalty	12499464.14	2023-07-29	\N
+362	484	2023-10	bonus	20416777.67	2023-10-14	\N
+363	299	2021-08	bonus	9172091.46	2021-08-26	\N
+364	460	2024-02	salary	17828702.79	2024-02-29	\N
+365	322	2020-06	bonus	15289514.62	2020-06-11	\N
+366	333	2025-02	penalty	10238793.88	2025-02-12	\N
+367	189	2024-06	bonus	30046376.49	2024-06-06	\N
+368	204	2020-04	salary	37913394.41	2020-04-20	\N
+369	206	2020-06	bonus	42743363.35	2020-06-03	\N
+370	201	2024-06	bonus	20636536.14	2024-06-29	\N
+371	171	2023-04	salary	19018908.14	2023-04-30	\N
+372	171	2024-02	salary	23144648.41	2024-02-06	\N
+373	158	2023-09	salary	7272966.96	2023-09-01	\N
+374	127	2024-04	bonus	38940536.08	2024-04-01	\N
+375	490	2021-01	bonus	47186657.76	2021-01-03	\N
+376	43	2021-12	salary	45843207.96	2021-12-06	\N
+377	371	2025-05	salary	522664.67	2025-05-25	\N
+378	435	2022-07	penalty	41888861.29	2022-07-08	\N
+379	252	2023-05	salary	22725158.84	2023-05-23	\N
+380	120	2020-06	salary	45684332.00	2020-06-24	\N
+381	50	2024-11	penalty	10042279.56	2024-11-21	\N
+382	357	2022-06	bonus	648605.48	2022-06-09	\N
+383	172	2021-09	penalty	32783591.41	2021-09-23	\N
+384	126	2022-06	bonus	48523929.39	2022-06-12	\N
+385	450	2020-07	salary	49156359.48	2020-07-12	\N
+386	132	2024-10	salary	44333398.10	2024-10-19	\N
+387	253	2022-03	salary	6349710.84	2022-03-08	\N
+388	288	2022-03	penalty	10891132.68	2022-03-23	\N
+389	481	2020-09	penalty	43569429.36	2020-09-07	\N
+390	92	2022-05	penalty	1387795.82	2022-05-03	\N
+391	282	2025-05	penalty	25795982.55	2025-05-10	\N
+392	417	2024-05	bonus	40720057.42	2024-05-16	\N
+393	95	2022-11	penalty	47733044.39	2022-11-20	\N
+394	32	2025-02	bonus	9909973.88	2025-02-18	\N
+395	211	2020-01	penalty	17672645.10	2020-01-08	\N
+396	22	2024-05	salary	29449056.44	2024-05-16	\N
+397	458	2020-02	salary	20842897.56	2020-02-03	\N
+398	220	2020-06	salary	35288698.64	2020-06-07	\N
+399	231	2025-03	penalty	20885448.39	2025-03-26	\N
+400	350	2024-12	bonus	41953194.06	2024-12-02	\N
+401	360	2025-05	penalty	24489273.89	2025-05-15	\N
+402	115	2020-07	salary	41110428.36	2020-07-16	\N
+403	7	2021-04	bonus	33945865.74	2021-04-08	\N
+404	334	2021-02	penalty	48068457.38	2021-02-07	\N
+405	298	2022-03	bonus	22174554.04	2022-03-19	\N
+406	363	2021-07	bonus	24375069.22	2021-07-25	\N
+407	297	2024-08	bonus	9604436.77	2024-08-10	\N
+408	6	2024-12	salary	39583666.12	2024-12-08	\N
+409	378	2022-01	penalty	17517604.40	2022-01-07	\N
+410	15	2023-02	bonus	12693992.85	2023-02-11	\N
+411	384	2021-05	penalty	41651631.59	2021-05-25	\N
+412	493	2020-02	bonus	24934650.38	2020-02-07	\N
+413	455	2025-01	salary	29123992.94	2025-01-03	\N
+414	173	2020-08	bonus	38531278.00	2020-08-22	\N
+415	94	2021-02	bonus	18307859.52	2021-02-20	\N
+416	261	2022-01	salary	24193115.89	2022-01-22	\N
+417	151	2024-09	bonus	46169081.81	2024-09-23	\N
+418	249	2025-01	salary	4350534.77	2025-01-05	\N
+419	492	2021-02	penalty	32430060.47	2021-02-24	\N
+420	95	2020-06	bonus	26352422.61	2020-06-02	\N
+421	13	2021-02	penalty	38030214.07	2021-02-16	\N
+422	404	2024-04	penalty	40345552.14	2024-04-24	\N
+423	487	2024-01	bonus	46071274.69	2024-01-26	\N
+424	136	2021-08	salary	29075648.40	2021-08-17	\N
+425	167	2023-12	salary	1962211.36	2023-12-08	\N
+426	189	2025-04	penalty	5216150.41	2025-04-21	\N
+427	289	2023-11	salary	34027312.80	2023-11-15	\N
+428	213	2022-01	penalty	49317622.99	2022-01-05	\N
+429	46	2021-07	penalty	4221401.31	2021-07-21	\N
+430	381	2021-07	penalty	40954074.47	2021-07-09	\N
+431	294	2024-09	salary	32378871.51	2024-09-20	\N
+432	254	2023-07	bonus	17896676.58	2023-07-11	\N
+433	426	2022-09	penalty	17347839.33	2022-09-24	\N
+434	42	2022-07	penalty	45234552.59	2022-07-08	\N
+435	370	2022-04	penalty	16717669.05	2022-04-03	\N
+436	164	2023-08	penalty	41237050.82	2023-08-20	\N
+437	88	2023-06	salary	7872306.76	2023-06-12	\N
+438	283	2022-06	penalty	47282634.07	2022-06-23	\N
+439	206	2021-07	bonus	31719325.06	2021-07-15	\N
+440	13	2022-07	salary	13481424.44	2022-07-18	\N
+441	4	2021-08	bonus	41018378.94	2021-08-30	\N
+442	244	2024-08	penalty	29786142.28	2024-08-17	\N
+443	313	2022-04	penalty	43657876.01	2022-04-28	\N
+444	472	2024-04	penalty	4177516.21	2024-04-16	\N
+445	422	2023-03	penalty	38713393.95	2023-03-21	\N
+446	143	2025-04	penalty	35244782.57	2025-04-14	\N
+447	240	2025-05	penalty	10993483.85	2025-05-16	\N
+448	338	2024-07	bonus	47617766.16	2024-07-28	\N
+449	51	2024-05	bonus	33264208.64	2024-05-31	\N
+450	163	2022-08	bonus	10455200.96	2022-08-03	\N
+451	426	2021-08	penalty	36878884.35	2021-08-25	\N
+452	479	2022-05	penalty	31863427.80	2022-05-11	\N
+453	454	2020-03	penalty	31018061.16	2020-03-10	\N
+454	335	2023-09	salary	18840476.73	2023-09-06	\N
+455	21	2021-08	bonus	49049385.87	2021-08-20	\N
+456	154	2020-12	bonus	45054688.25	2020-12-17	\N
+457	366	2025-05	salary	7565297.80	2025-05-29	\N
+458	320	2022-05	bonus	1213829.90	2022-05-31	\N
+459	317	2023-11	bonus	46544840.36	2023-11-11	\N
+460	277	2021-09	salary	7026228.76	2021-09-17	\N
+461	242	2020-04	penalty	24470500.76	2020-04-05	\N
+462	132	2020-01	bonus	44311180.76	2020-01-20	\N
+463	179	2022-05	bonus	42429240.78	2022-05-31	\N
+464	459	2020-04	salary	14123997.23	2020-04-15	\N
+465	210	2024-04	bonus	42590855.10	2024-04-19	\N
+466	416	2021-05	bonus	29876512.65	2021-05-02	\N
+467	337	2025-01	penalty	34420659.20	2025-01-24	\N
+468	200	2020-07	bonus	32830946.50	2020-07-25	\N
+469	128	2024-07	bonus	48143046.83	2024-07-28	\N
+470	362	2020-12	bonus	6968036.38	2020-12-12	\N
+471	105	2025-01	salary	48558353.33	2025-01-08	\N
+472	437	2020-04	penalty	7551866.96	2020-04-03	\N
+473	65	2020-02	salary	1993161.25	2020-02-17	\N
+474	328	2021-03	penalty	22418320.18	2021-03-23	\N
+475	68	2020-07	penalty	10653529.10	2020-07-28	\N
+476	236	2021-03	penalty	1056068.92	2021-03-17	\N
+477	177	2023-08	salary	22917725.34	2023-08-27	\N
+478	186	2022-07	bonus	12494102.86	2022-07-27	\N
+479	331	2020-08	bonus	27729449.40	2020-08-20	\N
+480	209	2023-11	bonus	25809595.48	2023-11-09	\N
+481	413	2020-12	penalty	4000003.39	2020-12-17	\N
+482	192	2024-10	penalty	22569973.60	2024-10-29	\N
+483	267	2020-09	bonus	41217081.78	2020-09-20	\N
+484	167	2020-05	bonus	30139545.64	2020-05-14	\N
+485	338	2020-09	salary	13538566.47	2020-09-25	\N
+486	324	2022-09	bonus	8404106.58	2022-09-10	\N
+487	206	2023-02	bonus	12496048.69	2023-02-13	\N
+488	135	2020-08	penalty	15982798.06	2020-08-22	\N
+489	107	2024-04	bonus	11957840.30	2024-04-19	\N
+490	166	2022-11	penalty	32763727.38	2022-11-18	\N
+491	88	2021-08	penalty	17050800.17	2021-08-01	\N
+492	40	2021-02	penalty	41770742.77	2021-02-17	\N
+493	459	2020-07	penalty	33144476.06	2020-07-11	\N
+494	383	2024-10	bonus	37593969.06	2024-10-29	\N
+495	226	2022-01	bonus	22131326.60	2022-01-21	\N
+496	464	2020-02	penalty	27582372.67	2020-02-12	\N
+497	307	2023-08	bonus	31096688.93	2023-08-30	\N
+498	377	2020-08	salary	2312128.25	2020-08-02	\N
+499	111	2023-06	penalty	29471490.25	2023-06-15	\N
+500	477	2020-12	bonus	10150631.62	2020-12-24	\N
+501	250	2020-02	penalty	15795898.50	2020-02-20	\N
+502	36	2021-06	bonus	30998317.00	2021-06-23	\N
+503	131	2021-07	penalty	18967689.65	2021-07-30	\N
+504	200	2020-04	bonus	16242016.24	2020-04-22	\N
+505	310	2021-08	salary	17713641.98	2021-08-06	\N
+506	376	2025-04	penalty	47819687.61	2025-04-23	\N
+507	488	2021-11	salary	8870874.37	2021-11-02	\N
+508	216	2021-07	salary	34263227.10	2021-07-21	\N
+509	12	2021-02	bonus	4214623.45	2021-02-24	\N
+510	12	2024-07	salary	21969392.52	2024-07-11	\N
+511	267	2022-02	salary	49016968.76	2022-02-03	\N
+512	499	2021-10	penalty	26179526.56	2021-10-21	\N
+513	213	2024-10	salary	42730943.22	2024-10-06	\N
+514	80	2022-11	bonus	24994036.99	2022-11-11	\N
+515	60	2020-02	salary	28800396.12	2020-02-23	\N
+516	294	2020-09	bonus	45373632.39	2020-09-10	\N
+517	5	2020-02	penalty	10813074.63	2020-02-15	\N
+518	383	2021-05	penalty	24613470.89	2021-05-17	\N
+519	174	2024-03	bonus	35456663.97	2024-03-24	\N
+520	198	2024-04	penalty	23067358.88	2024-04-23	\N
+521	62	2023-07	penalty	21109674.05	2023-07-08	\N
+522	364	2022-11	salary	28301595.93	2022-11-26	\N
+523	121	2022-04	salary	43674374.09	2022-04-20	\N
+524	23	2023-03	penalty	42126185.30	2023-03-11	\N
+525	57	2023-11	bonus	34868813.73	2023-11-09	\N
+526	386	2020-01	salary	18038218.16	2020-01-24	\N
+527	394	2020-11	penalty	49448373.59	2020-11-24	\N
+528	163	2023-04	penalty	11943036.88	2023-04-19	\N
+529	146	2020-12	salary	49954885.91	2020-12-13	\N
+530	330	2021-09	bonus	8586212.51	2021-09-22	\N
+531	300	2023-06	penalty	14004151.71	2023-06-03	\N
+532	459	2022-06	bonus	45436509.07	2022-06-27	\N
+533	66	2020-08	salary	30862850.28	2020-08-23	\N
+534	151	2025-04	bonus	38000715.04	2025-04-20	\N
+535	360	2022-09	salary	1594937.65	2022-09-16	\N
+536	92	2024-01	penalty	33148276.58	2024-01-16	\N
+537	196	2021-02	bonus	2944464.74	2021-02-16	\N
+538	185	2023-07	penalty	49428005.97	2023-07-19	\N
+539	286	2020-08	bonus	20382681.75	2020-08-28	\N
+540	294	2022-05	bonus	34035836.75	2022-05-06	\N
+541	460	2021-12	bonus	8560918.85	2021-12-23	\N
+542	494	2020-08	bonus	22168192.94	2020-08-25	\N
+543	271	2021-04	penalty	6792931.53	2021-04-21	\N
+544	230	2020-06	salary	8694830.46	2020-06-16	\N
+545	136	2023-12	penalty	49035536.06	2023-12-09	\N
+546	13	2020-05	penalty	45064648.58	2020-05-13	\N
+547	77	2021-02	salary	18438983.25	2021-02-07	\N
+548	243	2020-11	penalty	29338727.50	2020-11-03	\N
+549	117	2020-07	salary	45163203.53	2020-07-13	\N
+550	285	2021-06	salary	11068313.33	2021-06-14	\N
+551	208	2022-02	salary	22750245.13	2022-02-07	\N
+552	349	2023-03	penalty	20722056.53	2023-03-01	\N
+553	401	2021-07	bonus	33822715.26	2021-07-18	\N
+554	353	2024-09	bonus	11589665.33	2024-09-22	\N
+555	324	2024-07	bonus	36539862.51	2024-07-31	\N
+556	6	2023-01	bonus	23343729.29	2023-01-30	\N
+557	481	2021-05	salary	20274500.11	2021-05-26	\N
+558	14	2025-03	bonus	38940384.74	2025-03-09	\N
+559	391	2022-11	salary	38668818.02	2022-11-28	\N
+560	284	2020-08	salary	42376256.44	2020-08-26	\N
+561	347	2024-05	bonus	44335391.92	2024-05-01	\N
+562	404	2024-07	bonus	13414622.78	2024-07-18	\N
+563	104	2020-06	bonus	609180.29	2020-06-02	\N
+564	414	2024-11	penalty	21846418.33	2024-11-17	\N
+565	448	2020-09	salary	4381989.22	2020-09-03	\N
+566	64	2022-04	penalty	12660594.41	2022-04-16	\N
+567	441	2024-03	penalty	8493575.75	2024-03-05	\N
+568	388	2024-01	penalty	22328434.53	2024-01-20	\N
+569	436	2023-02	penalty	30255379.78	2023-02-24	\N
+570	47	2021-01	bonus	23757075.26	2021-01-07	\N
+571	492	2022-10	penalty	42306085.62	2022-10-19	\N
+572	229	2020-12	bonus	40849867.29	2020-12-21	\N
+573	470	2020-08	salary	22535360.93	2020-08-04	\N
+574	428	2021-11	salary	18805561.69	2021-11-23	\N
+575	471	2022-12	penalty	25985237.93	2022-12-24	\N
+576	52	2020-05	salary	28924303.70	2020-05-10	\N
+577	267	2022-08	bonus	945451.53	2022-08-17	\N
+578	274	2023-08	salary	26671946.94	2023-08-09	\N
+579	46	2022-05	salary	10985270.74	2022-05-29	\N
+580	412	2021-05	bonus	22078361.35	2021-05-26	\N
+581	27	2023-10	salary	8120965.84	2023-10-21	\N
+582	303	2023-10	penalty	17929486.51	2023-10-09	\N
+583	175	2024-02	salary	38780040.77	2024-02-23	\N
+584	264	2020-04	penalty	12385535.53	2020-04-15	\N
+585	280	2020-03	penalty	38772050.95	2020-03-27	\N
+586	452	2023-07	penalty	22272781.06	2023-07-28	\N
+587	150	2021-08	penalty	39097202.02	2021-08-04	\N
+588	390	2024-10	salary	27514427.60	2024-10-07	\N
+589	424	2023-02	salary	7421225.75	2023-02-24	\N
+590	21	2022-01	bonus	45598497.16	2022-01-25	\N
+591	309	2022-12	penalty	25012843.19	2022-12-09	\N
+592	108	2024-12	salary	44714909.98	2024-12-16	\N
+593	94	2021-03	bonus	17181082.35	2021-03-05	\N
+594	299	2022-09	salary	5387302.08	2022-09-14	\N
+595	428	2022-04	salary	4802602.51	2022-04-08	\N
+596	1	2021-01	bonus	33408874.14	2021-01-11	\N
+597	41	2021-07	salary	21296828.00	2021-07-10	\N
+598	24	2023-02	bonus	31833915.94	2023-02-28	\N
+599	412	2023-12	salary	11902307.03	2023-12-25	\N
+600	274	2020-01	bonus	32379412.46	2020-01-24	\N
+601	11	2023-09	salary	16023129.73	2023-09-04	\N
+602	117	2023-05	penalty	16858978.40	2023-05-05	\N
+603	55	2025-04	salary	24644153.43	2025-04-26	\N
+604	156	2023-12	bonus	38503772.62	2023-12-19	\N
+605	337	2021-09	penalty	24601524.06	2021-09-15	\N
+606	441	2024-03	bonus	32311697.71	2024-03-04	\N
+607	32	2024-07	penalty	30554232.19	2024-07-31	\N
+608	473	2020-03	penalty	25047015.79	2020-03-18	\N
+609	148	2024-03	penalty	17015139.19	2024-03-14	\N
+610	99	2020-10	salary	11228015.78	2020-10-01	\N
+611	155	2024-11	penalty	12616955.92	2024-11-15	\N
+612	350	2023-08	salary	43146374.12	2023-08-13	\N
+613	100	2022-04	penalty	7857850.97	2022-04-24	\N
+614	487	2025-05	bonus	42808272.43	2025-05-05	\N
+615	406	2020-02	penalty	26438245.05	2020-02-03	\N
+616	358	2020-11	salary	23692956.56	2020-11-14	\N
+617	18	2022-02	bonus	36459842.88	2022-02-18	\N
+618	97	2024-12	salary	1606027.50	2024-12-08	\N
+619	67	2020-03	penalty	23171139.68	2020-03-08	\N
+620	304	2021-08	salary	41411690.46	2021-08-28	\N
+621	80	2020-02	salary	1000206.50	2020-02-23	\N
+622	171	2020-05	salary	21915172.60	2020-05-27	\N
+623	212	2024-04	bonus	24330393.97	2024-04-22	\N
+624	362	2022-01	salary	44649843.90	2022-01-06	\N
+625	85	2021-01	bonus	34606867.77	2021-01-08	\N
+626	208	2023-08	bonus	31495800.00	2023-08-12	\N
+627	328	2020-02	bonus	17519696.11	2020-02-18	\N
+628	279	2021-01	penalty	15977101.48	2021-01-31	\N
+629	209	2023-01	salary	46580400.83	2023-01-07	\N
+630	358	2024-10	bonus	16627457.94	2024-10-31	\N
+631	405	2021-02	penalty	2751403.26	2021-02-22	\N
+632	433	2024-09	penalty	28066955.64	2024-09-21	\N
+633	347	2022-11	bonus	22733366.01	2022-11-23	\N
+634	206	2024-01	bonus	2773102.95	2024-01-24	\N
+635	252	2023-12	salary	22353837.43	2023-12-13	\N
+636	421	2024-10	bonus	48022047.61	2024-10-09	\N
+637	342	2024-07	penalty	28599358.62	2024-07-13	\N
+638	45	2020-02	bonus	29384992.19	2020-02-16	\N
+639	379	2022-08	salary	14941188.96	2022-08-03	\N
+640	341	2023-03	salary	8353382.42	2023-03-19	\N
+641	179	2023-04	penalty	10133573.98	2023-04-27	\N
+642	386	2020-12	bonus	13100073.40	2020-12-21	\N
+643	490	2020-11	salary	45032861.66	2020-11-15	\N
+644	386	2023-09	salary	27383064.23	2023-09-14	\N
+645	181	2024-09	salary	40786731.55	2024-09-09	\N
+646	204	2022-11	penalty	18415713.06	2022-11-25	\N
+647	283	2022-05	bonus	2589648.51	2022-05-31	\N
+648	483	2022-04	bonus	44213048.78	2022-04-11	\N
+649	80	2020-04	bonus	43808672.00	2020-04-29	\N
+650	274	2022-11	penalty	41952029.97	2022-11-08	\N
+651	76	2022-02	salary	8459208.36	2022-02-12	\N
+652	496	2020-06	penalty	43034465.11	2020-06-13	\N
+653	204	2020-10	salary	24730703.49	2020-10-06	\N
+654	25	2023-09	salary	38720179.92	2023-09-03	\N
+655	248	2020-07	bonus	8214166.72	2020-07-16	\N
+656	130	2024-02	bonus	4672067.00	2024-02-29	\N
+657	114	2024-09	salary	3593277.86	2024-09-21	\N
+658	222	2020-12	penalty	47382876.49	2020-12-01	\N
+659	170	2025-03	bonus	38513370.92	2025-03-14	\N
+660	318	2022-08	penalty	7491600.36	2022-08-02	\N
+661	96	2024-03	penalty	49772287.43	2024-03-30	\N
+662	232	2021-10	penalty	47961169.97	2021-10-07	\N
+663	49	2024-08	penalty	13476346.03	2024-08-07	\N
+664	85	2025-03	penalty	21464312.59	2025-03-03	\N
+665	287	2023-08	penalty	16484609.95	2023-08-09	\N
+666	488	2025-04	penalty	7534509.67	2025-04-27	\N
+667	347	2022-03	salary	45535704.21	2022-03-02	\N
+668	14	2025-03	bonus	2935216.06	2025-03-30	\N
+669	450	2023-10	bonus	30250191.44	2023-10-19	\N
+670	286	2023-02	penalty	19734483.77	2023-02-18	\N
+671	162	2021-04	penalty	2963137.26	2021-04-20	\N
+672	336	2020-02	bonus	2831259.86	2020-02-09	\N
+673	380	2022-10	penalty	15759042.28	2022-10-29	\N
+674	383	2020-07	bonus	23242263.21	2020-07-18	\N
+675	433	2020-09	salary	22645551.08	2020-09-18	\N
+676	326	2021-03	penalty	16348994.08	2021-03-08	\N
+677	200	2021-12	penalty	48211199.78	2021-12-31	\N
+678	443	2023-03	penalty	49032395.21	2023-03-14	\N
+679	288	2022-10	bonus	8813358.98	2022-10-23	\N
+680	133	2020-10	bonus	23394057.55	2020-10-27	\N
+681	317	2023-09	bonus	27062085.37	2023-09-01	\N
+682	49	2020-03	bonus	27687629.58	2020-03-13	\N
+683	414	2022-11	penalty	26794032.13	2022-11-15	\N
+684	154	2021-06	salary	36169506.14	2021-06-14	\N
+685	289	2024-12	bonus	15704790.41	2024-12-25	\N
+686	312	2024-09	salary	48579859.62	2024-09-06	\N
+687	57	2020-09	penalty	40984189.40	2020-09-15	\N
+688	23	2022-10	penalty	8317314.98	2022-10-17	\N
+689	114	2021-03	salary	32587075.86	2021-03-02	\N
+690	338	2020-04	bonus	19567157.87	2020-04-27	\N
+691	241	2023-06	salary	31550391.77	2023-06-26	\N
+692	208	2023-02	penalty	33703194.70	2023-02-13	\N
+693	209	2024-07	salary	31483790.74	2024-07-13	\N
+694	496	2024-09	salary	20049637.58	2024-09-20	\N
+695	47	2025-02	penalty	33891981.92	2025-02-26	\N
+696	459	2022-09	penalty	22362429.83	2022-09-23	\N
+697	264	2020-11	penalty	44090208.30	2020-11-10	\N
+698	468	2022-02	penalty	6854799.83	2022-02-08	\N
+699	333	2022-07	bonus	36746531.18	2022-07-31	\N
+700	1	2020-07	salary	42625913.65	2020-07-31	\N
+701	341	2020-04	penalty	20716589.43	2020-04-09	\N
+702	415	2020-11	salary	49449837.51	2020-11-05	\N
+703	399	2021-09	bonus	42414898.45	2021-09-22	\N
+704	148	2023-10	penalty	7606767.62	2023-10-26	\N
+705	79	2023-11	penalty	40364662.96	2023-11-09	\N
+706	369	2020-02	penalty	32800411.12	2020-02-07	\N
+707	276	2024-06	bonus	31828774.56	2024-06-24	\N
+708	413	2023-04	salary	36553918.85	2023-04-20	\N
+709	65	2022-12	salary	12109357.36	2022-12-02	\N
+710	149	2020-07	bonus	42346401.81	2020-07-13	\N
+711	490	2020-10	penalty	44091023.54	2020-10-28	\N
+712	94	2025-01	salary	29493520.49	2025-01-21	\N
+713	37	2024-06	salary	582754.07	2024-06-14	\N
+714	9	2024-10	penalty	8677325.60	2024-10-20	\N
+715	350	2020-08	bonus	46978559.27	2020-08-17	\N
+716	478	2021-02	salary	3335651.30	2021-02-19	\N
+717	195	2023-06	bonus	32909588.17	2023-06-30	\N
+718	480	2024-11	salary	19912302.26	2024-11-19	\N
+719	78	2023-04	salary	19742225.06	2023-04-14	\N
+720	72	2021-12	salary	43349047.49	2021-12-03	\N
+721	349	2024-05	bonus	9808810.50	2024-05-02	\N
+722	148	2021-02	salary	27862597.21	2021-02-13	\N
+723	123	2024-09	bonus	28189202.37	2024-09-21	\N
+724	265	2025-01	bonus	43052708.57	2025-01-20	\N
+725	190	2020-08	bonus	44285726.07	2020-08-21	\N
+726	501	2020-04	penalty	3339209.52	2020-04-16	\N
+727	328	2021-07	salary	36358704.86	2021-07-22	\N
+728	23	2024-07	penalty	39421595.25	2024-07-14	\N
+729	242	2023-12	penalty	1092238.33	2023-12-24	\N
+730	208	2023-07	bonus	10577931.85	2023-07-22	\N
+731	139	2020-07	bonus	16575510.79	2020-07-30	\N
+732	100	2021-03	salary	26260604.73	2021-03-26	\N
+733	15	2022-10	bonus	20631481.17	2022-10-09	\N
+734	92	2025-03	penalty	20267310.04	2025-03-15	\N
+735	462	2022-10	penalty	6852673.75	2022-10-20	\N
+736	40	2022-08	penalty	44994103.72	2022-08-11	\N
+737	365	2024-04	penalty	25907304.73	2024-04-28	\N
+738	336	2023-07	penalty	29785758.97	2023-07-26	\N
+739	479	2023-08	bonus	18341988.08	2023-08-14	\N
+740	469	2023-08	bonus	9065798.24	2023-08-10	\N
+741	469	2021-11	salary	49195979.87	2021-11-05	\N
+742	204	2021-08	bonus	31373437.81	2021-08-13	\N
+743	499	2024-03	bonus	23110587.39	2024-03-10	\N
+744	222	2020-06	salary	18222265.64	2020-06-24	\N
+745	267	2023-07	bonus	24072060.08	2023-07-28	\N
+746	401	2022-09	penalty	18461001.65	2022-09-28	\N
+747	160	2023-03	penalty	19115313.29	2023-03-19	\N
+748	362	2024-07	penalty	48685484.96	2024-07-17	\N
+749	259	2020-06	salary	33721203.58	2020-06-24	\N
+750	127	2020-03	salary	10611463.52	2020-03-01	\N
+751	243	2022-12	salary	48121586.57	2022-12-24	\N
+752	23	2020-10	penalty	42221329.84	2020-10-25	\N
+753	152	2024-09	salary	30103745.06	2024-09-12	\N
+754	174	2023-01	salary	24331976.88	2023-01-08	\N
+755	445	2022-07	salary	38051633.35	2022-07-21	\N
+756	326	2024-01	salary	26496350.43	2024-01-16	\N
+757	286	2024-03	bonus	30248276.70	2024-03-13	\N
+758	74	2024-12	bonus	18255066.72	2024-12-27	\N
+759	122	2020-09	penalty	21444076.17	2020-09-04	\N
+760	173	2021-02	bonus	28275283.22	2021-02-06	\N
+761	253	2024-01	penalty	45830846.43	2024-01-19	\N
+762	207	2025-04	salary	13838271.23	2025-04-21	\N
+763	300	2023-02	penalty	29325362.30	2023-02-03	\N
+764	403	2022-08	bonus	45732000.59	2022-08-12	\N
+765	308	2020-10	penalty	3064293.60	2020-10-25	\N
+766	270	2020-06	salary	1269347.12	2020-06-12	\N
+767	437	2023-04	salary	21492987.90	2023-04-27	\N
+768	272	2021-07	bonus	23996087.93	2021-07-23	\N
+769	499	2024-07	bonus	47144235.30	2024-07-20	\N
+770	209	2021-01	bonus	18617626.52	2021-01-27	\N
+771	15	2021-10	penalty	13887079.09	2021-10-11	\N
+772	205	2020-12	bonus	27761944.69	2020-12-04	\N
+773	145	2020-09	penalty	8822187.30	2020-09-01	\N
+774	132	2022-04	bonus	39484079.29	2022-04-12	\N
+775	181	2021-04	penalty	18810070.07	2021-04-13	\N
+776	425	2023-07	penalty	35631880.02	2023-07-18	\N
+777	164	2022-08	salary	10849944.87	2022-08-16	\N
+778	472	2021-09	penalty	15546628.49	2021-09-24	\N
+779	25	2024-04	bonus	2605748.16	2024-04-15	\N
+780	205	2022-10	salary	18907264.31	2022-10-24	\N
+781	329	2023-07	bonus	28498899.82	2023-07-18	\N
+782	274	2025-04	bonus	35790885.20	2025-04-10	\N
+783	23	2024-07	penalty	3650780.36	2024-07-01	\N
+784	294	2022-01	bonus	12173941.27	2022-01-25	\N
+785	469	2021-03	bonus	16874023.88	2021-03-25	\N
+786	63	2022-01	salary	25966006.24	2022-01-22	\N
+787	412	2024-09	penalty	10003431.42	2024-09-24	\N
+788	57	2021-08	bonus	20355146.97	2021-08-06	\N
+789	313	2023-02	penalty	12760072.68	2023-02-15	\N
+790	447	2025-03	salary	30513271.27	2025-03-01	\N
+791	353	2023-06	bonus	47896337.55	2023-06-30	\N
+792	327	2021-11	penalty	21427693.29	2021-11-07	\N
+793	201	2023-09	bonus	44341246.35	2023-09-10	\N
+794	243	2025-04	bonus	48669832.23	2025-04-26	\N
+795	274	2020-04	bonus	18583080.57	2020-04-21	\N
+796	428	2024-07	bonus	43381185.35	2024-07-22	\N
+797	199	2022-11	salary	12183069.06	2022-11-11	\N
+798	85	2023-09	bonus	33136539.68	2023-09-17	\N
+799	405	2020-01	penalty	41567787.20	2020-01-03	\N
+800	64	2023-05	bonus	37599837.38	2023-05-19	\N
+801	65	2020-02	bonus	15769146.58	2020-02-19	\N
+802	211	2024-09	bonus	10118416.05	2024-09-21	\N
+803	42	2021-10	penalty	13474279.81	2021-10-31	\N
+804	220	2022-09	penalty	49059792.44	2022-09-05	\N
+805	314	2024-08	salary	8205872.63	2024-08-06	\N
+806	131	2021-10	salary	32103732.45	2021-10-26	\N
+807	467	2025-05	bonus	29062715.70	2025-05-11	\N
+808	400	2020-09	penalty	48060490.11	2020-09-16	\N
+809	217	2020-07	penalty	49731764.69	2020-07-21	\N
+810	246	2023-06	bonus	32780645.17	2023-06-03	\N
+811	83	2023-12	penalty	15698371.40	2023-12-23	\N
+812	473	2022-11	salary	22116272.53	2022-11-26	\N
+813	436	2020-12	bonus	44006391.40	2020-12-25	\N
+814	277	2021-07	penalty	32817531.09	2021-07-22	\N
+815	178	2023-04	penalty	28296199.00	2023-04-22	\N
+816	285	2022-09	bonus	2448128.39	2022-09-15	\N
+817	455	2021-02	bonus	45927532.73	2021-02-06	\N
+818	274	2023-07	salary	22448792.26	2023-07-19	\N
+819	279	2020-09	salary	7794162.16	2020-09-25	\N
+820	278	2021-12	bonus	19232037.04	2021-12-01	\N
+821	358	2020-08	penalty	42728099.18	2020-08-09	\N
+822	338	2022-04	penalty	7324926.31	2022-04-17	\N
+823	30	2025-05	penalty	28813671.24	2025-05-21	\N
+824	342	2021-10	bonus	45910080.82	2021-10-12	\N
+825	376	2022-04	bonus	33439941.87	2022-04-28	\N
+826	208	2024-02	bonus	3128905.26	2024-02-18	\N
+827	475	2022-08	salary	761377.48	2022-08-20	\N
+828	308	2020-04	penalty	10480768.65	2020-04-17	\N
+829	129	2020-01	salary	4614878.40	2020-01-02	\N
+830	252	2020-01	bonus	45812451.11	2020-01-19	\N
+831	333	2022-02	bonus	37240350.56	2022-02-15	\N
+832	52	2022-06	salary	24967018.09	2022-06-27	\N
+833	293	2023-03	salary	5784214.11	2023-03-13	\N
+834	163	2020-11	salary	36964464.80	2020-11-04	\N
+835	255	2024-04	penalty	19168829.81	2024-04-05	\N
+836	340	2025-04	bonus	5157916.84	2025-04-16	\N
+837	159	2024-10	salary	34363079.06	2024-10-01	\N
+838	165	2021-09	bonus	34205774.19	2021-09-14	\N
+839	130	2021-04	salary	36651851.43	2021-04-14	\N
+840	348	2025-01	penalty	27153562.48	2025-01-21	\N
+841	23	2022-09	penalty	48249721.86	2022-09-24	\N
+842	99	2023-07	bonus	35579064.44	2023-07-02	\N
+843	221	2020-09	salary	22184235.76	2020-09-22	\N
+844	240	2023-04	salary	44939380.44	2023-04-22	\N
+845	273	2022-08	bonus	1575966.78	2022-08-31	\N
+846	441	2020-02	bonus	34980378.72	2020-02-03	\N
+847	448	2021-08	salary	34329396.99	2021-08-27	\N
+848	471	2021-03	bonus	26720626.20	2021-03-17	\N
+849	247	2021-09	salary	10575203.03	2021-09-26	\N
+850	67	2021-09	salary	23235201.04	2021-09-21	\N
+851	205	2025-01	penalty	46513643.84	2025-01-11	\N
+852	170	2023-01	bonus	49720681.53	2023-01-03	\N
+853	394	2025-03	salary	28127947.56	2025-03-12	\N
+854	356	2024-11	bonus	893719.18	2024-11-20	\N
+855	254	2022-11	penalty	30359961.17	2022-11-25	\N
+856	19	2023-03	bonus	49814315.54	2023-03-05	\N
+857	462	2022-05	bonus	14559977.94	2022-05-07	\N
+858	24	2020-10	salary	17482058.04	2020-10-24	\N
+859	162	2022-11	salary	47497227.46	2022-11-06	\N
+860	111	2023-04	salary	32188473.67	2023-04-21	\N
+861	135	2023-05	penalty	30851725.54	2023-05-24	\N
+862	126	2022-10	bonus	47569812.83	2022-10-22	\N
+863	498	2024-02	penalty	32548513.57	2024-02-11	\N
+864	214	2025-02	penalty	25120106.07	2025-02-15	\N
+865	422	2022-04	salary	35696729.40	2022-04-15	\N
+866	373	2024-11	bonus	48005274.63	2024-11-24	\N
+867	253	2023-09	penalty	2386189.29	2023-09-03	\N
+868	163	2024-08	salary	23106403.47	2024-08-14	\N
+869	103	2021-09	penalty	43395319.80	2021-09-29	\N
+870	57	2020-11	bonus	3692646.29	2020-11-04	\N
+871	453	2022-04	bonus	16981757.49	2022-04-03	\N
+872	381	2022-12	penalty	17609436.95	2022-12-31	\N
+873	456	2021-12	salary	47330451.65	2021-12-29	\N
+874	470	2024-10	bonus	9610173.14	2024-10-05	\N
+875	136	2022-01	salary	7054074.26	2022-01-29	\N
+876	209	2020-06	penalty	31485181.63	2020-06-25	\N
+877	28	2023-10	salary	15729331.36	2023-10-17	\N
+878	253	2020-03	bonus	29073958.34	2020-03-08	\N
+879	255	2021-02	bonus	25123195.80	2021-02-21	\N
+880	119	2021-05	penalty	9976344.49	2021-05-29	\N
+881	233	2023-09	bonus	35197650.49	2023-09-07	\N
+882	37	2021-07	penalty	19230391.24	2021-07-02	\N
+883	9	2022-04	penalty	9901646.79	2022-04-01	\N
+884	243	2024-07	penalty	3363709.24	2024-07-08	\N
+885	431	2023-08	salary	36014694.33	2023-08-15	\N
+886	208	2022-04	salary	45607882.44	2022-04-03	\N
+887	268	2023-06	salary	27530550.10	2023-06-18	\N
+888	217	2023-02	penalty	12219082.43	2023-02-22	\N
+889	155	2024-02	bonus	5832097.38	2024-02-16	\N
+890	469	2022-09	bonus	18629002.09	2022-09-24	\N
+891	451	2021-08	salary	14707348.59	2021-08-20	\N
+892	414	2024-07	salary	46448788.86	2024-07-15	\N
+893	459	2021-01	penalty	7926191.51	2021-01-22	\N
+894	24	2021-02	penalty	9318428.32	2021-02-16	\N
+895	314	2020-01	salary	37025696.07	2020-01-26	\N
+896	395	2022-08	penalty	5685965.20	2022-08-16	\N
+897	118	2020-07	salary	9232912.74	2020-07-12	\N
+898	433	2021-07	penalty	36667995.59	2021-07-26	\N
+899	129	2024-07	penalty	11462458.94	2024-07-30	\N
+900	189	2024-06	bonus	23602069.81	2024-06-24	\N
+901	223	2022-06	salary	34972701.46	2022-06-27	\N
+902	253	2021-07	penalty	45856121.93	2021-07-12	\N
+903	446	2021-01	bonus	31692709.98	2021-01-04	\N
+904	380	2021-08	salary	2472820.32	2021-08-21	\N
+905	445	2022-06	penalty	2726004.83	2022-06-18	\N
+906	145	2020-05	salary	3355784.40	2020-05-22	\N
+907	322	2022-06	penalty	3874917.53	2022-06-21	\N
+908	420	2020-02	penalty	1891624.26	2020-02-14	\N
+909	100	2022-01	bonus	43047438.85	2022-01-09	\N
+910	83	2020-09	penalty	22174551.19	2020-09-26	\N
+911	173	2023-04	penalty	5736238.16	2023-04-02	\N
+912	404	2024-04	salary	45307351.54	2024-04-26	\N
+913	144	2021-09	salary	8373279.34	2021-09-24	\N
+914	109	2024-12	penalty	27174709.53	2024-12-14	\N
+915	42	2021-09	salary	24097381.37	2021-09-16	\N
+916	324	2020-01	salary	45464145.10	2020-01-25	\N
+917	42	2024-12	bonus	35737713.74	2024-12-13	\N
+918	437	2020-02	bonus	22470251.24	2020-02-16	\N
+919	23	2020-03	salary	33002368.43	2020-03-26	\N
+920	9	2021-03	penalty	29110573.95	2021-03-27	\N
+921	1	2024-02	penalty	41663493.29	2024-02-09	\N
+922	174	2021-02	bonus	36704823.41	2021-02-20	\N
+923	500	2023-06	bonus	35935433.01	2023-06-10	\N
+924	327	2020-06	salary	26669637.40	2020-06-09	\N
+925	394	2025-05	salary	31186911.51	2025-05-10	\N
+926	14	2020-03	bonus	22038335.94	2020-03-10	\N
+927	194	2023-10	bonus	8825561.54	2023-10-18	\N
+928	403	2024-07	bonus	27401552.33	2024-07-01	\N
+929	23	2025-01	salary	15807738.73	2025-01-26	\N
+930	23	2022-09	bonus	23466963.48	2022-09-19	\N
+931	415	2023-04	bonus	35071169.90	2023-04-19	\N
+932	156	2023-03	bonus	25175436.53	2023-03-03	\N
+933	496	2023-10	bonus	18452990.07	2023-10-30	\N
+934	264	2020-04	bonus	1604165.84	2020-04-29	\N
+935	383	2024-08	salary	18248999.10	2024-08-14	\N
+936	242	2021-06	penalty	28849829.78	2021-06-26	\N
+937	377	2022-11	penalty	9288223.80	2022-11-17	\N
+938	316	2020-01	penalty	19413953.14	2020-01-28	\N
+939	260	2024-04	bonus	16701229.52	2024-04-27	\N
+940	396	2021-07	salary	34891904.56	2021-07-05	\N
+941	97	2023-09	salary	49668944.69	2023-09-30	\N
+942	201	2024-10	penalty	42613510.37	2024-10-25	\N
+943	287	2020-07	salary	1178563.22	2020-07-03	\N
+944	198	2024-03	bonus	24972556.27	2024-03-29	\N
+945	178	2020-02	penalty	33407281.24	2020-02-17	\N
+946	376	2022-09	salary	24333703.99	2022-09-29	\N
+947	222	2021-06	salary	43840876.77	2021-06-21	\N
+948	67	2022-02	bonus	49390875.25	2022-02-24	\N
+949	436	2021-08	penalty	6512431.07	2021-08-29	\N
+950	231	2020-11	penalty	40499886.64	2020-11-06	\N
+951	98	2023-01	penalty	16745166.34	2023-01-02	\N
+952	232	2022-05	bonus	36224926.88	2022-05-15	\N
+953	488	2020-07	penalty	18426538.55	2020-07-12	\N
+954	86	2023-07	penalty	29276683.71	2023-07-01	\N
+955	492	2025-05	bonus	46883048.76	2025-05-27	\N
+956	97	2024-08	salary	28664940.49	2024-08-14	\N
+957	337	2024-03	bonus	22286474.72	2024-03-19	\N
+958	45	2024-06	bonus	17752852.99	2024-06-02	\N
+959	89	2024-09	bonus	28552773.27	2024-09-10	\N
+960	302	2021-11	salary	33675097.57	2021-11-11	\N
+961	71	2022-08	salary	27366847.65	2022-08-06	\N
+962	416	2020-10	salary	23457777.52	2020-10-13	\N
+963	235	2022-10	bonus	27111016.10	2022-10-06	\N
+964	313	2024-07	penalty	31458064.35	2024-07-22	\N
+965	299	2021-03	bonus	19255714.67	2021-03-28	\N
+966	294	2022-07	penalty	2999389.80	2022-07-25	\N
+967	323	2021-04	bonus	31322342.53	2021-04-24	\N
+968	240	2022-08	penalty	16920329.83	2022-08-01	\N
+969	21	2022-05	salary	13689242.34	2022-05-21	\N
+970	479	2023-02	bonus	7599361.02	2023-02-03	\N
+971	158	2023-09	penalty	40404794.35	2023-09-17	\N
+972	297	2023-08	salary	36630929.59	2023-08-18	\N
+973	71	2023-06	bonus	12887637.05	2023-06-06	\N
+974	336	2020-08	salary	37230302.68	2020-08-08	\N
+975	493	2022-07	salary	34427738.87	2022-07-14	\N
+976	216	2022-01	penalty	17267392.83	2022-01-04	\N
+977	230	2020-08	salary	43902345.19	2020-08-30	\N
+978	375	2021-11	bonus	17379493.30	2021-11-22	\N
+979	5	2023-03	penalty	23847536.49	2023-03-19	\N
+980	10	2020-11	salary	10792478.68	2020-11-01	\N
+981	187	2020-05	salary	4278509.54	2020-05-25	\N
+982	142	2025-04	penalty	48683912.65	2025-04-27	\N
+983	24	2023-10	salary	13757106.21	2023-10-07	\N
+984	366	2022-07	penalty	11408204.38	2022-07-09	\N
+985	418	2020-12	salary	33856672.04	2020-12-14	\N
+986	129	2025-05	salary	45127326.69	2025-05-28	\N
+987	204	2021-06	salary	1861689.87	2021-06-16	\N
+988	361	2024-11	bonus	44887482.81	2024-11-11	\N
+989	464	2023-09	penalty	16248652.74	2023-09-16	\N
+990	108	2021-02	salary	7358627.61	2021-02-02	\N
+991	470	2022-01	salary	18345519.23	2022-01-19	\N
+992	377	2023-01	penalty	24756960.90	2023-01-24	\N
+993	411	2022-07	penalty	5484251.74	2022-07-19	\N
+994	499	2024-09	penalty	33025862.96	2024-09-15	\N
+995	112	2021-06	penalty	41594340.30	2021-06-04	\N
+996	41	2021-02	bonus	47915006.81	2021-02-28	\N
+997	190	2024-08	salary	17850392.19	2024-08-27	\N
+998	492	2020-02	penalty	15621886.05	2020-02-19	\N
+999	247	2023-10	salary	7853650.90	2023-10-13	\N
+1000	341	2021-02	penalty	36297647.29	2021-02-26	\N
 \.
 
 
@@ -5283,7 +8283,7 @@ SELECT pg_catalog.setval('public.batch_batch_id_seq', 2557, true);
 -- Name: customer_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.customer_customer_id_seq', 513, true);
+SELECT pg_catalog.setval('public.customer_customer_id_seq', 1513, true);
 
 
 --
@@ -5311,7 +8311,7 @@ SELECT pg_catalog.setval('public.employment_contract_contract_id_seq', 208, true
 -- Name: operating_expense_log_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.operating_expense_log_log_id_seq', 1, false);
+SELECT pg_catalog.setval('public.operating_expense_log_log_id_seq', 2000, true);
 
 
 --
@@ -5339,7 +8339,7 @@ SELECT pg_catalog.setval('public.product_product_id_seq', 40, true);
 -- Name: salary_bonus_log_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.salary_bonus_log_log_id_seq', 1, false);
+SELECT pg_catalog.setval('public.salary_bonus_log_log_id_seq', 1000, true);
 
 
 --
