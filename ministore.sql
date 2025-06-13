@@ -1631,3 +1631,21 @@ ALTER TABLE salary_bonus_log
     DROP CONSTRAINT salary_bonus_log_pay_type_check,
     ADD CONSTRAINT salary_bonus_log_pay_type_check
         CHECK (pay_type IN ('salary', 'bonus', 'penalty'));
+
+
+ALTER TABLE customer_order
+ADD COLUMN shipping_address VARCHAR(256);
+ALTER TABLE employee ADD CONSTRAINT employee_national_id_unique UNIQUE (national_id);
+
+ALTER TABLE employment_contract
+ADD CONSTRAINT chk_effective_date_after_contract_date
+CHECK (effective_date IS NULL OR contract_date IS NULL OR effective_date >= contract_date);
+
+DROP TRIGGER trg_activate_employee_on_contract ON employment_contract;
+DROP TRIGGER trg_reactivate_employee_on_contract_update ON employment_contract;
+DROP TRIGGER trg_enforce_contract_on_status_change ON employee;
+
+SELECT employee_id, COUNT(contract_id) AS count, status
+FROM employment_contract
+GROUP BY employee_id
+HAVING COUNT(contract_id) > 1;
