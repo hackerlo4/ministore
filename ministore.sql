@@ -1649,3 +1649,85 @@ SELECT employee_id, COUNT(contract_id) AS count, status
 FROM employment_contract
 GROUP BY employee_id
 HAVING COUNT(contract_id) > 1;
+
+CREATE ROLE admin_role;
+CREATE ROLE manager_role;
+CREATE ROLE sales_staff_role;
+CREATE ROLE warehouse_staff_role;
+CREATE ROLE customer_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON employee TO admin_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON employee TO manager_role;
+GRANT SELECT ON employee TO sales_staff_role; -- (self): xử lý trong app/backend
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON employment_contract TO admin_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON employment_contract TO manager_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON work_status_log TO admin_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON work_status_log TO manager_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON customer TO admin_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON customer TO manager_role;
+GRANT SELECT, UPDATE ON customer TO customer_role; -- (self)
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON customer_order TO admin_role;
+GRANT SELECT ON customer_order TO manager_role;
+GRANT SELECT, INSERT, UPDATE ON customer_order TO sales_staff_role;
+GRANT SELECT, INSERT ON customer_order TO customer_role; -- (self)
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON order_detail TO admin_role;
+GRANT SELECT ON order_detail TO manager_role;
+GRANT SELECT, INSERT, UPDATE ON order_detail TO sales_staff_role;
+GRANT SELECT ON order_detail TO customer_role; -- (self)
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON product TO admin_role;
+GRANT SELECT ON product TO manager_role;
+GRANT SELECT ON product TO sales_staff_role;
+GRANT SELECT, INSERT, UPDATE ON product TO warehouse_staff_role;
+GRANT SELECT ON product TO customer_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON batch TO admin_role;
+GRANT SELECT ON batch TO manager_role;
+GRANT SELECT ON batch TO sales_staff_role;
+GRANT SELECT, INSERT, UPDATE ON batch TO warehouse_staff_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON warehouse TO admin_role;
+GRANT SELECT ON warehouse TO manager_role;
+GRANT SELECT ON warehouse TO sales_staff_role;
+GRANT SELECT, INSERT, UPDATE ON warehouse TO warehouse_staff_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON product_category TO admin_role;
+GRANT SELECT ON product_category TO manager_role;
+GRANT SELECT ON product_category TO sales_staff_role;
+GRANT SELECT ON product_category TO warehouse_staff_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON warehouse_category TO admin_role;
+GRANT SELECT ON warehouse_category TO manager_role;
+GRANT SELECT ON warehouse_category TO sales_staff_role;
+GRANT SELECT ON warehouse_category TO warehouse_staff_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON salary_bonus_log TO admin_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON salary_bonus_log TO manager_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON operating_expense_log TO admin_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON operating_expense_log TO manager_role;
+
+-- User cho admin (toàn quyền, thường dùng cho người triển khai hệ thống, không cấp cho nhân viên)
+CREATE USER super_admin LOGIN PASSWORD 'admin123';
+GRANT admin_role TO super_admin;
+
+-- User cho quản lý (manager)
+CREATE USER manager_tom LOGIN PASSWORD 'managerpass';
+GRANT manager_role TO manager_tom;
+
+-- User cho nhân viên bán hàng
+CREATE USER sales_jerry LOGIN PASSWORD 'salespass';
+GRANT sales_staff_role TO sales_jerry;
+
+-- User cho nhân viên kho
+CREATE USER ware_ben LOGIN PASSWORD 'warepass';
+GRANT warehouse_staff_role TO ware_ben;
+
+-- User cho khách hàng (giả sử cho phép khách truy cập trực tiếp)
+CREATE USER cust_anna LOGIN PASSWORD 'custpass';
+GRANT customer_role TO cust_anna;

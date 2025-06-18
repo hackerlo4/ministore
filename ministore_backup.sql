@@ -8731,6 +8731,127 @@ ALTER TABLE ONLY public.work_status_log
 
 
 --
+-- Name: TABLE batch; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.batch TO admin_role;
+GRANT SELECT ON TABLE public.batch TO manager_role;
+GRANT SELECT ON TABLE public.batch TO sales_staff_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.batch TO warehouse_staff_role;
+
+
+--
+-- Name: TABLE customer; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.customer TO admin_role;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.customer TO manager_role;
+GRANT SELECT,UPDATE ON TABLE public.customer TO customer_role;
+
+
+--
+-- Name: TABLE customer_order; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.customer_order TO admin_role;
+GRANT SELECT ON TABLE public.customer_order TO manager_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.customer_order TO sales_staff_role;
+GRANT SELECT,INSERT ON TABLE public.customer_order TO customer_role;
+
+
+--
+-- Name: TABLE employee; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.employee TO admin_role;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.employee TO manager_role;
+GRANT SELECT ON TABLE public.employee TO sales_staff_role;
+
+
+--
+-- Name: TABLE employment_contract; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.employment_contract TO admin_role;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.employment_contract TO manager_role;
+
+
+--
+-- Name: TABLE operating_expense_log; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.operating_expense_log TO admin_role;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.operating_expense_log TO manager_role;
+
+
+--
+-- Name: TABLE order_detail; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.order_detail TO admin_role;
+GRANT SELECT ON TABLE public.order_detail TO manager_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.order_detail TO sales_staff_role;
+GRANT SELECT ON TABLE public.order_detail TO customer_role;
+
+
+--
+-- Name: TABLE product; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.product TO admin_role;
+GRANT SELECT ON TABLE public.product TO manager_role;
+GRANT SELECT ON TABLE public.product TO sales_staff_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.product TO warehouse_staff_role;
+GRANT SELECT ON TABLE public.product TO customer_role;
+
+
+--
+-- Name: TABLE product_category; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.product_category TO admin_role;
+GRANT SELECT ON TABLE public.product_category TO manager_role;
+GRANT SELECT ON TABLE public.product_category TO sales_staff_role;
+GRANT SELECT ON TABLE public.product_category TO warehouse_staff_role;
+
+
+--
+-- Name: TABLE salary_bonus_log; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.salary_bonus_log TO admin_role;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.salary_bonus_log TO manager_role;
+
+
+--
+-- Name: TABLE warehouse; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.warehouse TO admin_role;
+GRANT SELECT ON TABLE public.warehouse TO manager_role;
+GRANT SELECT ON TABLE public.warehouse TO sales_staff_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.warehouse TO warehouse_staff_role;
+
+
+--
+-- Name: TABLE warehouse_category; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.warehouse_category TO admin_role;
+GRANT SELECT ON TABLE public.warehouse_category TO manager_role;
+GRANT SELECT ON TABLE public.warehouse_category TO sales_staff_role;
+GRANT SELECT ON TABLE public.warehouse_category TO warehouse_staff_role;
+
+
+--
+-- Name: TABLE work_status_log; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.work_status_log TO admin_role;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.work_status_log TO manager_role;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
